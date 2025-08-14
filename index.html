@@ -1,11 +1,445 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Hello World</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aman Gupta — Researcher & Engineer</title>
+  <meta name="description" content="Personal academic website: publications, experience, projects, and contact." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ---- Minimal, modern, print-friendly styles -------------------------- */
+    :root{
+      --bg:#0b0f14; --fg:#e7edf5; --muted:#9aa7b6; --card:#111826; --accent:#14b8a6; --link:#14b8a6; --border:#243243;
+      --sh: 0 10px 30px rgba(0,0,0,.25);
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#f7fafc; --fg:#0c1220; --muted:#5b6677; --card:#ffffff; --accent:#0ea5e9; --link:#0ea5e9; --border:#e5e7eb; }
+    }
+    [data-theme="light"]{ --bg:#f7fafc; --fg:#0c1220; --muted:#5b6677; --card:#ffffff; --accent:#0ea5e9; --link:#0ea5e9; --border:#e5e7eb; }
+    html,body{margin:0;height:100%;}
+    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--fg); line-height:1.6; }
+    a{ color:var(--link); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .wrap{ max-width:1000px; margin:0 auto; padding:24px; }
+    header{ position:sticky; top:0; backdrop-filter:saturate(120%) blur(8px); background:color-mix(in oklab, var(--bg) 88%, transparent); border-bottom:1px solid var(--border); z-index:40; overflow:hidden; }
+    header::after{ content:""; position:absolute; inset:-40% -10% auto -10%; height:140px; pointer-events:none; background:
+      radial-gradient(600px 120px at 20% 10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%);
+      opacity:.55;
+    }
+    .topbar{ display:flex; gap:16px; align-items:center; justify-content:space-between; padding:14px 0; }
+    .id{ display:flex; align-items:center; gap:14px; }
+    .avatar{ width:44px; height:44px; border-radius:50%; background:radial-gradient(60% 60% at 30% 30%, var(--accent), color-mix(in oklab, var(--accent) 25%, transparent)); box-shadow:var(--sh); border:1px solid color-mix(in oklab, var(--accent) 40%, var(--border)); }
+    h1{ font-size:1.25rem; margin:0; letter-spacing:.2px; }
+    .role{ color:var(--muted); font-weight:500; font-size:.95rem; }
+    nav{ display:flex; flex-wrap:wrap; gap:12px; }
+    nav a{ padding:6px 10px; border-radius:10px; border:1px solid var(--border); }
+    .btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--card); box-shadow:var(--sh); transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
+    .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 6px 20px rgba(0,0,0,.25); }
+    .grid{ display:grid; gap:18px; }
+    @media(min-width:900px){ .grid-2{ grid-template-columns: 1fr 300px; } }
+    section{ background:linear-gradient(180deg, color-mix(in oklab, var(--accent) 6%, transparent), color-mix(in oklab, var(--accent) 4%, transparent)), var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; box-shadow:var(--sh); }
+    section h2{ margin:0 0 10px; font-size:1.15rem; letter-spacing:.3px; position:relative; }
+    section h2::after{ content:""; display:block; height:3px; margin-top:6px; background:linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 10%, transparent)); border-radius:999px; opacity:.6; }
+    .chip{ font-size:.8rem; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); padding:1px 8px; border-radius:999px; color:var(--muted); background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent) 8%, transparent)); }
+    .muted{ color:var(--muted); }
+    .list{ list-style:none; padding:0; margin:0; display:grid; gap:14px; }
+    .item{ display:grid; gap:6px; }
+    .item .title{ font-weight:600; }
+    .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .right{ text-align:right; }
+    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:.85rem; }
+    .search{ width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--fg); }
+    .pubs-head{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+    .tag{ display:inline-flex; align-items:center; gap:6px; padding:2px 10px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); border-radius:999px; font-size:.8rem; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent) 8%, transparent)); }
+    .badge{ padding:2px 8px; border-radius:6px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); font-size:.75rem; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent) 8%, transparent)); }
+    details{ border:1px dashed var(--border); padding:10px; border-radius:10px; background:color-mix(in oklab, var(--card) 92%, transparent); }
+    footer{ color:var(--muted); padding:40px 0; text-align:center; }
+    /* Print */
+    .contact-inline{ color:var(--muted); font-size:.9rem; margin-top:2px; }
+    @media print{ header, .btn, nav, .controls{ display:none !important; } .wrap{ max-width:100%; padding:0; } section{ break-inside: avoid; box-shadow:none; border:none; background:transparent; padding:0; } body{ background:white; color:black; } a{ color:black; text-decoration:underline; } }
+    .secnav a{ padding:6px 10px; border-radius:10px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); margin-right:8px; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 10%, transparent), color-mix(in oklab, var(--accent) 6%, transparent)); }
+    /* Tabs */
+    #secnav{ display:flex; gap:18px; align-items:flex-end; border-bottom:1px solid var(--border); }
+    #secnav a.tablink{ cursor:pointer; padding:10px 6px; border:none; border-radius:0; background:transparent; color:var(--fg); text-decoration:none; position:relative; font-weight:500; }
+    #secnav a.tablink::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:transparent; transition:background .15s ease, opacity .15s ease; opacity:.0; }
+    #secnav a.tablink:hover::after{ background:color-mix(in oklab, var(--accent) 60%, transparent); opacity:.6; }
+    #secnav a.tablink.active{ color:var(--accent); }
+    #secnav a.tablink.active::after{ background:var(--accent); opacity:1; }
+  </style>
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <p>Welcome to your first HTML page. 👋</p>
+  <!-- 🛠️ Quick start ---------------------------------------------------------
+       1) Replace values inside the JSON block with your info.
+       2) Add your publications/experience entries.
+       3) Commit this single file as index.html to a GitHub Pages branch.
+       4) Optional: click “Print / Save PDF” to generate a CV-like PDF.
+  ------------------------------------------------------------------------- -->
+
+  <!-- Site data (edit me) -------------------------------------------------- -->
+  <script id="site-data" type="application/json">
+  {
+    "name": "Aman Gupta",
+    "role": "Principal ML Engineer (Nubank) · ML Researcher",
+    "email": "aman2304@gmail.com",
+    "location": "San Jose, CA",
+    "links": [
+      {"label":"Google Scholar","url":"#"},
+      {"label":"GitHub","url":"#"},
+      {"label":"LinkedIn","url":"https://linkedin.com/in/aman-gupta1"},
+      {"label":"Twitter","url":"#"},
+      {"label":"CV (PDF)","url":"#"}
+    ],
+    "about": "Machine learning leader and applied researcher with a decade of experience across LinkedIn, Apple, and Amazon. Now at Nubank, focusing on foundation models for RecSys and LLM efficiency (distillation, quantization, sparsity) with a strong publication and patent record, and active service to the community.",
+    "research_interests": ["LLM Alignment", "LLM Efficiency", "Recommender Systems", "Optimization"],
+
+    "publications": [
+      {"year": 2025, "title": "AlphaPO — Reward shape matters for LLM alignment", "authors": ["A. Gupta", "S. Tang", "Q. Song", "et al."], "venue": "ICML 2025", "links": {"arxiv": "#"}, "tags": ["Alignment", "RLHF"], "bibtex": "@inproceedings{gupta2025alphapo, title={AlphaPO — Reward shape matters for LLM alignment}, author={Gupta, Aman and others}, booktitle={ICML}, year={2025}}"},
+      {"year": 2025, "title": "On the Robustness of Reward Models for Language Model Alignment", "authors": ["J. Hong", "N. Lee", "A. Gupta", "et al."], "venue": "ICML 2025", "links": {"arxiv": "#"}, "tags": ["Alignment"], "bibtex": "@inproceedings{hong2025robustness, title={On the Robustness of Reward Models for Language Model Alignment}, author={Hong, Jiwoo and others}, booktitle={ICML}, year={2025}}"},
+      {"year": 2025, "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems", "authors": ["K. Behdin", "Y. Dai", "G. Dexter", "A. Gupta", "et al."], "venue": "WWW 2025", "links": {"arxiv": "#"}, "tags": ["RecSys", "LLM"], "bibtex": "@inproceedings{behdin2025recsys, title={Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems}, author={Behdin, Kayhan and others}, booktitle={WWW}, year={2025}}"},
+      {"year": 2024, "title": "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn", "authors": ["F. Borisyuk", "Q. Song", "A. Gupta", "et al."], "venue": "CIKM 2024", "links": {"arxiv": "#"}, "tags": ["Retrieval"], "bibtex": "@inproceedings{borisyuk2024linr, title={LiNR: Model Based Neural Retrieval on GPUs at LinkedIn}, author={Borisyuk, Fedor and others}, booktitle={CIKM}, year={2024}}"},
+      {"year": 2024, "title": "LiRank: Industrial Large-Scale Ranking Models at LinkedIn", "authors": ["F. Borisyuk", "M. Zhou", "Q. Song", "A. Gupta", "et al."], "venue": "KDD 2024", "links": {"arxiv": "#"}, "tags": ["Ranking"], "bibtex": "@inproceedings{borisyuk2024lrank, title={LiRank: Industrial Large Scale Ranking Models at LinkedIn}, author={Borisyuk, Fedor and others}, booktitle={KDD}, year={2024}}"},
+      {"year": 2024, "title": "A precise characterization of SGD stability using loss surface geometry", "authors": ["G. Dexter", "B. Ocejo", "S. Keerthi", "A. Gupta", "A. Acharya"], "venue": "ICLR 2024", "links": {"arxiv": "#"}, "tags": ["Optimization"], "bibtex": "@inproceedings{dexter2024sgd, title={A precise characterization of SGD stability using loss surface geometry}, author={Dexter, Gregory and others}, booktitle={ICLR}, year={2024}}"}
+    ],
+
+    "experience": [
+      {"where":"Nubank (Nu North America)","role":"Principal Machine Learning Engineer & Scientist","period":"Apr 2025 – Present","bullets":[
+        "Tech lead for AI Core; shaping charter for foundation models and finance-focused LLM applications.",
+        "Driving predictive + generative AI initiatives and ML research impact."
+      ]},
+      {"where":"LinkedIn","role":"Senior Staff ML Researcher & Engineer","period":"Jul 2024 – Mar 2025","bullets":[
+        "Led efficient LLMs for ranking foundation model: distillation, quantization, sparsity.",
+        "Shipped production deployments; authored multiple papers and patents."
+      ]},
+      {"where":"LinkedIn","role":"Senior Manager, ML & Technical Leader","period":"Feb 2019 – Present","bullets":[
+        "Built and scaled an applied research team (RecSys + LLMs); led major modeling innovations across Feed/Ads/Jobs.",
+        "Introduced DCN, ranking transformers, listwise ranking; drove significant revenue and engagement impact."
+      ]},
+      {"where":"Apple — Special Projects","role":"Senior ML Research Scientist","period":"Sep 2016 – Jan 2019","bullets":[
+        "Computer vision for detection, localization, segmentation in maps and special projects."
+      ]},
+      {"where":"Amazon","role":"Software Development Engineer","period":"Jul 2012 – Jun 2014","bullets":[
+        "Statistical models for operations; co-built internal PKI for SSL/TLS at enterprise scale."
+      ]}
+    ],
+
+    "patents": [
+      {"year": 2024, "title": "Utilizing visual and textual aspects of images with recommendation systems", "number": "US 12,008,331", "status":"Granted", "links": {"lens": "https://www.lens.org/lens/patent/126-015-616-531-813/"}},
+      {"year": 2019, "title": "Item review system that provides comparative information to reviewer", "number": "US 10,275,xxx", "status":"Granted", "links": {"lens": "https://www.lens.org/lens/patent/186-307-488-511-973/"}},
+      {"year": 2025, "title": "Optimizing online user interaction using constraints", "number": "US 2025/0005093 A1", "status":"Application", "links": {"google_patents": "https://patents.google.com/patent/US20250005093A1"}}
+    ],
+
+    "service": [
+      {"item":"Program Committee Member: KDD, CIKM, RecSys"}
+    ],
+
+    "references": [
+      {"name": "Dr. S. Sathiya Keerthi Selvaraj", "affiliation": "Principal Staff Researcher, LinkedIn", "email": "keselvaraj@linkedin.com"},
+      {"name": "Dr. Rahul Mazumder", "affiliation": "Associate Professor, MIT", "email": "rahulmaz@mit.edu"}
+    ]
+  }
+  </script>
+
+  <header>
+    <div class="wrap topbar">
+      <div class="id">
+        <div class="avatar" aria-hidden="true"></div>
+        <div>
+          <h1 id="name">Your Name</h1>
+          <div class="role" id="role">Your Role</div>
+          <div class="contact-inline" id="contact-inline"></div>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌗 Theme</button>
+        <a class="btn" href="#" id="printBtn">🖨️ Print / Save PDF</a>
+      </div>
+    </div>
+    <div class="wrap" style="padding-top:0; padding-bottom:14px;">
+      <nav id="quick-links"></nav>
+      <div style="height:8px"></div>
+      <nav id="secnav"></nav>
+    </div>
+  </header>
+
+  <main class="wrap grid" style="margin-top:20px;">
+    <section id="about" style="grid-column:1 / -1;">
+      <h2>About</h2>
+      <p id="about-text">Short bio goes here.</p>
+      <div class="row" id="interests"></div>
+    </section>
+
+    
+
+    <section id="research" class="grid">
+      <div class="pubs-head">
+        <h2>Selected Papers</h2>
+        <div class="controls row">
+          <input id="pubSearch" class="search" placeholder="Filter selected papers… (e.g., LLM, 2024, NeurIPS)" />
+          <a class="tag" href="#tab=papers" title="See the full list">View all</a>
+        </div>
+      </div>
+      <ul class="list" id="pubList"></ul>
+      <h3 style="margin-top:10px;">Patents</h3>
+      <ul class="list" id="patentList"></ul>
+    </section>
+
+    <section id="all-papers" class="grid" style="grid-column:1 / -1; display:none;">
+      <div class="pubs-head">
+        <h2>All Papers</h2>
+        <div class="controls row">
+          <input id="allPubSearch" class="search" placeholder="Filter all papers… (title, author, venue, tag, year)" />
+          <a class="tag" href="#tab=overview" title="Back to selected">Back</a>
+        </div>
+      </div>
+      <ul class="list" id="allPubList"></ul>
+    </section>
+
+    <section id="experience-sec">
+      <h2>Experience</h2>
+      <ul class="list" id="expList"></ul>
+    </section>
+
+    <section id="projects-sec">
+      <h2>Projects</h2>
+      <ul class="list" id="projList"></ul>
+    </section>
+
+    
+
+    <section id="service-sec">
+      <h2>Service</h2>
+      <ul class="list" id="serviceList"></ul>
+    </section>
+
+    
+      <section id="references">
+      <h2>References</h2>
+      <ul class="list" id="refList"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div>© <span id="year"></span> <span id="name-foot">Your Name</span>. Built with a single HTML file. No frameworks, no tracking.</div>
+    </div>
+  </footer>
+
+  <script>
+    // —— hydrate from JSON ---------------------------------------------------
+    const data = JSON.parse(document.getElementById('site-data').textContent);
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+    // Safe text setter to avoid null errors
+    const setText = (sel, text) => { const el = $(sel); if (el) el.textContent = text; };
+
+    setText('#name', data.name);
+    setText('#name-foot', data.name);
+    document.title = `${data.name} — ${data.role}`;
+    setText('#role', data.role);
+    setText('#about-text', data.about);
+    const ci = $('#contact-inline'); if (ci) { ci.textContent = [data.email, data.location].filter(Boolean).join(' · '); }
+    setText('#year', String(new Date().getFullYear()));
+    const updated = $('#updated'); if (updated) { updated.textContent = new Date(document.lastModified).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'}); }
+
+    const linksFrag = document.createDocumentFragment();
+    data.links.forEach(l=>{ const a=document.createElement('a'); a.href=l.url; a.textContent=l.label; a.className='tag'; a.rel='me noopener noreferrer'; a.target='_blank'; linksFrag.appendChild(a); });
+    $('#quick-links').appendChild(linksFrag);
+
+    const interestsFrag = document.createDocumentFragment();
+    (data.research_interests||[]).forEach(t=>{ const s=document.createElement('span'); s.className='chip'; s.textContent=t; interestsFrag.appendChild(s); });
+    $('#interests').appendChild(interestsFrag);
+
+    const pubList = $('#pubList');
+    let pubs = data.publications || [];
+
+    // Choose selected papers: use explicit `selected:true` when present, else take the most recent 6
+    const selectedPubs = pubs.some(p=>p.selected === true)
+      ? pubs.filter(p=>p.selected === true)
+      : pubs.slice().sort((a,b)=> (b.year||0)-(a.year||0)).slice(0,6);
+
+    function renderPubs(list){
+      pubList.innerHTML = '';
+      list.sort((a,b)=> (b.year||0) - (a.year||0));
+      list.forEach(p=>{
+        const li = document.createElement('li'); li.className='item';
+        const title = document.createElement('div'); title.className='title';
+        const link = p.links?.pdf || p.links?.arxiv || p.links?.doi || p.links?.code || '#';
+        title.innerHTML = link && link !== '#' ? `<a href="${link}" target="_blank" rel="noopener">${p.title}</a>` : p.title;
+        const meta = document.createElement('div'); meta.className='muted';
+        meta.innerHTML = `${(p.authors||[]).join(', ')} · <strong>${p.venue||''}</strong>`;
+        const row = document.createElement('div'); row.className='row';
+        (p.tags||[]).forEach(t=>{ const b=document.createElement('span'); b.className='badge'; b.textContent=t; row.appendChild(b); })
+        const linkRow = document.createElement('div'); linkRow.className='row';
+        if(p.links){ Object.entries(p.links).forEach(([k,v])=>{ if(v && v!=='#'){ const a=document.createElement('a'); a.href=v; a.className='tag'; a.textContent=k.toUpperCase(); a.target='_blank'; a.rel='noopener'; linkRow.appendChild(a); } }); }
+        if(p.bibtex){
+          const details = document.createElement('details');
+          const sum = document.createElement('summary'); sum.textContent='BibTeX'; details.appendChild(sum);
+          const pre = document.createElement('pre'); pre.textContent = p.bibtex; details.appendChild(pre);
+          linkRow.appendChild(details);
+        }
+        li.append(title, meta, row, linkRow);
+        pubList.appendChild(li);
+      });
+    }
+    renderPubs(selectedPubs);
+
+    // Filter
+    $('#pubSearch').addEventListener('input', (e)=>{
+      const q = e.target.value.toLowerCase();
+      const filtered = selectedPubs.filter(p=>{
+        const hay = [p.title, (p.authors||[]).join(' '), p.venue, (p.tags||[]).join(' '), String(p.year)].join(' ').toLowerCase();
+        return hay.includes(q);
+      });
+      renderPubs(filtered);
+    });
+
+    // All papers rendering
+    const allPubList = document.getElementById('allPubList');
+    if(allPubList){
+      renderPubsToAll();
+      const allSearch = document.getElementById('allPubSearch');
+      allSearch.addEventListener('input', (e)=>{
+        renderPubsToAll(e.target.value);
+      });
+    }
+    function renderPubsToAll(q=""){ 
+      const list = q ? pubs.filter(p=>{
+        const hay = [p.title, (p.authors||[]).join(' '), p.venue, (p.tags||[]).join(' '), String(p.year)].join(' ').toLowerCase();
+        return hay.includes(q.toLowerCase());
+      }) : pubs.slice().sort((a,b)=> (b.year||0)-(a.year||0));
+      const el = document.getElementById('allPubList');
+      el.innerHTML = '';
+      list.forEach(p=>{
+        const li = document.createElement('li'); li.className='item';
+        const title = document.createElement('div'); title.className='title';
+        const link = p.links?.pdf || p.links?.arxiv || p.links?.doi || p.links?.code || '#';
+        title.innerHTML = link && link !== '#' ? `<a href="${link}" target="_blank" rel="noopener">${p.title}</a>` : p.title;
+        const meta = document.createElement('div'); meta.className='muted';
+        meta.innerHTML = `${(p.authors||[]).join(', ')} · <strong>${p.venue||''}</strong>`;
+        const row = document.createElement('div'); row.className='row';
+        (p.tags||[]).forEach(t=>{ const b=document.createElement('span'); b.className='badge'; b.textContent=t; row.appendChild(b); });
+        const linkRow = document.createElement('div'); linkRow.className='row';
+        if(p.links){ Object.entries(p.links).forEach(([k,v])=>{ if(v && v!=='#'){ const a=document.createElement('a'); a.href=v; a.className='tag'; a.textContent=k.toUpperCase(); a.target='_blank'; a.rel='noopener'; linkRow.appendChild(a); } }); }
+        if(p.bibtex){
+          const details = document.createElement('details');
+          const sum = document.createElement('summary'); sum.textContent='BibTeX'; details.appendChild(sum);
+          const pre = document.createElement('pre'); pre.textContent = p.bibtex; details.appendChild(pre);
+          linkRow.appendChild(details);
+        }
+        li.append(title, meta, row, linkRow);
+        el.appendChild(li);
+      });
+    }
+
+    // Experience
+    const expList = $('#expList');
+    (data.experience||[]).forEach(x=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML = `<div class="title">${x.role} · ${x.where}</div><div class="muted">${x.period}</div>`;
+      if(x.bullets){ const ul=document.createElement('ul'); ul.style.margin='0'; ul.style.paddingLeft='18px'; x.bullets.forEach(b=>{ const li2=document.createElement('li'); li2.textContent=b; ul.appendChild(li2); }); li.appendChild(ul); }
+      expList.appendChild(li);
+    });
+
+    // Projects
+    const projList = $('#projList');
+    (data.projects||[]).forEach(p=>{
+      const li=document.createElement('li'); li.className='item';
+      const title = p.url && p.url !== '#' ? `<a href="${p.url}" target="_blank" rel="noopener" class="title">${p.name}</a>` : `<span class="title">${p.name}</span>`;
+      li.innerHTML = `${title}<div class="muted">${p.summary||''}</div>`;
+      projList.appendChild(li);
+    });
+
+    // Service
+    const serviceList = $('#serviceList');
+    (data.service||[]).forEach(s=>{
+      const li=document.createElement('li'); li.className='item'; li.textContent=s.item; serviceList.appendChild(li);
+    });
+
+    // Theme + Print
+    const root = document.documentElement;
+    const themeToggle = $('#themeToggle');
+    const savedTheme = localStorage.getItem('theme');
+    if(savedTheme){ root.setAttribute('data-theme', savedTheme); }
+    themeToggle.addEventListener('click', ()=>{
+      const cur = root.getAttribute('data-theme');
+      const next = cur === 'light' ? '' : 'light';
+      if(next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
+      localStorage.setItem('theme', next);
+    });
+    $('#printBtn').addEventListener('click', (e)=>{ e.preventDefault(); window.print(); });
+      // Tabs nav
+    const secnav = $('#secnav');
+    if (secnav){
+      const items = [
+        {label:'Overview', href:'#tab=overview'},
+        {label:'All Papers', href:'#tab=papers'},
+        {label:'Service & References', href:'#tab=service'}
+      ];
+      const frag = document.createDocumentFragment();
+      items.forEach(it=>{ const a=document.createElement('a'); a.href=it.href; a.textContent=it.label; a.className='tablink'; a.setAttribute('role','tab'); frag.appendChild(a); });
+      secnav.appendChild(frag);
+    }
+
+    // Tabs router
+    function show(el, disp){ if(!el) return; el.style.display = disp || ''; }
+    function hide(el){ if(!el) return; el.style.display = 'none'; }
+    function routeTabs(){
+      const h = location.hash || '#tab=overview';
+      const params = new URLSearchParams(h.slice(1));
+      const tab = params.get('tab') || 'overview';
+      // active state
+      $$('#secnav a.tablink').forEach(a=>{
+        const t = new URLSearchParams(a.hash.slice(1)).get('tab');
+        const isActive = (t===tab);
+        a.classList.toggle('active', isActive);
+        a.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      if(tab === 'papers'){
+        show($('#all-papers'), 'grid');
+        hide($('#research')); hide($('#about')); hide($('#experience-sec'));
+        hide($('#projects-sec')); hide($('#service-sec')); hide($('#references'));
+      } else if(tab === 'service'){
+        show($('#projects-sec')); show($('#service-sec')); show($('#references'));
+        hide($('#all-papers')); hide($('#research')); hide($('#about')); hide($('#experience-sec'));
+      } else {
+        // overview
+        show($('#about'));
+        show($('#experience-sec'));
+        show($('#research'), 'grid');
+        // ensure Research appears immediately after Experience in the DOM
+        const mainEl = document.querySelector('main.wrap');
+        const exp = $('#experience-sec');
+        const res = $('#research');
+        if(mainEl && exp && res){ mainEl.insertBefore(res, exp.nextElementSibling); }
+        hide($('#all-papers')); hide($('#projects-sec')); hide($('#service-sec')); hide($('#references'));
+      }
+    }
+    window.addEventListener('hashchange', routeTabs);
+    routeTabs();
+
+    // Patents
+    const patentList = $('#patentList');
+    (data.patents||[]).forEach(p=>{
+      const li=document.createElement('li'); li.className='item';
+      const title = document.createElement('div'); title.className='title'; title.textContent=p.title;
+      const meta = document.createElement('div'); meta.className='muted';
+      meta.textContent = `${p.number ? p.number + ' · ' : ''}${p.status||''} · ${p.year||''}`;
+      const links = document.createElement('div'); links.className='row';
+      if(p.links){ Object.entries(p.links).forEach(([k,v])=>{ if(v && v!=='#'){ const a=document.createElement('a'); a.href=v; a.className='tag'; a.textContent=k.replace('_',' ').toUpperCase(); a.target='_blank'; a.rel='noopener'; links.appendChild(a); } }); }
+      li.append(title, meta, links);
+      patentList.appendChild(li);
+    });
+
+    // References
+    const refList = $('#refList');
+    (data.references||[]).forEach(r=>{
+      const li=document.createElement('li'); li.className='item';
+      li.innerHTML = `<div class="title">${r.name}</div><div class="muted">${r.affiliation||''}</div><div class="kbd">${r.email||''}</div>`;
+      refList.appendChild(li);
+    });
+  </script>
 </body>
 </html>
