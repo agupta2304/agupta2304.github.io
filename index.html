@@ -62,11 +62,11 @@
     .secnav a{ padding:6px 10px; border-radius:10px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); margin-right:8px; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 10%, transparent), color-mix(in oklab, var(--accent) 6%, transparent)); }
     /* Tabs */
     #secnav{ display:flex; gap:18px; align-items:flex-end; border-bottom:1px solid var(--border); }
-    #secnav a.tablink{ cursor:pointer; padding:10px 6px; border:none; border-radius:0; background:transparent; color:var(--fg); text-decoration:none; position:relative; font-weight:500; }
-    #secnav a.tablink::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:transparent; transition:background .15s ease, opacity .15s ease; opacity:.0; }
-    #secnav a.tablink:hover::after{ background:color-mix(in oklab, var(--accent) 60%, transparent); opacity:.6; }
-    #secnav a.tablink.active{ color:var(--accent); }
-    #secnav a.tablink.active::after{ background:var(--accent); opacity:1; }
+    #secnav .tablink{ cursor:pointer; padding:10px 6px; border:none; border-radius:0; background:transparent; color:var(--fg); text-decoration:none; position:relative; font-weight:500; }
+    #secnav .tablink::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:transparent; transition:background .15s ease, opacity .15s ease; opacity:.0; }
+    #secnav .tablink:hover::after{ background:color-mix(in oklab, var(--accent) 60%, transparent); opacity:.6; }
+    #secnav .tablink.active{ color:var(--accent); }
+    #secnav .tablink.active::after{ background:var(--accent); opacity:1; }
   </style>
 </head>
 <body>
@@ -95,12 +95,27 @@
     "research_interests": ["LLM Alignment", "LLM Efficiency", "Recommender Systems", "Optimization"],
 
     "publications": [
-      {"year": 2025, "title": "AlphaPO — Reward shape matters for LLM alignment", "authors": ["A. Gupta", "S. Tang", "Q. Song", "et al."], "venue": "ICML 2025", "links": {"arxiv": "#"}, "tags": ["Alignment", "RLHF"], "bibtex": "@inproceedings{gupta2025alphapo, title={AlphaPO — Reward shape matters for LLM alignment}, author={Gupta, Aman and others}, booktitle={ICML}, year={2025}}"},
-      {"year": 2025, "title": "On the Robustness of Reward Models for Language Model Alignment", "authors": ["J. Hong", "N. Lee", "A. Gupta", "et al."], "venue": "ICML 2025", "links": {"arxiv": "#"}, "tags": ["Alignment"], "bibtex": "@inproceedings{hong2025robustness, title={On the Robustness of Reward Models for Language Model Alignment}, author={Hong, Jiwoo and others}, booktitle={ICML}, year={2025}}"},
-      {"year": 2025, "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems", "authors": ["K. Behdin", "Y. Dai", "G. Dexter", "A. Gupta", "et al."], "venue": "WWW 2025", "links": {"arxiv": "#"}, "tags": ["RecSys", "LLM"], "bibtex": "@inproceedings{behdin2025recsys, title={Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems}, author={Behdin, Kayhan and others}, booktitle={WWW}, year={2025}}"},
-      {"year": 2024, "title": "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn", "authors": ["F. Borisyuk", "Q. Song", "A. Gupta", "et al."], "venue": "CIKM 2024", "links": {"arxiv": "#"}, "tags": ["Retrieval"], "bibtex": "@inproceedings{borisyuk2024linr, title={LiNR: Model Based Neural Retrieval on GPUs at LinkedIn}, author={Borisyuk, Fedor and others}, booktitle={CIKM}, year={2024}}"},
-      {"year": 2024, "title": "LiRank: Industrial Large-Scale Ranking Models at LinkedIn", "authors": ["F. Borisyuk", "M. Zhou", "Q. Song", "A. Gupta", "et al."], "venue": "KDD 2024", "links": {"arxiv": "#"}, "tags": ["Ranking"], "bibtex": "@inproceedings{borisyuk2024lrank, title={LiRank: Industrial Large Scale Ranking Models at LinkedIn}, author={Borisyuk, Fedor and others}, booktitle={KDD}, year={2024}}"},
-      {"year": 2024, "title": "A precise characterization of SGD stability using loss surface geometry", "authors": ["G. Dexter", "B. Ocejo", "S. Keerthi", "A. Gupta", "A. Acharya"], "venue": "ICLR 2024", "links": {"arxiv": "#"}, "tags": ["Optimization"], "bibtex": "@inproceedings{dexter2024sgd, title={A precise characterization of SGD stability using loss surface geometry}, author={Dexter, Gregory and others}, booktitle={ICLR}, year={2024}}"}
+      {"year": 2025, "title": "AlphaPO — Reward shape matters for LLM alignment", "authors": ["Aman Gupta","Shao Tang","Qingquan Song","Sirou Zhu","Jiwoo Hong","Ankan Saha","Viral Gupta","Noah Lee","Eunki Kim","Jason Zhu","Natesh Pillai","S. Sathiya Keerthi"], "venue": "ICML 2025"},
+      {"year": 2025, "title": "On the Robustness of Reward Models for Language Model Alignment", "authors": ["Jiwoo Hong","Noah Lee","Eunki Kim","Guijin Son","Woojin Chung","Aman Gupta","Shao Tang","James Thorne"], "venue": "ICML 2025"},
+      {"year": 2025, "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems", "authors": ["Kayhan Behdin","Yun Dai","Gregory Dexter","Aman Gupta","Rahul Mazumder","Ankan Saha","Qingquan Song","Shao Tang","Sirou Zhu","Pin-Lun Hsu"], "venue": "WWW 2025"},
+      {"year": 2024, "title": "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn", "authors": ["Fedor Borisyuk","Qingquan Song","Aman Gupta","et al."], "venue": "CIKM 2024"},
+      {"year": 2024, "title": "LiRank: Industrial Large-Scale Ranking Models at LinkedIn", "authors": ["Fedor Borisyuk","M. Zhou","Q. Song","A. Gupta","et al."], "venue": "KDD 2024"},
+      {"year": 2024, "title": "LiMAML: Personalization of Deep Recommender Models via Meta Learning", "authors": [], "venue": "KDD 2024"},
+      {"year": 2024, "title": "Neural Optimization with Adaptive Heuristics for Intelligent Decision-Making", "authors": [], "venue": "KDD 2024"},
+      {"year": 2024, "title": "A precise characterization of SGD stability using loss surface geometry", "authors": ["Gregory Dexter","Borja Ocejo","S. Keerthi","Aman Gupta","A. Acharya"], "venue": "ICLR 2024"},
+      {"year": 2023, "title": "Practical Design of Performant Recommender Systems using Large-scale LP-based Global Inference", "authors": ["Aman Gupta","S. S. Keerthi","Ayan Acharya","Miao Cheng","Borja Ocejo","Rohan Ramanath","Rahul Mazumder","Kinjal Basu","J. Kenneth Tay","Rupesh Gupta"], "venue": "KDD 2023"},
+      {"year": 2023, "title": "Promoting inactive members in edge-building marketplace", "authors": ["Ayan Acharya","Siyuan Gao","Borja Ocejo","Kinjal Basu","Ankan Saha","Keerthi Selvaraj","Rahul Mazumdar","Parag Agrawal","Aman Gupta"], "venue": "WWW 2023"},
+      {"year": 2022, "title": "msam: Micro-batch-averaged sharpness-aware minimization", "authors": ["Kayhan Behdin","Qingquan Song","Aman Gupta","Sathiya Keerthi","Ayan Acharya","Borja Ocejo","Gregory Dexter","Rajiv Khanna","David Durfee","Rahul Mazumder"], "venue": "NeurIPS 2022 Workshop"},
+      {"year": 2022, "title": "Improved Deep Neural Network Generalization Using m-Sharpness-Aware Minimization", "authors": ["Kayhan Behdin","Qingquan Song","Aman Gupta","David Durfee","Ayan Acharya","Sathiya Keerthi","Rahul Mazumder"], "venue": "NeurIPS 2022 Workshop"},
+      {"year": 2022, "title": "A Light-speed Linear Program Solver for Personalized Recommendation with Diversity Constraints", "authors": ["Haoyue Wang","Miao Cheng","Kinjal Basu","Aman Gupta","Keerthi Selvaraj","Rahul Mazumder"], "venue": "NeurIPS 2022 Workshop"},
+      {"year": 2022, "title": "Generalized Deep Mixed Models", "authors": ["Jun Shi","Chengming Jiang","Aman Gupta","Mingzhou Zhou","Yunbo Ouyang","Qiang Charles Xiao","Qingquan Song","Yi Wu","Haichao Wei","Huiji Gao"], "venue": "KDD 2022"},
+      {"year": 2022, "title": "Heterogeneous Calibration: A post-hoc model-agnostic framework for improved generalization", "authors": ["David Durfee","Aman Gupta","Kinjal Basu"], "venue": "arXiv 2022"},
+      {"year": 2021, "title": "Adam vs. SGD: Closing the generalization gap on image classification", "authors": ["Aman Gupta","Rohan Ramanath","Jun Shi","S. S. Keerthi"], "venue": "NeurIPS 2021 Workshop"},
+      {"year": 2020, "title": "Image and video understanding for recommendation and spam detection systems", "authors": ["Aman Gupta","et al."], "venue": "KDD 2020"},
+      {"year": 2017, "title": "Extracting compact representation of knowledge from gene expression data", "authors": ["Aman Gupta","et al."], "venue": "Int. J. Data Mining & Bioinformatics 2017"},
+      {"year": 2016, "title": "Sparse Network Inference using the k-Support Norm", "authors": ["Aman Gupta","et al."], "venue": "KDD 2016"},
+      {"year": 2015, "title": "Learning structure in gene expression data using deep architectures", "authors": ["Aman Gupta","et al."], "venue": "IEEE BIBM 2015"},
+      {"year": 2012, "title": "Smoothed Gaussian Mixture Models for Video Classification and Recommendation", "authors": ["Aman Gupta","et al."], "venue": "arXiv 2012"}
     ],
 
     "experience": [
@@ -374,13 +389,22 @@
     const secnav = $('#secnav');
     if (secnav){
       const items = [
-        {label:'Overview', href:'#tab=overview'},
-        {label:'All Papers', href:'#tab=papers'},
-        {label:'Service & References', href:'#tab=service'}
-      ];
-      const frag = document.createDocumentFragment();
-      items.forEach(it=>{ const a=document.createElement('a'); a.href=it.href; a.textContent=it.label; a.className='tablink'; a.setAttribute('role','tab'); frag.appendChild(a); });
-      secnav.appendChild(frag);
+      {label:'Overview', key:'overview'},
+      {label:'All Papers', key:'papers'},
+      {label:'Service & References', key:'service'}
+    ];
+    const frag = document.createDocumentFragment();
+    items.forEach(it=>{
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = it.label;
+      btn.className = 'tablink';
+      btn.setAttribute('role','tab');
+      btn.dataset.tab = it.key;
+      btn.addEventListener('click', ()=>{ location.hash = `#tab=${it.key}`; });
+      frag.appendChild(btn);
+    });
+    secnav.appendChild(frag);
     }
 
     // Tabs router
@@ -391,11 +415,11 @@
       const params = new URLSearchParams(h.slice(1));
       const tab = params.get('tab') || 'overview';
       // active state
-      $$('#secnav a.tablink').forEach(a=>{
-        const t = new URLSearchParams(a.hash.slice(1)).get('tab');
+      $$('#secnav .tablink').forEach(el=>{
+        const t = el.dataset.tab;
         const isActive = (t===tab);
-        a.classList.toggle('active', isActive);
-        a.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        el.classList.toggle('active', isActive);
+        el.setAttribute('aria-selected', isActive ? 'true' : 'false');
       });
       if(tab === 'papers'){
         show($('#all-papers'), 'grid');
@@ -419,6 +443,12 @@
     }
     window.addEventListener('hashchange', routeTabs);
     routeTabs();
+
+    // Intercept any anchor clicks that use #tab=... so we don't trigger sandbox navigation
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[href^="#tab="]');
+      if (a){ e.preventDefault(); location.hash = a.getAttribute('href'); }
+    });
 
     // Patents
     const patentList = $('#patentList');
