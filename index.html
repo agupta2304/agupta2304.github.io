@@ -1,475 +1,225 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Aman Gupta — Researcher & Engineer</title>
-  <meta name="description" content="Personal academic website: publications, experience, projects, and contact." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    /* ---- Minimal, modern, print-friendly styles -------------------------- */
-    :root{
-      --bg:#0b0f14; --fg:#e7edf5; --muted:#9aa7b6; --card:#111826; --accent:#14b8a6; --link:#14b8a6; --border:#243243;
-      --sh: 0 10px 30px rgba(0,0,0,.25);
-    }
-    @media (prefers-color-scheme: light){
-      :root{ --bg:#f7fafc; --fg:#0c1220; --muted:#5b6677; --card:#ffffff; --accent:#0ea5e9; --link:#0ea5e9; --border:#e5e7eb; }
-    }
-    [data-theme="light"]{ --bg:#f7fafc; --fg:#0c1220; --muted:#5b6677; --card:#ffffff; --accent:#0ea5e9; --link:#0ea5e9; --border:#e5e7eb; }
-    html,body{margin:0;height:100%;}
-    body{ font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--fg); line-height:1.6; }
-    a{ color:var(--link); text-decoration:none; }
-    a:hover{ text-decoration:underline; }
-    .wrap{ max-width:1000px; margin:0 auto; padding:24px; }
-    header{ position:sticky; top:0; backdrop-filter:saturate(120%) blur(8px); background:color-mix(in oklab, var(--bg) 88%, transparent); border-bottom:1px solid var(--border); z-index:40; overflow:hidden; }
-    header::after{ content:""; position:absolute; inset:-40% -10% auto -10%; height:140px; pointer-events:none; background:
-      radial-gradient(600px 120px at 20% 10%, color-mix(in oklab, var(--accent) 18%, transparent), transparent 70%);
-      opacity:.55;
-    }
-    .topbar{ display:flex; gap:16px; align-items:center; justify-content:space-between; padding:14px 0; }
-    .id{ display:flex; align-items:center; gap:14px; }
-    .avatar{ width:44px; height:44px; border-radius:50%; background:radial-gradient(60% 60% at 30% 30%, var(--accent), color-mix(in oklab, var(--accent) 25%, transparent)); box-shadow:var(--sh); border:1px solid color-mix(in oklab, var(--accent) 40%, var(--border)); }
-    h1{ font-size:1.25rem; margin:0; letter-spacing:.2px; }
-    .role{ color:var(--muted); font-weight:500; font-size:.95rem; }
-    nav{ display:flex; flex-wrap:wrap; gap:12px; }
-    nav a{ padding:6px 10px; border-radius:10px; border:1px solid var(--border); }
-    .btn{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--card); box-shadow:var(--sh); transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease; }
-    .btn:hover{ transform:translateY(-1px); border-color:var(--accent); box-shadow:0 6px 20px rgba(0,0,0,.25); }
-    .grid{ display:grid; gap:18px; }
-    @media(min-width:900px){ .grid-2{ grid-template-columns: 1fr 300px; } }
-    section{ background:linear-gradient(180deg, color-mix(in oklab, var(--accent) 6%, transparent), color-mix(in oklab, var(--accent) 4%, transparent)), var(--card); border:1px solid var(--border); border-radius:16px; padding:20px; box-shadow:var(--sh); }
-    section h2{ margin:0 0 10px; font-size:1.15rem; letter-spacing:.3px; position:relative; }
-    section h2::after{ content:""; display:block; height:3px; margin-top:6px; background:linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 10%, transparent)); border-radius:999px; opacity:.6; }
-    .chip{ font-size:.8rem; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); padding:1px 8px; border-radius:999px; color:var(--muted); background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent) 8%, transparent)); }
-    .muted{ color:var(--muted); }
-    .list{ list-style:none; padding:0; margin:0; display:grid; gap:14px; }
-    .item{ display:grid; gap:6px; }
-    .item .title{ font-weight:600; }
-    .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-    .right{ text-align:right; }
-    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; font-size:.85rem; }
-    .search{ width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--fg); }
-    .pubs-head{ display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; }
-    .tag{ display:inline-flex; align-items:center; gap:6px; padding:2px 10px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); border-radius:999px; font-size:.8rem; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent) 8%, transparent)); }
-    .badge{ padding:2px 8px; border-radius:6px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); font-size:.75rem; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent) 8%, transparent)); }
-    details{ border:1px dashed var(--border); padding:10px; border-radius:10px; background:color-mix(in oklab, var(--card) 92%, transparent); }
-    footer{ color:var(--muted); padding:40px 0; text-align:center; }
-    /* Print */
-    .contact-inline{ color:var(--muted); font-size:.9rem; margin-top:2px; }
-    @media print{ header, .btn, nav, .controls{ display:none !important; } .wrap{ max-width:100%; padding:0; } section{ break-inside: avoid; box-shadow:none; border:none; background:transparent; padding:0; } body{ background:white; color:black; } a{ color:black; text-decoration:underline; } }
-    .secnav a{ padding:6px 10px; border-radius:10px; border:1px solid color-mix(in oklab, var(--accent) 45%, var(--border)); margin-right:8px; background:linear-gradient(90deg, color-mix(in oklab, var(--accent) 10%, transparent), color-mix(in oklab, var(--accent) 6%, transparent)); }
-    /* Tabs */
-    #secnav{ display:flex; gap:18px; align-items:flex-end; border-bottom:1px solid var(--border); }
-    #secnav .tablink{ cursor:pointer; padding:10px 6px; border:none; border-radius:0; background:transparent; color:var(--fg); text-decoration:none; position:relative; font-weight:500; }
-    #secnav .tablink::after{ content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:transparent; transition:background .15s ease, opacity .15s ease; opacity:.0; }
-    #secnav .tablink:hover::after{ background:color-mix(in oklab, var(--accent) 60%, transparent); opacity:.6; }
-    #secnav .tablink.active{ color:var(--accent); }
-    #secnav .tablink.active::after{ background:var(--accent); opacity:1; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | ML Researcher</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to complement Tailwind */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Simple fade-in animation for content sections */
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body>
-  <!-- 🛠️ Quick start ---------------------------------------------------------
-       1) Replace values inside the JSON block with your info.
-       2) Add your publications/experience entries.
-       3) Commit this single file as index.html to a GitHub Pages branch.
-       4) Optional: click “Print / Save PDF” to generate a CV-like PDF.
-  ------------------------------------------------------------------------- -->
+<body class="bg-slate-50 text-slate-700">
 
-  <!-- Site data (edit me) -------------------------------------------------- -->
-  <script id="site-data" type="application/json">
-  {
-    "name": "Aman Gupta",
-    "role": "Principal ML Engineer (Nubank) · ML Researcher",
-    "email": "aman2304@gmail.com",
-    "location": "San Jose, CA",
-    "links": [
-      {"label":"Google Scholar","url":"#"},
-      {"label":"GitHub","url":"#"},
-      {"label":"LinkedIn","url":"https://linkedin.com/in/aman-gupta1"},
-      {"label":"Twitter","url":"#"},
-      {"label":"CV (PDF)","url":"#"}
-    ],
-    "about": "Machine learning leader and applied researcher with a decade of experience across LinkedIn, Apple, and Amazon. Now at Nubank, focusing on foundation models for RecSys and LLM efficiency (distillation, quantization, sparsity) with a strong publication and patent record, and active service to the community.",
-    "research_interests": ["LLM Alignment", "LLM Efficiency", "Recommender Systems", "Optimization"],
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <!-- Sidebar -->
+        <aside class="w-full md:w-1/3 lg:w-1/4 xl:w-1/5 bg-slate-800 text-white p-8 md:fixed md:h-full">
+            <div class="flex flex-col items-center text-center">
+                <!-- Profile Picture -->
+                <img 
+                    src="https://placehold.co/128x128/64748b/ffffff?text=YN" 
+                    alt="Your Name" 
+                    class="w-32 h-32 rounded-full border-4 border-slate-500 object-cover mb-4"
+                    onerror="this.onerror=null;this.src='https://placehold.co/128x128/64748b/ffffff?text=Error';"
+                >
+                <!-- Personal Info -->
+                <h1 class="text-3xl font-bold text-white">Your Name</h1>
+                <p class="text-lg text-slate-300 mt-1">Machine Learning Researcher</p>
+                <p class="text-sm text-slate-400 mt-1">Your Institution or University</p>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="mt-10">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#overview" class="nav-link active-link group flex items-center py-3 px-4 rounded-lg transition-all duration-200">
+                            <span class="nav-indicator w-1.5 h-1.5 rounded-full mr-4 transition-all duration-200"></span>
+                            <span class="nav-text font-medium">Overview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#papers" class="nav-link group flex items-center py-3 px-4 rounded-lg transition-all duration-200">
+                           <span class="nav-indicator w-1.5 h-1.5 rounded-full mr-4 transition-all duration-200"></span>
+                           <span class="nav-text font-medium">All Papers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#references" class="nav-link group flex items-center py-3 px-4 rounded-lg transition-all duration-200">
+                            <span class="nav-indicator w-1.5 h-1.5 rounded-full mr-4 transition-all duration-200"></span>
+                            <span class="nav-text font-medium">References</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-    "publications": [
-      {"year": 2025, "title": "AlphaPO — Reward shape matters for LLM alignment", "authors": ["Aman Gupta","Shao Tang","Qingquan Song","Sirou Zhu","Jiwoo Hong","Ankan Saha","Viral Gupta","Noah Lee","Eunki Kim","Jason Zhu","Natesh Pillai","S. Sathiya Keerthi"], "venue": "ICML 2025"},
-      {"year": 2025, "title": "On the Robustness of Reward Models for Language Model Alignment", "authors": ["Jiwoo Hong","Noah Lee","Eunki Kim","Guijin Son","Woojin Chung","Aman Gupta","Shao Tang","James Thorne"], "venue": "ICML 2025"},
-      {"year": 2025, "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems", "authors": ["Kayhan Behdin","Yun Dai","Gregory Dexter","Aman Gupta","Rahul Mazumder","Ankan Saha","Qingquan Song","Shao Tang","Sirou Zhu","Pin-Lun Hsu"], "venue": "WWW 2025"},
-      {"year": 2024, "title": "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn", "authors": ["Fedor Borisyuk","Qingquan Song","Aman Gupta","et al."], "venue": "CIKM 2024"},
-      {"year": 2024, "title": "LiRank: Industrial Large-Scale Ranking Models at LinkedIn", "authors": ["Fedor Borisyuk","M. Zhou","Q. Song","A. Gupta","et al."], "venue": "KDD 2024"},
-      {"year": 2024, "title": "LiMAML: Personalization of Deep Recommender Models via Meta Learning", "authors": [], "venue": "KDD 2024"},
-      {"year": 2024, "title": "Neural Optimization with Adaptive Heuristics for Intelligent Decision-Making", "authors": [], "venue": "KDD 2024"},
-      {"year": 2024, "title": "A precise characterization of SGD stability using loss surface geometry", "authors": ["Gregory Dexter","Borja Ocejo","S. Keerthi","Aman Gupta","A. Acharya"], "venue": "ICLR 2024"},
-      {"year": 2023, "title": "Practical Design of Performant Recommender Systems using Large-scale LP-based Global Inference", "authors": ["Aman Gupta","S. S. Keerthi","Ayan Acharya","Miao Cheng","Borja Ocejo","Rohan Ramanath","Rahul Mazumder","Kinjal Basu","J. Kenneth Tay","Rupesh Gupta"], "venue": "KDD 2023"},
-      {"year": 2023, "title": "Promoting inactive members in edge-building marketplace", "authors": ["Ayan Acharya","Siyuan Gao","Borja Ocejo","Kinjal Basu","Ankan Saha","Keerthi Selvaraj","Rahul Mazumdar","Parag Agrawal","Aman Gupta"], "venue": "WWW 2023"},
-      {"year": 2022, "title": "msam: Micro-batch-averaged sharpness-aware minimization", "authors": ["Kayhan Behdin","Qingquan Song","Aman Gupta","Sathiya Keerthi","Ayan Acharya","Borja Ocejo","Gregory Dexter","Rajiv Khanna","David Durfee","Rahul Mazumder"], "venue": "NeurIPS 2022 Workshop"},
-      {"year": 2022, "title": "Improved Deep Neural Network Generalization Using m-Sharpness-Aware Minimization", "authors": ["Kayhan Behdin","Qingquan Song","Aman Gupta","David Durfee","Ayan Acharya","Sathiya Keerthi","Rahul Mazumder"], "venue": "NeurIPS 2022 Workshop"},
-      {"year": 2022, "title": "A Light-speed Linear Program Solver for Personalized Recommendation with Diversity Constraints", "authors": ["Haoyue Wang","Miao Cheng","Kinjal Basu","Aman Gupta","Keerthi Selvaraj","Rahul Mazumder"], "venue": "NeurIPS 2022 Workshop"},
-      {"year": 2022, "title": "Generalized Deep Mixed Models", "authors": ["Jun Shi","Chengming Jiang","Aman Gupta","Mingzhou Zhou","Yunbo Ouyang","Qiang Charles Xiao","Qingquan Song","Yi Wu","Haichao Wei","Huiji Gao"], "venue": "KDD 2022"},
-      {"year": 2022, "title": "Heterogeneous Calibration: A post-hoc model-agnostic framework for improved generalization", "authors": ["David Durfee","Aman Gupta","Kinjal Basu"], "venue": "arXiv 2022"},
-      {"year": 2021, "title": "Adam vs. SGD: Closing the generalization gap on image classification", "authors": ["Aman Gupta","Rohan Ramanath","Jun Shi","S. S. Keerthi"], "venue": "NeurIPS 2021 Workshop"},
-      {"year": 2020, "title": "Image and video understanding for recommendation and spam detection systems", "authors": ["Aman Gupta","et al."], "venue": "KDD 2020"},
-      {"year": 2017, "title": "Extracting compact representation of knowledge from gene expression data", "authors": ["Aman Gupta","et al."], "venue": "Int. J. Data Mining & Bioinformatics 2017"},
-      {"year": 2016, "title": "Sparse Network Inference using the k-Support Norm", "authors": ["Aman Gupta","et al."], "venue": "KDD 2016"},
-      {"year": 2015, "title": "Learning structure in gene expression data using deep architectures", "authors": ["Aman Gupta","et al."], "venue": "IEEE BIBM 2015"},
-      {"year": 2012, "title": "Smoothed Gaussian Mixture Models for Video Classification and Recommendation", "authors": ["Aman Gupta","et al."], "venue": "arXiv 2012"}
-    ],
+            <!-- Footer -->
+            <footer class="mt-auto pt-10 text-center text-xs text-slate-500 absolute bottom-8 left-0 right-0">
+                <p>&copy; <span id="current-year"></span> Your Name</p>
+            </footer>
+        </aside>
 
-    "experience": [
-      {"where":"Nubank (Nu North America)","role":"Principal Machine Learning Engineer & Scientist","period":"Apr 2025 – Present","bullets":[
-        "Tech lead for AI Core; shaping charter for foundation models and finance-focused LLM applications.",
-        "Driving predictive + generative AI initiatives and ML research impact."
-      ]},
-      {"where":"LinkedIn","role":"Senior Staff ML Researcher & Engineer","period":"Jul 2024 – Mar 2025","bullets":[
-        "Led efficient LLMs for ranking foundation model: distillation, quantization, sparsity.",
-        "Shipped production deployments; authored multiple papers and patents."
-      ]},
-      {"where":"LinkedIn","role":"Senior Manager, ML & Technical Leader","period":"Feb 2019 – Present","bullets":[
-        "Built and scaled an applied research team (RecSys + LLMs); led major modeling innovations across Feed/Ads/Jobs.",
-        "Introduced DCN, ranking transformers, listwise ranking; drove significant revenue and engagement impact."
-      ]},
-      {"where":"Apple — Special Projects","role":"Senior ML Research Scientist","period":"Sep 2016 – Jan 2019","bullets":[
-        "Computer vision for detection, localization, segmentation in maps and special projects."
-      ]},
-      {"where":"Amazon","role":"Software Development Engineer","period":"Jul 2012 – Jun 2014","bullets":[
-        "Statistical models for operations; co-built internal PKI for SSL/TLS at enterprise scale."
-      ]}
-    ],
+        <!-- Main Content -->
+        <main class="w-full md:ml-[33.333333%] lg:ml-[25%] xl:ml-[20%] p-8 sm:p-12 md:p-16">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <h2 class="text-4xl font-bold text-slate-800 border-b pb-4 mb-6">About Me</h2>
+                <div class="space-y-4 text-lg leading-relaxed">
+                    <p>
+                        I am a machine learning researcher with a focus on <strong>[Your Specialization, e.g., trustworthy AI, natural language processing, computer vision]</strong>. My work aims to build intelligent systems that are not only powerful but also reliable, fair, and understandable.
+                    </p>
+                    <p>
+                        I earned my Ph.D. in Computer Science from <strong>[Your University]</strong>, where I was advised by <strong>[Advisor's Name]</strong>. Currently, I am a <strong>[Your Position]</strong> at <strong>[Your Company/Institution]</strong>, contributing to projects that push the boundaries of AI.
+                    </p>
+                    <p>
+                        My core research interests include:
+                    </p>
+                    <ul class="list-disc list-inside pl-4 space-y-2">
+                        <li>Deep Learning and Neural Architectures</li>
+                        <li>Model Interpretability and Explainable AI (XAI)</li>
+                        <li>Robustness and Adversarial Machine Learning</li>
+                        <li>AI Ethics and Algorithmic Fairness</li>
+                    </ul>
+                </div>
+            </section>
 
-    "patents": [
-      {"year": 2024, "title": "Utilizing visual and textual aspects of images with recommendation systems", "number": "US 12,008,331", "status":"Granted", "links": {"lens": "https://www.lens.org/lens/patent/126-015-616-531-813/"}},
-      {"year": 2019, "title": "Item review system that provides comparative information to reviewer", "number": "US 10,275,xxx", "status":"Granted", "links": {"lens": "https://www.lens.org/lens/patent/186-307-488-511-973/"}},
-      {"year": 2025, "title": "Optimizing online user interaction using constraints", "number": "US 2025/0005093 A1", "status":"Application", "links": {"google_patents": "https://patents.google.com/patent/US20250005093A1"}}
-    ],
+            <!-- Papers Section -->
+            <section id="papers" class="content-section">
+                <h2 class="text-4xl font-bold text-slate-800 border-b pb-4 mb-8">Publications</h2>
+                <div class="space-y-10">
+                    <!-- Paper Entry 1 -->
+                    <div class="paper-entry">
+                        <h3 class="text-2xl font-semibold text-slate-800">A Novel Framework for Self-Supervised Learning in Medical Imaging</h3>
+                        <p class="text-md text-slate-600 mt-1"><strong>Your Name</strong>, Co-author One, Co-author Two</p>
+                        <p class="text-md text-slate-500 italic mt-1">Conference on Neural Information Processing Systems (NeurIPS), 2024</p>
+                        <div class="mt-3 space-x-4">
+                            <a href="#" class="text-blue-600 hover:underline font-medium">PDF</a>
+                            <a href="#" class="text-blue-600 hover:underline font-medium">Code</a>
+                            <a href="#" class="text-blue-600 hover:underline font-medium">Cite</a>
+                        </div>
+                    </div>
+                    <!-- Paper Entry 2 -->
+                    <div class="paper-entry">
+                        <h3 class="text-2xl font-semibold text-slate-800">Understanding and Mitigating Bias in Large Language Models</h3>
+                        <p class="text-md text-slate-600 mt-1">Co-author One, <strong>Your Name</strong>, Co-author Two</p>
+                        <p class="text-md text-slate-500 italic mt-1">Journal of Machine Learning Research (JMLR), 2023</p>
+                        <div class="mt-3 space-x-4">
+                            <a href="#" class="text-blue-600 hover:underline font-medium">PDF</a>
+                            <a href="#" class="text-blue-600 hover:underline font-medium">Code</a>
+                            <a href="#" class="text-blue-600 hover:underline font-medium">Cite</a>
+                        </div>
+                    </div>
+                    <!-- Paper Entry 3 -->
+                    <div class="paper-entry">
+                        <h3 class="text-2xl font-semibold text-slate-800">Efficient Attention Mechanisms for Long-Sequence Transformers</h3>
+                        <p class="text-md text-slate-600 mt-1"><strong>Your Name</strong>, Co-author One</p>
+                        <p class="text-md text-slate-500 italic mt-1">International Conference on Machine Learning (ICML), 2022</p>
+                        <div class="mt-3 space-x-4">
+                            <a href="#" class="text-blue-600 hover:underline font-medium">PDF</a>
+                            <a href="#" class="text-blue-600 hover:underline font-medium">Code</a>
+                            <a href="#" class="text-blue-600 hover:underline font-medium">Cite</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-    "service": [
-      {"item":"Program Committee Member: KDD, CIKM, RecSys"}
-    ],
-
-    "references": [
-      {"name": "Dr. S. Sathiya Keerthi Selvaraj", "affiliation": "Principal Staff Researcher, LinkedIn", "email": "keselvaraj@linkedin.com"},
-      {"name": "Dr. Rahul Mazumder", "affiliation": "Associate Professor, MIT", "email": "rahulmaz@mit.edu"}
-    ]
-  }
-  </script>
-
-  <header>
-    <div class="wrap topbar">
-      <div class="id">
-        <div class="avatar" aria-hidden="true"></div>
-        <div>
-          <h1 id="name">Your Name</h1>
-          <div class="role" id="role">Your Role</div>
-          <div class="contact-inline" id="contact-inline"></div>
-        </div>
-      </div>
-      <div class="row">
-        <button class="btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">🌗 Theme</button>
-        <a class="btn" href="#" id="printBtn">🖨️ Print / Save PDF</a>
-      </div>
+            <!-- References Section -->
+            <section id="references" class="content-section">
+                <h2 class="text-4xl font-bold text-slate-800 border-b pb-4 mb-6">Contact & Links</h2>
+                <div class="space-y-4 text-lg">
+                    <p>I'm always open to discussing research, new ideas, or potential collaborations. Feel free to reach out.</p>
+                    <ul class="space-y-3">
+                        <li><strong>Email:</strong> <a href="mailto:your.email@example.com" class="text-blue-600 hover:underline">your.email@example.com</a></li>
+                        <li><strong>Google Scholar:</strong> <a href="#" class="text-blue-600 hover:underline">Your Profile</a></li>
+                        <li><strong>GitHub:</strong> <a href="#" class="text-blue-600 hover:underline">your-username</a></li>
+                        <li><strong>LinkedIn:</strong> <a href="#" class="text-blue-600 hover:underline">your-profile</a></li>
+                        <li><strong>Twitter / X:</strong> <a href="#" class="text-blue-600 hover:underline">@yourhandle</a></li>
+                    </ul>
+                </div>
+            </section>
+        </main>
     </div>
-    <div class="wrap" style="padding-top:0; padding-bottom:14px;">
-      <nav id="quick-links"></nav>
-      <div style="height:8px"></div>
-      <nav id="secnav"></nav>
-    </div>
-  </header>
 
-  <main class="wrap grid" style="margin-top:20px;">
-    <section id="about" style="grid-column:1 / -1;">
-      <h2>About</h2>
-      <p id="about-text">Short bio goes here.</p>
-      <div class="row" id="interests"></div>
-    </section>
+    <!-- JavaScript for interactivity -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const activeLinkClasses = ['bg-slate-700', 'text-white'];
+            const inactiveLinkClasses = ['text-slate-300', 'hover:bg-slate-700/50', 'hover:text-white'];
+            const activeIndicatorClasses = ['bg-blue-400', 'w-2'];
+            const inactiveIndicatorClasses = ['bg-slate-600', 'group-hover:bg-slate-400'];
 
-    
+            // Function to update link styles
+            function updateActiveLink(activeLink) {
+                navLinks.forEach(link => {
+                    const indicator = link.querySelector('.nav-indicator');
+                    const text = link.querySelector('.nav-text');
+                    
+                    if (link === activeLink) {
+                        link.classList.add(...activeLinkClasses);
+                        link.classList.remove(...inactiveLinkClasses);
+                        indicator.classList.add(...activeIndicatorClasses);
+                        indicator.classList.remove(...inactiveIndicatorClasses);
+                    } else {
+                        link.classList.remove(...activeLinkClasses);
+                        link.classList.add(...inactiveLinkClasses);
+                        indicator.classList.remove(...activeIndicatorClasses);
+                        indicator.classList.add(...inactiveIndicatorClasses);
+                    }
+                });
+            }
+            
+            // Handle navigation clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetId) {
+                            section.classList.add('active');
+                        }
+                    });
+                    
+                    updateActiveLink(link);
+                });
+            });
 
-    <section id="research" class="grid">
-      <div class="pubs-head">
-        <h2>Selected Papers</h2>
-        <div class="controls row">
-          <input id="pubSearch" class="search" placeholder="Filter selected papers… (e.g., LLM, 2024, NeurIPS)" />
-          <a class="tag" href="#tab=papers" title="See the full list">View all</a>
-        </div>
-      </div>
-      <ul class="list" id="pubList"></ul>
-      <h3 style="margin-top:10px;">Patents</h3>
-      <ul class="list" id="patentList"></ul>
-    </section>
+            // Set initial active state based on the first link
+            updateActiveLink(document.querySelector('.nav-link'));
 
-    <section id="all-papers" class="grid" style="grid-column:1 / -1; display:none;">
-      <div class="pubs-head">
-        <h2>All Papers</h2>
-        <div class="controls row">
-          <input id="allPubSearch" class="search" placeholder="Filter all papers… (title, author, venue, tag, year)" />
-          <a class="tag" href="#tab=overview" title="Back to selected">Back</a>
-        </div>
-      </div>
-      <ul class="list" id="allPubList"></ul>
-    </section>
-
-    <section id="experience-sec">
-      <h2>Experience</h2>
-      <ul class="list" id="expList"></ul>
-    </section>
-
-    <section id="projects-sec">
-      <h2>Projects</h2>
-      <ul class="list" id="projList"></ul>
-    </section>
-
-    
-
-    <section id="service-sec">
-      <h2>Service</h2>
-      <ul class="list" id="serviceList"></ul>
-    </section>
-
-    
-      <section id="references">
-      <h2>References</h2>
-      <ul class="list" id="refList"></ul>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">
-      <div>© <span id="year"></span> <span id="name-foot">Your Name</span>. Built with a single HTML file. No frameworks, no tracking.</div>
-    </div>
-  </footer>
-
-  <script>
-    // —— hydrate from JSON ---------------------------------------------------
-    const data = JSON.parse(document.getElementById('site-data').textContent);
-    const $ = (sel, root=document) => root.querySelector(sel);
-    const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
-
-    // Safe text setter to avoid null errors
-    const setText = (sel, text) => { const el = $(sel); if (el) el.textContent = text; };
-
-    setText('#name', data.name);
-    setText('#name-foot', data.name);
-    document.title = `${data.name} — ${data.role}`;
-    setText('#role', data.role);
-    setText('#about-text', data.about);
-    const ci = $('#contact-inline'); if (ci) { ci.textContent = [data.email, data.location].filter(Boolean).join(' · '); }
-    setText('#year', String(new Date().getFullYear()));
-    const updated = $('#updated'); if (updated) { updated.textContent = new Date(document.lastModified).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'}); }
-
-    const linksFrag = document.createDocumentFragment();
-    data.links.forEach(l=>{ const a=document.createElement('a'); a.href=l.url; a.textContent=l.label; a.className='tag'; a.rel='me noopener noreferrer'; a.target='_blank'; linksFrag.appendChild(a); });
-    $('#quick-links').appendChild(linksFrag);
-
-    const interestsFrag = document.createDocumentFragment();
-    (data.research_interests||[]).forEach(t=>{ const s=document.createElement('span'); s.className='chip'; s.textContent=t; interestsFrag.appendChild(s); });
-    $('#interests').appendChild(interestsFrag);
-
-    const pubList = $('#pubList');
-    let pubs = data.publications || [];
-
-    // Choose selected papers: use explicit `selected:true` when present, else take the most recent 6
-    const selectedPubs = pubs.some(p=>p.selected === true)
-      ? pubs.filter(p=>p.selected === true)
-      : pubs.slice().sort((a,b)=> (b.year||0)-(a.year||0)).slice(0,6);
-
-    function renderPubs(list){
-      pubList.innerHTML = '';
-      list.sort((a,b)=> (b.year||0) - (a.year||0));
-      list.forEach(p=>{
-        const li = document.createElement('li'); li.className='item';
-        const title = document.createElement('div'); title.className='title';
-        const link = p.links?.pdf || p.links?.arxiv || p.links?.doi || p.links?.code || '#';
-        title.innerHTML = link && link !== '#' ? `<a href="${link}" target="_blank" rel="noopener">${p.title}</a>` : p.title;
-        const meta = document.createElement('div'); meta.className='muted';
-        meta.innerHTML = `${(p.authors||[]).join(', ')} · <strong>${p.venue||''}</strong>`;
-        const row = document.createElement('div'); row.className='row';
-        (p.tags||[]).forEach(t=>{ const b=document.createElement('span'); b.className='badge'; b.textContent=t; row.appendChild(b); })
-        const linkRow = document.createElement('div'); linkRow.className='row';
-        if(p.links){ Object.entries(p.links).forEach(([k,v])=>{ if(v && v!=='#'){ const a=document.createElement('a'); a.href=v; a.className='tag'; a.textContent=k.toUpperCase(); a.target='_blank'; a.rel='noopener'; linkRow.appendChild(a); } }); }
-        if(p.bibtex){
-          const details = document.createElement('details');
-          const sum = document.createElement('summary'); sum.textContent='BibTeX'; details.appendChild(sum);
-          const pre = document.createElement('pre'); pre.textContent = p.bibtex; details.appendChild(pre);
-          linkRow.appendChild(details);
-        }
-        li.append(title, meta, row, linkRow);
-        pubList.appendChild(li);
-      });
-    }
-    renderPubs(selectedPubs);
-
-    // Filter
-    $('#pubSearch').addEventListener('input', (e)=>{
-      const q = e.target.value.toLowerCase();
-      const filtered = selectedPubs.filter(p=>{
-        const hay = [p.title, (p.authors||[]).join(' '), p.venue, (p.tags||[]).join(' '), String(p.year)].join(' ').toLowerCase();
-        return hay.includes(q);
-      });
-      renderPubs(filtered);
-    });
-
-    // All papers rendering
-    const allPubList = document.getElementById('allPubList');
-    if(allPubList){
-      renderPubsToAll();
-      const allSearch = document.getElementById('allPubSearch');
-      allSearch.addEventListener('input', (e)=>{
-        renderPubsToAll(e.target.value);
-      });
-    }
-    function renderPubsToAll(q=""){ 
-      const list = q ? pubs.filter(p=>{
-        const hay = [p.title, (p.authors||[]).join(' '), p.venue, (p.tags||[]).join(' '), String(p.year)].join(' ').toLowerCase();
-        return hay.includes(q.toLowerCase());
-      }) : pubs.slice().sort((a,b)=> (b.year||0)-(a.year||0));
-      const el = document.getElementById('allPubList');
-      el.innerHTML = '';
-      list.forEach(p=>{
-        const li = document.createElement('li'); li.className='item';
-        const title = document.createElement('div'); title.className='title';
-        const link = p.links?.pdf || p.links?.arxiv || p.links?.doi || p.links?.code || '#';
-        title.innerHTML = link && link !== '#' ? `<a href="${link}" target="_blank" rel="noopener">${p.title}</a>` : p.title;
-        const meta = document.createElement('div'); meta.className='muted';
-        meta.innerHTML = `${(p.authors||[]).join(', ')} · <strong>${p.venue||''}</strong>`;
-        const row = document.createElement('div'); row.className='row';
-        (p.tags||[]).forEach(t=>{ const b=document.createElement('span'); b.className='badge'; b.textContent=t; row.appendChild(b); });
-        const linkRow = document.createElement('div'); linkRow.className='row';
-        if(p.links){ Object.entries(p.links).forEach(([k,v])=>{ if(v && v!=='#'){ const a=document.createElement('a'); a.href=v; a.className='tag'; a.textContent=k.toUpperCase(); a.target='_blank'; a.rel='noopener'; linkRow.appendChild(a); } }); }
-        if(p.bibtex){
-          const details = document.createElement('details');
-          const sum = document.createElement('summary'); sum.textContent='BibTeX'; details.appendChild(sum);
-          const pre = document.createElement('pre'); pre.textContent = p.bibtex; details.appendChild(pre);
-          linkRow.appendChild(details);
-        }
-        li.append(title, meta, row, linkRow);
-        el.appendChild(li);
-      });
-    }
-
-    // Experience
-    const expList = $('#expList');
-    (data.experience||[]).forEach(x=>{
-      const li=document.createElement('li'); li.className='item';
-      li.innerHTML = `<div class="title">${x.role} · ${x.where}</div><div class="muted">${x.period}</div>`;
-      if(x.bullets){ const ul=document.createElement('ul'); ul.style.margin='0'; ul.style.paddingLeft='18px'; x.bullets.forEach(b=>{ const li2=document.createElement('li'); li2.textContent=b; ul.appendChild(li2); }); li.appendChild(ul); }
-      expList.appendChild(li);
-    });
-
-    // Projects
-    const projList = $('#projList');
-    (data.projects||[]).forEach(p=>{
-      const li=document.createElement('li'); li.className='item';
-      const title = p.url && p.url !== '#' ? `<a href="${p.url}" target="_blank" rel="noopener" class="title">${p.name}</a>` : `<span class="title">${p.name}</span>`;
-      li.innerHTML = `${title}<div class="muted">${p.summary||''}</div>`;
-      projList.appendChild(li);
-    });
-
-    // Service
-    const serviceList = $('#serviceList');
-    (data.service||[]).forEach(s=>{
-      const li=document.createElement('li'); li.className='item'; li.textContent=s.item; serviceList.appendChild(li);
-    });
-
-    // Theme + Print
-    const root = document.documentElement;
-    const themeToggle = $('#themeToggle');
-    const savedTheme = localStorage.getItem('theme');
-    if(savedTheme){ root.setAttribute('data-theme', savedTheme); }
-    themeToggle.addEventListener('click', ()=>{
-      const cur = root.getAttribute('data-theme');
-      const next = cur === 'light' ? '' : 'light';
-      if(next) root.setAttribute('data-theme', next); else root.removeAttribute('data-theme');
-      localStorage.setItem('theme', next);
-    });
-    $('#printBtn').addEventListener('click', (e)=>{ e.preventDefault(); window.print(); });
-      // Tabs nav
-    const secnav = $('#secnav');
-    if (secnav){
-      const items = [
-      {label:'Overview', key:'overview'},
-      {label:'All Papers', key:'papers'},
-      {label:'Service & References', key:'service'}
-    ];
-    const frag = document.createDocumentFragment();
-    items.forEach(it=>{
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = it.label;
-      btn.className = 'tablink';
-      btn.setAttribute('role','tab');
-      btn.dataset.tab = it.key;
-      btn.addEventListener('click', ()=>{ location.hash = `#tab=${it.key}`; });
-      frag.appendChild(btn);
-    });
-    secnav.appendChild(frag);
-    }
-
-    // Tabs router
-    function show(el, disp){ if(!el) return; el.style.display = disp || ''; }
-    function hide(el){ if(!el) return; el.style.display = 'none'; }
-    function routeTabs(){
-      const h = location.hash || '#tab=overview';
-      const params = new URLSearchParams(h.slice(1));
-      const tab = params.get('tab') || 'overview';
-      // active state
-      $$('#secnav .tablink').forEach(el=>{
-        const t = el.dataset.tab;
-        const isActive = (t===tab);
-        el.classList.toggle('active', isActive);
-        el.setAttribute('aria-selected', isActive ? 'true' : 'false');
-      });
-      if(tab === 'papers'){
-        show($('#all-papers'), 'grid');
-        hide($('#research')); hide($('#about')); hide($('#experience-sec'));
-        hide($('#projects-sec')); hide($('#service-sec')); hide($('#references'));
-      } else if(tab === 'service'){
-        show($('#projects-sec')); show($('#service-sec')); show($('#references'));
-        hide($('#all-papers')); hide($('#research')); hide($('#about')); hide($('#experience-sec'));
-      } else {
-        // overview
-        show($('#about'));
-        show($('#experience-sec'));
-        show($('#research'), 'grid');
-        // ensure Research appears immediately after Experience in the DOM
-        const mainEl = document.querySelector('main.wrap');
-        const exp = $('#experience-sec');
-        const res = $('#research');
-        if(mainEl && exp && res){ mainEl.insertBefore(res, exp.nextElementSibling); }
-        hide($('#all-papers')); hide($('#projects-sec')); hide($('#service-sec')); hide($('#references'));
-      }
-    }
-    window.addEventListener('hashchange', routeTabs);
-    routeTabs();
-
-    // Intercept any anchor clicks that use #tab=... so we don't trigger sandbox navigation
-    document.addEventListener('click', (e)=>{
-      const a = e.target.closest('a[href^="#tab="]');
-      if (a){ e.preventDefault(); location.hash = a.getAttribute('href'); }
-    });
-
-    // Patents
-    const patentList = $('#patentList');
-    (data.patents||[]).forEach(p=>{
-      const li=document.createElement('li'); li.className='item';
-      const title = document.createElement('div'); title.className='title'; title.textContent=p.title;
-      const meta = document.createElement('div'); meta.className='muted';
-      meta.textContent = `${p.number ? p.number + ' · ' : ''}${p.status||''} · ${p.year||''}`;
-      const links = document.createElement('div'); links.className='row';
-      if(p.links){ Object.entries(p.links).forEach(([k,v])=>{ if(v && v!=='#'){ const a=document.createElement('a'); a.href=v; a.className='tag'; a.textContent=k.replace('_',' ').toUpperCase(); a.target='_blank'; a.rel='noopener'; links.appendChild(a); } }); }
-      li.append(title, meta, links);
-      patentList.appendChild(li);
-    });
-
-    // References
-    const refList = $('#refList');
-    (data.references||[]).forEach(r=>{
-      const li=document.createElement('li'); li.className='item';
-      li.innerHTML = `<div class="title">${r.name}</div><div class="muted">${r.affiliation||''}</div><div class="kbd">${r.email||''}</div>`;
-      refList.appendChild(li);
-    });
-  </script>
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
 </body>
 </html>
