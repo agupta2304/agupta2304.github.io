@@ -167,7 +167,7 @@
                 { title: "LiRank: Industrial Large Scale Ranking Models at LinkedIn", authors: "Fedor Borisyuk, Mingzhou Zhou, Qingquan Song, Siyu Zhu, Birjodh Tiwana, Ganesh Parameswaran, Siddharth Dangi, Lars Hertel, Qiang Charles Xiao, Xiaochen Hou, Yunbo Ouyang, Aman Gupta, Sheallika Singh, Dan Liu, Hailing Cheng, Lei Le, Jonathan Hung, Sathiya Keerthi, Ruoyan Wang, Fengyu Zhang, Mohit Kothari, Chen Zhu, Daqi Sun, Yun Dai, Xun Luan, Sirou Zhu, Zhiwei Wang, Neil Daftary, Qianqi Shen, Chengming Jiang, Haichao Wei, Maneesh Varshney, Amol Ghoting, Souvik Ghosh", venue: "Proceedings of the 30th SIGKDD Conference on Knowledge Discovery and Data Mining - KDD 2024" },
                 { title: "A precise characterization of sgd stability using loss surface geometry", authors: "Gregory Dexter, Borja Ocejo, Sathiya Keerthi, Aman Gupta, Ayan Acharya, Rajiv Khanna", venue: "Proceedings of the 12th International Conference on Learning Representations ICLR 2024" },
                 { title: "MultiSlot ReRanker: A Generic Model-based Re-Ranking Framework in Recommendation Systems", authors: "Qiang Charles Xiao, Ajith Muralidharan, Birjodh Tiwana, Johnson Jia, Fedor Borisyuk, Aman Gupta, Dawn Woodard", venue: "arXiv preprint arXiv:2401.06293" },
-                { title: "FFSplit: Split Feed-Forward Network For Optimizing Accuracy-Efficiency Trade-off in Language Model Inference", authors: "Zirui Liu, Qingquan Song, Qiang Charles Xiao, Sathiya Keerthi Selvaraj, Rahul Mazumder, Aman Gupta, Xia Hu", venue: "arXiv preprint arXiv:2401.04044" },
+                { title: "FFSplit: Split Feed-Forward Network For Optimizing Accuracy-Efficiency Trade-off in Language Model inference", authors: "Zirui Liu, Qingquan Song, Qiang Charles Xiao, Sathiya Keerthi Selvaraj, Rahul Mazumder, Aman Gupta, Xia Hu", venue: "arXiv preprint arXiv:2401.04044" },
                 { title: "Optimizing for Member Value in an Edge Building Marketplace", authors: "Ayan Acharya, Siyuan Gao, Ankan Saha, Borja Ocejo, Kinjal Basu, Keerthi Selvaraj, Rahul Mazumder, Aman Gupta, Parag Agrawal", venue: "Proceedings of the 32nd ACM International Conference on Information and Knowledge Management - CIKM 2023" },
                 { title: "QuantEase: Optimization-based Quantization for Language Models", authors: "Kayhan Behdin, Ayan Acharya, Aman Gupta, Qingquan Song, Siyu Zhu, Sathiya Keerthi, Rahul Mazumder", venue: "arXiv preprint arXiv:2309.01885" },
                 { title: "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference", authors: "Aman Gupta, S Sathiya Keerthi, Ayan Acharya, Miao Cheng, Borja Ocejo Elizondo, Rohan Ramanath, Rahul Mazumder, Kinjal Basu, J Kenneth Tay, Rupesh Gupta", venue: "Proceedings of the 29th SIGKDD Conference on Knowledge Discovery and Data Mining - KDD 2023" },
@@ -191,16 +191,21 @@
             
             // Function to create and append paper entries
             function displayPapers() {
-                papers.forEach(paper => {
+                papers.forEach((paper, index) => {
                     // Highlight user's name
                     const authorsHtml = paper.authors.replace('Aman Gupta', '<strong>Aman Gupta</strong>');
 
                     const paperElement = document.createElement('div');
                     paperElement.className = 'paper-entry';
                     paperElement.innerHTML = `
-                        <h3 class="text-2xl font-semibold text-slate-800">${paper.title}</h3>
-                        <p class="text-md text-slate-600 mt-1">${authorsHtml}</p>
-                        <p class="text-lg text-slate-700 font-medium mt-1">${paper.venue}</p>
+                        <div class="flex flex-row items-start space-x-4">
+                            <span class="text-xl font-medium text-slate-500 pt-1 w-8">${index + 1}.</span>
+                            <div class="flex-1">
+                                <h3 class="text-2xl font-semibold text-slate-800">${paper.title}</h3>
+                                <p class="text-md text-slate-600 mt-1">${authorsHtml}</p>
+                                <p class="text-lg text-slate-700 font-medium mt-1">${paper.venue}</p>
+                            </div>
+                        </div>
                     `;
                     papersContainer.appendChild(paperElement);
                 });
@@ -255,8 +260,4 @@
     </script>
 </body>
 </html>
-
-
-
-
 
