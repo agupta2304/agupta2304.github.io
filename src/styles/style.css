@@ -334,10 +334,16 @@ a:focus-visible {
   white-space: nowrap;
 }
 
-.news__what em {
-  font-style: italic;
+/* In news, work titles (em) and venues (strong) both read bold rather than italic. */
+.news__what em,
+.news__what strong {
+  font-style: normal;
+  font-weight: 600;
   color: var(--ink);
 }
+
+.news__what a em,
+.news__what a strong { color: inherit; }
 
 /* ---------- Publications ---------- */
 

@@ -97,7 +97,9 @@ Prepend an entry to `src/data/news.json`:
 ```
 
 `date` is `YYYY-MM`. Entries sort newest first regardless of file order. `text` allows inline
-HTML, so links and `<em>` for paper titles both work. The homepage shows the six most recent;
+HTML, with two conventions: wrap paper and talk titles in `<em>` and venues in `<strong>`. Both
+render bold rather than italic, so the eye lands on the title and the conference. The homepage
+shows the six most recent;
 change `news_limit` in `src/data/site.json` to show more, or set it to `0` for all of them.
 
 The section sits directly below About. To move it above, cut the `{% if news %}` block in
