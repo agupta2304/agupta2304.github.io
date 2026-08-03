@@ -3,14 +3,19 @@
    Palette and scale live here; everything else derives from it.
    ============================================================ */
 
+/* Dark is the default. The cream theme is opt-in via data-theme on <html>,
+   set before first paint by the inline script in base.html. */
+
 :root {
-  --bg:      #fdfcfa;
-  --ink:     #1a1a1a;
-  --muted:   #6b6b6b;
-  --faint:   #8f8a82;
-  --rule:    #e6e1d8;
-  --accent:  #8a2f2f;
-  --mark:    #f3ede2;
+  color-scheme: dark;
+
+  --bg:      #171614;
+  --ink:     #e8e5df;
+  --muted:   #a09a90;
+  --faint:   #8a847a;
+  --rule:    #2e2b26;
+  --accent:  #e0a08e;
+  --mark:    #26231e;
 
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, ui-serif, serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
@@ -23,16 +28,16 @@
   --step-3:  2.1rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg:     #171614;
-    --ink:    #e8e5df;
-    --muted:  #a09a90;
-    --faint:  #8a847a;
-    --rule:   #2e2b26;
-    --accent: #e0a08e;
-    --mark:   #26231e;
-  }
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg:     #faf7f0;
+  --ink:    #1f1c18;
+  --muted:  #6a635a;
+  --faint:  #8c8478;
+  --rule:   #e6ded0;
+  --accent: #8a2f2f;
+  --mark:   #f2ebdc;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -58,6 +63,11 @@ body {
   font-variant-ligatures: common-ligatures;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { transition: none; }
 }
 
 .wrap {
@@ -103,6 +113,7 @@ a:focus-visible {
   padding: 0.7rem 1.5rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 0 1.15rem;
   font-family: var(--mono);
   font-size: 0.76rem;
@@ -121,6 +132,39 @@ a:focus-visible {
   color: var(--ink) !important;
   font-weight: 600;
 }
+
+/* ---------- Theme toggle ---------- */
+
+.theme-toggle {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 120ms ease, border-color 120ms ease, transform 160ms ease;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+[data-theme="light"] .theme-toggle svg { transform: rotate(180deg); }
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Overrides the inline-flex above, so the button stays hidden without JavaScript. */
+.theme-toggle[hidden] { display: none; }
 
 /* ---------- Masthead ---------- */
 
@@ -546,7 +590,9 @@ code, kbd, samp {
 /* ---------- Print: homepage becomes a clean CV ---------- */
 
 @media print {
-  :root {
+  /* Also matches :root[data-theme] so printing is monochrome whichever theme is active. */
+  :root, :root[data-theme] {
+    color-scheme: light;
     --bg: #fff;
     --ink: #000;
     --muted: #333;

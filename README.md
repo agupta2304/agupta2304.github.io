@@ -3,7 +3,20 @@
 Personal site. Content lives in JSON and Markdown under `src/`; a small Python script renders
 it to static HTML at the repository root, which is what GitHub Pages serves.
 
-No framework, no CI, no client-side rendering. The homepage ships zero JavaScript.
+No framework, no CI, no client-side rendering. The only JavaScript is roughly twenty inline
+lines driving the theme toggle.
+
+## Themes
+
+Dark is the default. A toggle in the nav switches to a cream theme and remembers the choice in
+`localStorage`; an inline script in `<head>` applies it before first paint, so there is no
+flash of the wrong palette. Without JavaScript the site stays dark and the button hides itself
+rather than sitting there dead.
+
+Both palettes are defined as custom properties at the top of `src/styles/style.css` — `:root`
+holds the dark values, `[data-theme="light"]` the cream ones. Change a colour in one place and
+it propagates everywhere, including the syntax highlighting, which ships a matching Pygments
+theme per palette. Printing always uses a monochrome palette regardless of the active theme.
 
 ## Setup
 

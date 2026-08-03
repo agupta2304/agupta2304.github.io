@@ -190,13 +190,17 @@ def report_placeholders() -> None:
 
 
 def build_stylesheet() -> None:
-    """Concatenate the hand-written CSS with Pygments themes for both schemes."""
+    """Concatenate the hand-written CSS with a Pygments theme per site theme.
+
+    Dark is the default, so it goes in unscoped; the cream theme is prefixed with the
+    data-theme selector, which also gives it the specificity to win when active.
+    """
     css = (SRC / "styles" / "style.css").read_text(encoding="utf-8")
-    light = HtmlFormatter(style="friendly").get_style_defs(".codehilite")
     dark = HtmlFormatter(style="nord").get_style_defs(".codehilite")
+    light = HtmlFormatter(style="friendly").get_style_defs('[data-theme="light"] .codehilite')
     combined = (
-        f"{css}\n\n/* ---- syntax highlighting (generated) ---- */\n{light}\n"
-        f"@media (prefers-color-scheme: dark) {{\n{dark}\n}}\n"
+        f"{css}\n\n/* ---- syntax highlighting (generated) ---- */\n"
+        f"{dark}\n\n{light}\n"
     )
     write(ASSETS_DIR / "style.css", combined)
 

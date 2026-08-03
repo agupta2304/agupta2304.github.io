@@ -3,6 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Applied before first paint so a stored preference never flashes the wrong palette. */
+(function () {
+  try {
+    var saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      document.documentElement.setAttribute("data-theme", saved);
+    }
+  } catch (e) {}
+})();
+</script>
 <title>Aman Gupta</title>
 <meta name="description" content="Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training, efficient inference, and the evaluation of large-scale AI agents.">
 <link rel="canonical" href="https://amangupta.github.io/">
@@ -46,6 +57,12 @@
     <a href="/#talks">talks</a>
     <a href="/#experience">experience</a>
     <a href="/blog/">writing</a>
+    <button class="theme-toggle" type="button" hidden>
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M8 1.7 A6.3 6.3 0 0 1 8 14.3 Z" fill="currentColor"/>
+      </svg>
+    </button>
   </div>
 </nav>
 
@@ -212,5 +229,32 @@
   </footer>
 </main>
 
+
+<script>
+/* The button stays hidden unless this runs, so it is never dead furniture. */
+(function () {
+  var root = document.documentElement;
+  var button = document.querySelector(".theme-toggle");
+  if (!button) return;
+  button.hidden = false;
+
+  function describe() {
+    var isLight = root.getAttribute("data-theme") === "light";
+    var label = isLight ? "Switch to dark theme" : "Switch to cream theme";
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    button.setAttribute("aria-pressed", isLight ? "true" : "false");
+  }
+
+  button.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    describe();
+  });
+
+  describe();
+})();
+</script>
 </body>
 </html>
