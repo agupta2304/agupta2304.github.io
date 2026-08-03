@@ -20,7 +20,10 @@
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, ui-serif, serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
-  --measure: 40rem;
+  --measure: 40rem;   /* reading width for prose */
+  --wrap-max: 40rem;  /* container width; the homepage widens this */
+  --rail: 18rem;
+  --gutter: 3.5rem;
   --step--1: 0.875rem;
   --step-0:  1.125rem;
   --step-1:  1.3rem;
@@ -71,10 +74,13 @@ body {
 }
 
 .wrap {
-  max-width: var(--measure);
+  max-width: var(--wrap-max);
   margin: 0 auto;
   padding: 0 1.5rem;
 }
+
+/* The homepage runs two columns, so it gets a wider container than the prose pages. */
+body.home { --wrap-max: 64rem; }
 
 /* ---------- Links ---------- */
 
@@ -108,7 +114,7 @@ a:focus-visible {
 }
 
 .nav__inner {
-  max-width: var(--measure);
+  max-width: var(--wrap-max);
   margin: 0 auto;
   padding: 0.7rem 1.5rem;
   display: flex;
@@ -207,6 +213,69 @@ a:focus-visible {
   color: var(--muted);
   font-size: var(--step--1);
   line-height: 1.5;
+}
+
+/* ---------- Two-column homepage ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 var(--gutter);
+  align-items: start;
+}
+
+/* Both columns start at the same height so "News" lines up with the portrait. */
+.layout > * { padding-top: 3.5rem; }
+
+.layout .section:first-child { margin-top: 0; }
+
+/* The rail is a narrower measure, so step everything down a little. */
+.rail { font-size: 0.95rem; }
+.rail .section { margin: 2.25rem 0; }
+
+.rail .masthead {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding-top: 0;
+}
+
+.rail .lede {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.rail .contact {
+  grid-template-columns: 1fr;
+  gap: 0.1rem;
+  font-size: 0.9rem;
+}
+
+.rail .contact dd { margin-bottom: 0.55rem; }
+.rail .contact dd:last-child { margin-bottom: 0; }
+
+@media (max-width: 62rem) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .layout > * + * { padding-top: 0; }
+
+  .rail {
+    font-size: var(--step-0);
+    max-width: var(--measure);
+  }
+
+  .rail .masthead {
+    flex-direction: row;
+    align-items: center;
+    gap: 1.4rem;
+  }
+
+  .rail .lede { font-size: var(--step-1); }
+
+  .rail .contact { grid-template-columns: 6rem 1fr; gap: 0.5rem 1rem; }
 }
 
 /* ---------- Sections ---------- */
@@ -443,7 +512,11 @@ a.pub__title:hover {
   padding-top: 0.2rem;
 }
 
-.contact dd { margin: 0; }
+/* Long URLs must not push the narrow rail wider than its column. */
+.contact dd {
+  margin: 0;
+  overflow-wrap: break-word;
+}
 
 /* ---------- Post / blog listing ---------- */
 
@@ -596,10 +669,13 @@ code, kbd, samp {
 @media (max-width: 40rem) {
   :root { --step-0: 1.06rem; --step-3: 1.7rem; }
 
-  .masthead {
+  .masthead,
+  .rail .masthead {
     gap: 1rem;
-    padding-top: 2.5rem;
   }
+
+  .layout > * { padding-top: 2.5rem; }
+  .layout > * + * { padding-top: 0; }
 
   .masthead__portrait,
   .masthead__monogram {
@@ -619,8 +695,11 @@ code, kbd, samp {
 
   .news li { margin-bottom: 0.9rem; }
 
-  .contact { grid-template-columns: 1fr; gap: 0.15rem; }
-  .contact dd { margin-bottom: 0.5rem; }
+  .contact,
+  .rail .contact { grid-template-columns: 1fr; gap: 0.15rem; }
+
+  .contact dd,
+  .rail .contact dd { margin-bottom: 0.5rem; }
 }
 
 /* ---------- Print: homepage becomes a clean CV ---------- */
@@ -643,6 +722,11 @@ code, kbd, samp {
   body { font-size: 10.5pt; line-height: 1.4; }
 
   .wrap { max-width: none; padding: 0; }
+
+  /* A printed CV reads as one column. */
+  .layout { display: block; }
+  .layout > *, .layout > * + * { padding-top: 0; }
+  .rail { font-size: inherit; }
 
   .masthead { padding-top: 0; }
 

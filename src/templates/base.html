@@ -31,7 +31,7 @@
 <link rel="alternate" type="application/rss+xml" title="{{ profile.name }} — posts" href="/feed.xml">
 {% block head_extra %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}page{% endblock %}">
 
 <nav class="nav">
   <div class="nav__inner">

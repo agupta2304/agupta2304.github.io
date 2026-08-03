@@ -7,7 +7,12 @@
 </script>
 {% endblock %}
 
+{% block body_class %}home{% endblock %}
+
 {% block content %}
+<div class="layout">
+
+<aside class="rail">
 {{ m.masthead(profile) }}
 
 <section class="section" id="about">
@@ -17,6 +22,18 @@
   {% endfor %}
 </section>
 
+<section class="section" id="contact">
+  <h2>Elsewhere</h2>
+  <dl class="contact">
+    {% for label, href in profile.links.items() %}
+    <dt>{{ label }}</dt>
+    <dd><a href="{{ href }}">{{ href | pretty_url }}</a></dd>
+    {% endfor %}
+  </dl>
+</section>
+</aside>
+
+<div class="flow">
 {% if news %}
 <section class="section" id="news">
   <h2>News</h2>
@@ -89,14 +106,7 @@
   </div>
   {% endfor %}
 </section>
+</div>
 
-<section class="section" id="contact">
-  <h2>Elsewhere</h2>
-  <dl class="contact">
-    {% for label, href in profile.links.items() %}
-    <dt>{{ label }}</dt>
-    <dd><a href="{{ href }}">{{ href | pretty_url }}</a></dd>
-    {% endfor %}
-  </dl>
-</section>
+</div>
 {% endblock %}
