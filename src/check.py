@@ -98,7 +98,7 @@ css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
 if css.count("{") != css.count("}"):
     problems.append(f"style.css: unbalanced braces ({css.count('{')} open, {css.count('}')} close)")
 for needle, why in [
-    ('[data-theme="light"]', "cream theme block"),
+    ('[data-theme="dark"]', "dark theme block"),
     ("@media print", "print stylesheet"),
     ("max-width: 40rem", "mobile breakpoint"),
     ("codehilite", "syntax highlighting"),
@@ -108,21 +108,21 @@ for needle, why in [
 
 # both palettes must define the same colour tokens
 root_block = re.search(r":root \{(.*?)\n\}", css, re.S)
-light_block = re.search(r'\[data-theme="light"\] \{(.*?)\n\}', css, re.S)
-if root_block and light_block:
-    dark_tokens = set(re.findall(r"(--[\w-]+):\s*#", root_block.group(1)))
-    light_tokens = set(re.findall(r"(--[\w-]+):\s*#", light_block.group(1)))
-    if dark_tokens != light_tokens:
-        problems.append(f"style.css: palette mismatch, missing in cream {sorted(dark_tokens - light_tokens)}, "
-                        f"extra {sorted(light_tokens - dark_tokens)}")
+dark_block = re.search(r'\[data-theme="dark"\] \{(.*?)\n\}', css, re.S)
+if root_block and dark_block:
+    default_tokens = set(re.findall(r"(--[\w-]+):\s*#", root_block.group(1)))
+    dark_tokens = set(re.findall(r"(--[\w-]+):\s*#", dark_block.group(1)))
+    if default_tokens != dark_tokens:
+        problems.append(f"style.css: palette mismatch, missing in dark {sorted(default_tokens - dark_tokens)}, "
+                        f"extra {sorted(dark_tokens - default_tokens)}")
 else:
     problems.append("style.css: could not locate both palette blocks")
 
 # syntax highlighting needs a rule per theme
 if ".codehilite .k " not in css and ".codehilite .k{" not in css:
+    problems.append("style.css: no default syntax highlighting rules")
+if '[data-theme="dark"] .codehilite' not in css:
     problems.append("style.css: no dark syntax highlighting rules")
-if '[data-theme="light"] .codehilite' not in css:
-    problems.append("style.css: no cream syntax highlighting rules")
 
 # theme toggle must be present and wired on every page
 for page in pages:

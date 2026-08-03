@@ -23,7 +23,7 @@
 <meta property="og:title" content="Writing — Aman Gupta">
 <meta property="og:description" content="Notes and essays by Aman Gupta.">
 <meta property="og:url" content="https://agupta2304.github.io/blog/">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://agupta2304.github.io/assets/headshot.jpg"><meta name="twitter:card" content="summary">
 
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/style.css">
@@ -78,15 +78,15 @@
   button.hidden = false;
 
   function describe() {
-    var isLight = root.getAttribute("data-theme") === "light";
-    var label = isLight ? "Switch to dark theme" : "Switch to cream theme";
+    var isDark = root.getAttribute("data-theme") === "dark";
+    var label = isDark ? "Switch to cream theme" : "Switch to dark theme";
     button.setAttribute("aria-label", label);
     button.setAttribute("title", label);
-    button.setAttribute("aria-pressed", isLight ? "true" : "false");
+    button.setAttribute("aria-pressed", isDark ? "true" : "false");
   }
 
   button.addEventListener("click", function () {
-    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
     root.setAttribute("data-theme", next);
     try { localStorage.setItem("theme", next); } catch (e) {}
     describe();

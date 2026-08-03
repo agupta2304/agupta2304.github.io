@@ -8,13 +8,13 @@ lines driving the theme toggle.
 
 ## Themes
 
-Dark is the default. A toggle in the nav switches to a cream theme and remembers the choice in
+Cream is the default. A toggle in the nav switches to a dark theme and remembers the choice in
 `localStorage`; an inline script in `<head>` applies it before first paint, so there is no
-flash of the wrong palette. Without JavaScript the site stays dark and the button hides itself
+flash of the wrong palette. Without JavaScript the site stays cream and the button hides itself
 rather than sitting there dead.
 
 Both palettes are defined as custom properties at the top of `src/styles/style.css` — `:root`
-holds the dark values, `[data-theme="light"]` the cream ones. Change a colour in one place and
+holds the cream values, `[data-theme="dark"]` the dark ones. Change a colour in one place and
 it propagates everywhere, including the syntax highlighting, which ships a matching Pygments
 theme per palette. Printing always uses a monochrome palette regardless of the active theme.
 
