@@ -202,7 +202,9 @@ def build_stylesheet() -> None:
 
 
 def build_feed(posts: list[dict], profile: dict, site: dict) -> None:
-    now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S +0000")
+    # Derived from the newest post rather than the clock, so rebuilds stay byte-identical.
+    latest = posts[0]["date"] if posts else datetime(1970, 1, 1, tzinfo=timezone.utc)
+    built = latest.strftime("%a, %d %b %Y %H:%M:%S +0000")
     items = []
     for p in posts[:20]:
         link = site["url"] + p["url"]
@@ -223,7 +225,7 @@ def build_feed(posts: list[dict], profile: dict, site: dict) -> None:
         f"    <link>{escape(site['url'])}/</link>\n"
         f"    <description>{escape(profile['meta_description'])}</description>\n"
         "    <language>en-us</language>\n"
-        f"    <lastBuildDate>{now}</lastBuildDate>\n"
+        f"    <lastBuildDate>{built}</lastBuildDate>\n"
         f'    <atom:link href="{escape(site["url"])}/feed.xml" rel="self" type="application/rss+xml"/>\n'
         + "\n".join(items) + "\n"
         "  </channel>\n"
