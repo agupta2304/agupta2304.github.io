@@ -2,15 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Aman Gupta — posts</title>
-    <link>https://amangupta.github.io/</link>
+    <link>https://agupta2304.github.io/</link>
     <description>Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training and alignment, efficient inference, and the evaluation of large-scale AI agents.</description>
     <language>en-us</language>
     <lastBuildDate>Sun, 02 Aug 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://amangupta.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <atom:link href="https://agupta2304.github.io/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
       <title>Colophon</title>
-      <link>https://amangupta.github.io/blog/colophon/</link>
-      <guid isPermaLink="true">https://amangupta.github.io/blog/colophon/</guid>
+      <link>https://agupta2304.github.io/blog/colophon/</link>
+      <guid isPermaLink="true">https://agupta2304.github.io/blog/colophon/</guid>
       <pubDate>Sun, 02 Aug 2026 00:00:00 +0000</pubDate>
       <description>How this site is put together, and what you can use in a post.</description>
     </item>

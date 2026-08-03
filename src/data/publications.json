@@ -22,40 +22,6 @@
     }
   },
   {
-    "title": "360Brew: A Decoder-only Foundation Model for Personalized Ranking and Recommendation",
-    "authors": [
-      "Hamed Firooz",
-      "Maziar Sanjabi",
-      "Adrian Englhardt",
-      "Aman Gupta",
-      "Ben Levine",
-      "Dre Olgiati",
-      "Gungor Polatkan",
-      "Iuliia Melnychuk",
-      "Karthik Ramgopal",
-      "Kirill Talanine",
-      "Kutta Srinivasan",
-      "Luke Simon",
-      "Natesh Sivasubramoniapillai",
-      "Necip Fazil Ayan",
-      "Qingquan Song",
-      "Samira Sriram",
-      "Souvik Ghosh",
-      "Tao Song",
-      "Vignesh Kothapalli",
-      "Xiaoling Zhai",
-      "Ya Xu",
-      "Yu Wang",
-      "Yun Dai"
-    ],
-    "venue": "arXiv preprint",
-    "year": 2025,
-    "selected": true,
-    "links": {
-      "arxiv": "https://arxiv.org/abs/2501.16450"
-    }
-  },
-  {
     "title": "AlphaPO: Reward Shape Matters for LLM Alignment",
     "authors": [
       "Aman Gupta",
@@ -67,10 +33,9 @@
       "Viral Gupta",
       "Noah Lee",
       "Eunki Kim",
-      "Siyu Zhu",
-      "Parag Agrawal",
-      "Natesh S. Pillai",
-      "S. Sathiya Keerthi"
+      "Jason Zhu",
+      "Natesh Pillai",
+      "S Sathiya Keerthi"
     ],
     "venue": "International Conference on Machine Learning (ICML)",
     "year": 2025,
@@ -86,52 +51,19 @@
       "Aman Gupta",
       "Rafael Celente",
       "Abhishek Shivanna",
-      "D. T. Braithwaite",
+      "DT Braithwaite",
       "Gregory Dexter",
       "Shao Tang",
       "Hiroto Udagawa",
       "Daniel Silva",
       "Rohan Ramanath",
-      "S. Sathiya Keerthi"
+      "S Sathiya Keerthi"
     ],
     "venue": "arXiv preprint",
     "year": 2025,
-    "selected": false,
+    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2509.23106"
-    }
-  },
-  {
-    "title": "Efficient AI in Practice: Training and Deployment of Efficient LLMs for Industry Applications",
-    "authors": [
-      "Kayhan Behdin",
-      "Yun Dai",
-      "Ata Fatahi Baarzi",
-      "Aman Gupta",
-      "Qingquan Song",
-      "Shao Tang",
-      "Hejian Sang",
-      "Gregory Dexter",
-      "Sirou Zhu",
-      "Siyu Zhu",
-      "Tejas Dharamsi",
-      "Maziar Sanjabi",
-      "Vignesh Kothapalli",
-      "Hamed Firooz",
-      "Zhoutong Fu",
-      "Yihan Cao",
-      "Pin-Lun Hsu",
-      "Fedor Borisyuk",
-      "Zhipeng Wang",
-      "Rahul Mazumder",
-      "Natesh S. Pillai",
-      "Luke Simon"
-    ],
-    "venue": "arXiv preprint",
-    "year": 2025,
-    "selected": false,
-    "links": {
-      "arxiv": "https://arxiv.org/abs/2502.14305"
     }
   },
   {
@@ -148,11 +80,40 @@
       "Sirou Zhu",
       "Pin-Lun Hsu"
     ],
-    "venue": "The Web Conference (WWW), Companion Proceedings",
+    "venue": "The Web Conference (WWW)",
+    "year": 2025,
+    "selected": false,
+    "note": "corresponding author, joint 1st author",
+    "links": {
+      "doi": "https://doi.org/10.1145/3701716.3715868"
+    }
+  },
+  {
+    "title": "From Features to Transformers: Redefining Ranking for Scalable Impact",
+    "authors": [
+      "Fedor Borisyuk",
+      "Lars Hertel",
+      "Ganesh Parameswaran",
+      "Gaurav Srivastava",
+      "Sudarshan Srinivasa Ramanujam",
+      "Borja Ocejo",
+      "Peng Du",
+      "Andrei Akterskii",
+      "Neil Daftary",
+      "Shao Tang",
+      "Daqi Sun",
+      "Qiang Charles Xiao",
+      "Deepesh Nathani",
+      "Mohit Kothari",
+      "Yun Dai",
+      "Guoyao Li",
+      "Aman Gupta"
+    ],
+    "venue": "arXiv preprint",
     "year": 2025,
     "selected": false,
     "links": {
-      "doi": "https://doi.org/10.1145/3701716.3715868"
+      "arxiv": "https://arxiv.org/abs/2502.03417"
     }
   },
   {
@@ -227,13 +188,13 @@
     "title": "Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems",
     "authors": [
       "Kayhan Behdin",
-      "Ata Fatahi Baarzi",
+      "Ata Fatahibaarzi",
       "Qingquan Song",
       "Yun Dai",
       "Aman Gupta",
       "Zhipeng Wang",
-      "Hejian Sang",
       "Shao Tang",
+      "Hejian Sang",
       "Gregory Dexter",
       "Sirou Zhu",
       "Siyu Zhu",
@@ -243,23 +204,24 @@
       "Yihan Cao",
       "Pin-Lun Hsu",
       "Fedor Borisyuk",
-      "Natesh S. Pillai",
+      "Natesh Pillai",
       "Luke Simon",
       "Rahul Mazumder"
     ],
-    "venue": "Empirical Methods in Natural Language Processing (EMNLP), Industry Track",
+    "venue": "Empirical Methods in Natural Language Processing (EMNLP)",
     "year": 2025,
     "selected": true,
+    "note": "joint 1st author",
     "links": {
-      "doi": "https://doi.org/10.18653/v1/2025.emnlp-industry.119"
+      "arxiv": "https://arxiv.org/abs/2502.14305"
     }
   },
   {
     "title": "Your Spending Needs Attention: Modeling Financial Habits with Transformers",
     "authors": [
-      "D. T. Braithwaite",
+      "DT Braithwaite",
       "Misael Cavalcanti",
-      "R. Austin McEver",
+      "R Austin McEver",
       "Hiroto Udagawa",
       "Daniel Silva",
       "Rohan Ramanath",
@@ -278,11 +240,46 @@
     }
   },
   {
+    "title": "360Brew: A Decoder-only Foundation Model for Personalized Ranking and Recommendation",
+    "authors": [
+      "Hamed Firooz",
+      "Maziar Sanjabi",
+      "Adrian Englhardt",
+      "Aman Gupta",
+      "Ben Levine",
+      "Dre Olgiati",
+      "Gungor Polatkan",
+      "Iuliia Melnychuk",
+      "Karthik Ramgopal",
+      "Kirill Talanine",
+      "Kutta Srinivasan",
+      "Luke Simon",
+      "Natesh Sivasubramoniapillai",
+      "Necip Fazil Ayan",
+      "Qingquan Song",
+      "Samira Sriram",
+      "Souvik Ghosh",
+      "Tao Song",
+      "Tejas Dharamsi",
+      "Vignesh Kothapalli",
+      "Xiaoling Zhai",
+      "Ya Xu",
+      "Yu Wang",
+      "Yun Dai"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2024,
+    "selected": true,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2501.16450"
+    }
+  },
+  {
     "title": "A Precise Characterization of SGD Stability Using Loss Surface Geometry",
     "authors": [
       "Gregory Dexter",
       "Borja Ocejo",
-      "S. Sathiya Keerthi",
+      "Sathiya Keerthi",
       "Aman Gupta",
       "Ayan Acharya",
       "Rajiv Khanna"
@@ -336,14 +333,14 @@
       "Prakruthi Prabhakar",
       "Gaurav Srivastava",
       "Tianqi Wang",
-      "Zeinab S. Jalali",
+      "Zeinab S Jalali",
       "Varun Bharill",
       "Yunbo Ouyang",
       "Aastha Nigam",
       "Divya Venugopalan",
       "Aman Gupta",
       "Fedor Borisyuk",
-      "S. Sathiya Keerthi",
+      "Sathiya Keerthi",
       "Ajith Muralidharan"
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
@@ -387,7 +384,7 @@
       "Mingzhou Zhou",
       "Qingquan Song",
       "Siyu Zhu",
-      "Birjodh Singh Tiwana",
+      "Birjodh Tiwana",
       "Ganesh Parameswaran",
       "Siddharth Dangi",
       "Lars Hertel",
@@ -400,7 +397,7 @@
       "Hailing Cheng",
       "Lei Le",
       "Jonathan Hung",
-      "S. Sathiya Keerthi",
+      "Sathiya Keerthi",
       "Ruoyan Wang",
       "Fengyu Zhang",
       "Mohit Kothari",
@@ -431,7 +428,7 @@
     "authors": [
       "Qiang Charles Xiao",
       "Ajith Muralidharan",
-      "Birjodh Singh Tiwana",
+      "Birjodh Tiwana",
       "Johnson Jia",
       "Fedor Borisyuk",
       "Aman Gupta",
@@ -450,7 +447,7 @@
       "Changshuai Wei",
       "Benjamin Zelditch",
       "Joyce Chen",
-      "Andre Assuncao Silva T. Ribeiro",
+      "Andre Assuncao Silva T Ribeiro",
       "Jingyi Kenneth Tay",
       "Borja Ocejo Elizondo",
       "Sathiya Keerthi Selvaraj",
@@ -466,6 +463,27 @@
     }
   },
   {
+    "title": "mSAM: Micro-Batch-Averaged Sharpness-Aware Minimization",
+    "authors": [
+      "Kayhan Behdin",
+      "Qingquan Song",
+      "Aman Gupta",
+      "Sathiya Keerthi",
+      "Ayan Acharya",
+      "Borja Ocejo",
+      "Gregory Dexter",
+      "Rajiv Khanna",
+      "David Durfee",
+      "Rahul Mazumder"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2023,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2302.09693"
+    }
+  },
+  {
     "title": "Optimizing for Member Value in an Edge Building Marketplace",
     "authors": [
       "Ayan Acharya",
@@ -473,7 +491,7 @@
       "Ankan Saha",
       "Borja Ocejo",
       "Kinjal Basu",
-      "Sathiya Keerthi Selvaraj",
+      "Keerthi Selvaraj",
       "Rahul Mazumder",
       "Aman Gupta",
       "Parag Agrawal"
@@ -489,14 +507,14 @@
     "title": "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
     "authors": [
       "Aman Gupta",
-      "S. Sathiya Keerthi",
+      "S Sathiya Keerthi",
       "Ayan Acharya",
       "Miao Cheng",
       "Borja Ocejo Elizondo",
       "Rohan Ramanath",
       "Rahul Mazumder",
       "Kinjal Basu",
-      "J. Kenneth Tay",
+      "J Kenneth Tay",
       "Rupesh Gupta"
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
@@ -514,8 +532,8 @@
       "Borja Ocejo",
       "Kinjal Basu",
       "Ankan Saha",
-      "Sathiya Keerthi Selvaraj",
-      "Rahul Mazumder",
+      "Keerthi Selvaraj",
+      "Rahul Mazumdar",
       "Parag Agrawal",
       "Aman Gupta"
     ],
@@ -527,12 +545,14 @@
     }
   },
   {
-    "title": "QuantEase: Optimization-based Quantization for Language Models - An Efficient and Intuitive Algorithm",
+    "title": "QuantEase: Optimization-based Quantization for Language Models",
     "authors": [
       "Kayhan Behdin",
       "Ayan Acharya",
       "Aman Gupta",
-      "Sathiya Keerthi Selvaraj",
+      "Qingquan Song",
+      "Siyu Zhu",
+      "Sathiya Keerthi",
       "Rahul Mazumder"
     ],
     "venue": "arXiv preprint",
@@ -543,23 +563,19 @@
     }
   },
   {
-    "title": "mSAM: Micro-Batch-Averaged Sharpness-Aware Minimization",
+    "title": "A Light-speed Linear Program Solver for Personalized Recommendation with Diversity Constraints",
     "authors": [
-      "Kayhan Behdin",
-      "Qingquan Song",
+      "Haoyue Wang",
+      "Miao Cheng",
+      "Kinjal Basu",
       "Aman Gupta",
-      "Ayan Acharya",
-      "David Durfee",
-      "Borja Ocejo",
-      "S. Sathiya Keerthi",
+      "Keerthi Selvaraj",
       "Rahul Mazumder"
     ],
-    "venue": "arXiv preprint",
-    "year": 2023,
+    "venue": "OPT Workshop at NeurIPS",
+    "year": 2022,
     "selected": false,
-    "links": {
-      "arxiv": "https://arxiv.org/abs/2302.09693"
-    }
+    "links": {}
   },
   {
     "title": "Generalized Deep Mixed Models",
@@ -571,7 +587,7 @@
       "Yunbo Ouyang",
       "Qiang Charles Xiao",
       "Qingquan Song",
-      "Yi (Alice) Wu",
+      "Yi Wu",
       "Haichao Wei",
       "Huiji Gao"
     ],
@@ -604,15 +620,28 @@
       "Aman Gupta",
       "David Durfee",
       "Ayan Acharya",
-      "S. Sathiya Keerthi",
+      "Sathiya Keerthi",
       "Rahul Mazumder"
     ],
-    "venue": "arXiv preprint",
+    "venue": "OPT Workshop at NeurIPS",
     "year": 2022,
     "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2212.04343"
     }
+  },
+  {
+    "title": "Adam vs. SGD: Closing the generalization gap on image classification",
+    "authors": [
+      "Aman Gupta",
+      "Rohan Ramanath",
+      "Jun Shi",
+      "S Sathiya Keerthi"
+    ],
+    "venue": "OPT Workshop at NeurIPS",
+    "year": 2021,
+    "selected": false,
+    "links": {}
   },
   {
     "title": "Logit Attenuating Weight Normalization",
@@ -623,7 +652,7 @@
       "Anika Ramachandran",
       "Sirou Zhou",
       "Mingzhou Zhou",
-      "S. Sathiya Keerthi"
+      "S Sathiya Keerthi"
     ],
     "venue": "arXiv preprint",
     "year": 2021,
@@ -631,5 +660,94 @@
     "links": {
       "arxiv": "https://arxiv.org/abs/2108.05839"
     }
+  },
+  {
+    "title": "Image and video understanding for recommendation and spam detection systems",
+    "authors": [
+      "Aman Gupta",
+      "Sirjan Kafle",
+      "Di Wen",
+      "Dylan Wang",
+      "Sumit Srivastava",
+      "Suhit Sinha",
+      "Nikita Gupta",
+      "Bharat Jain",
+      "Ananth Sankar",
+      "Liang Zhang"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "year": 2020,
+    "selected": false,
+    "links": {}
+  },
+  {
+    "title": "Smoothed Gaussian Mixture Models for Video Classification and Recommendation",
+    "authors": [
+      "Aman Gupta",
+      "Rohan Ramanath",
+      "Jun Shi",
+      "Anika Ramachandran",
+      "Sirou Zhou",
+      "Mingzhou Zhou",
+      "S Sathiya Keerthi"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2020,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2012.11673"
+    }
+  },
+  {
+    "title": "Extracting compact representation of knowledge from gene expression data for protein-protein interaction",
+    "authors": [
+      "Haohan Wang",
+      "Aman Gupta",
+      "Ming Xu"
+    ],
+    "venue": "International Journal of Data Mining and Bioinformatics",
+    "year": 2017,
+    "selected": false,
+    "links": {}
+  },
+  {
+    "title": "Sparse Network Inference using the k-Support Norm",
+    "authors": [
+      "Aman Gupta",
+      "Haohan Wang",
+      "Rama Kumar Pasumarthi"
+    ],
+    "venue": "MLG Workshop at KDD",
+    "year": 2016,
+    "selected": false,
+    "links": {}
+  },
+  {
+    "title": "Learning structure in gene expression data using deep architectures, with an application to gene clustering",
+    "authors": [
+      "Aman Gupta",
+      "Haohan Wang",
+      "Madhavi Ganapathiraju"
+    ],
+    "venue": "IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
+    "year": 2015,
+    "selected": false,
+    "links": {}
+  },
+  {
+    "title": "Mycobacterium tuberculosis and Clostridium difficille interactomes: demonstration of rapid development of computational system for bacterial interactome prediction",
+    "authors": [
+      "Seshan Ananthasubramanian",
+      "Rahul Metri",
+      "Ankur Khetan",
+      "Aman Gupta",
+      "Adam Handen",
+      "Nagasuma Chandra",
+      "Madhavi Ganapathiraju"
+    ],
+    "venue": "Microbial Informatics and Experimentation",
+    "year": 2012,
+    "selected": false,
+    "links": {}
   }
 ]

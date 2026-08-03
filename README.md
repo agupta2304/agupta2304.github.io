@@ -1,4 +1,4 @@
-# amangupta.github.io
+# agupta2304.github.io
 
 Personal site. Content lives in JSON and Markdown under `src/`; a small Python script renders
 it to static HTML at the repository root, which is what GitHub Pages serves.
@@ -34,6 +34,16 @@ python3 -m venv .venv
 
 The build prints a count of remaining `TODO` / `20XX` placeholders so seeded stub content
 cannot quietly go live.
+
+To sanity-check the output before pushing:
+
+```bash
+.venv/bin/python src/check.py
+```
+
+It verifies HTML tag balance, that every internal link resolves, that the RSS feed is
+well-formed, that both themes define the same colour tokens, and that no unexpected external
+script sneaks in. It exits non-zero on failure.
 
 ## Editing content
 
@@ -130,26 +140,11 @@ git push
 Generated HTML is committed on purpose — that is what GitHub Pages serves, and it keeps the
 deploy free of any build infrastructure.
 
-## First-time GitHub Pages setup
+## GitHub Pages
 
-The repository must be named `<your-github-username>.github.io` for a user site. If your
-username is not `amangupta`, rename the folder and repo to match:
-
-```bash
-cd .. && mv amangupta.github.io <username>.github.io
-```
-
-Then update `url` in `src/data/site.json`, rebuild, and:
-
-```bash
-git remote add origin git@github.com:<username>/<username>.github.io.git
-git branch -M main
-git push -u origin main
-```
-
-In the repository, go to **Settings → Pages** and set **Source** to *Deploy from a branch*,
-branch `main`, folder `/ (root)`. The site is live at `https://<username>.github.io` within a
-minute or two.
+This deploys to <https://agupta2304.github.io> from the root of `main`, already configured
+under **Settings → Pages** (*Deploy from a branch*, `main`, `/ (root)`). A push goes live
+within a minute or two.
 
 `.nojekyll` at the root is required: without it GitHub Pages runs the output through Jekyll,
 which ignores directories beginning with an underscore and can rewrite files unexpectedly.

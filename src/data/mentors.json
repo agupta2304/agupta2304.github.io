@@ -2,22 +2,22 @@
   "intro": "An incomplete list of people whose guidance shaped how I think about research. I owe each of them more than a line.",
   "people": [
     {
-      "name": "TODO — mentor name",
-      "url": "",
-      "affiliation": "TODO — affiliation",
-      "note": "One clause on what you learned from them. Keep it specific: the habit, the question they kept asking, the standard they held you to."
+      "name": "S. Sathiya Keerthi",
+      "url": "http://keerthis.com/",
+      "affiliation": "Nubank; previously Principal Staff Scientist at LinkedIn",
+      "note": "My most frequent collaborator, co-author on seventeen of the papers listed here, across large-scale optimization, ranking, and LLM efficiency."
     },
     {
-      "name": "TODO — mentor name",
-      "url": "",
-      "affiliation": "TODO — affiliation",
-      "note": "One clause on what you learned from them."
+      "name": "Rahul Mazumder",
+      "url": "http://www.mit.edu/~rahulmaz/",
+      "affiliation": "Associate Professor, MIT",
+      "note": "Co-author on ten papers spanning optimization, quantization, and model compression."
     },
     {
-      "name": "TODO — mentor name",
+      "name": "Madhavi Ganapathiraju",
       "url": "",
-      "affiliation": "TODO — affiliation",
-      "note": "One clause on what you learned from them."
+      "affiliation": "Carnegie Mellon University",
+      "note": "Guided my early research on protein interaction networks and gene expression during my master's at Carnegie Mellon."
     }
   ]
 }
