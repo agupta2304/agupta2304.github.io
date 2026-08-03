@@ -575,7 +575,9 @@
     "venue": "OPT Workshop at NeurIPS",
     "year": 2022,
     "selected": false,
-    "links": {}
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2211.12409"
+    }
   },
   {
     "title": "Generalized Deep Mixed Models",
@@ -641,7 +643,9 @@
     "venue": "OPT Workshop at NeurIPS",
     "year": 2021,
     "selected": false,
-    "links": {}
+    "links": {
+      "pdf": "https://opt-ml.org/papers/2021/paper53.pdf"
+    }
   },
   {
     "title": "Logit Attenuating Weight Normalization",
@@ -678,7 +682,9 @@
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2020,
     "selected": false,
-    "links": {}
+    "links": {
+      "doi": "https://doi.org/10.1145/3394486.3406485"
+    }
   },
   {
     "title": "Smoothed Gaussian Mixture Models for Video Classification and Recommendation",
@@ -708,7 +714,9 @@
     "venue": "International Journal of Data Mining and Bioinformatics",
     "year": 2017,
     "selected": false,
-    "links": {}
+    "links": {
+      "doi": "https://doi.org/10.1504/ijdmb.2017.085711"
+    }
   },
   {
     "title": "Sparse Network Inference using the k-Support Norm",
@@ -720,7 +728,9 @@
     "venue": "MLG Workshop at KDD",
     "year": 2016,
     "selected": false,
-    "links": {}
+    "links": {
+      "pdf": "https://www.mlgworkshop.org/2016/paper/MLG2016_paper_28.pdf"
+    }
   },
   {
     "title": "Learning structure in gene expression data using deep architectures, with an application to gene clustering",
@@ -732,7 +742,10 @@
     "venue": "IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
     "year": 2015,
     "selected": false,
-    "links": {}
+    "links": {
+      "doi": "https://doi.org/10.1109/bibm.2015.7359871",
+      "preprint": "https://doi.org/10.1101/031906"
+    }
   },
   {
     "title": "Mycobacterium tuberculosis and Clostridium difficille interactomes: demonstration of rapid development of computational system for bacterial interactome prediction",
@@ -748,6 +761,8 @@
     "venue": "Microbial Informatics and Experimentation",
     "year": 2012,
     "selected": false,
-    "links": {}
+    "links": {
+      "doi": "https://doi.org/10.1186/2042-5783-2-4"
+    }
   }
 ]

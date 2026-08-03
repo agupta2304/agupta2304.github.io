@@ -32,7 +32,8 @@ ASSETS_DIR = ROOT / "assets"
 # Generated directories, wiped on every build so deleted posts do not linger.
 GENERATED_DIRS = (ROOT / "blog", ROOT / "publications")
 
-LINK_ORDER = ("pdf", "arxiv", "doi", "code", "slides", "poster", "video", "bibtex", "site")
+LINK_ORDER = ("pdf", "arxiv", "doi", "preprint", "code", "slides",
+              "poster", "video", "bibtex", "site")
 AUTHOR_LIMIT = 12   # lists longer than this get trimmed
 AUTHOR_KEEP = 8     # to this many names, plus an "and N others"
 
@@ -653,6 +654,11 @@ def build(refresh_views: bool = False) -> None:
     build_robots(site)
     build_llms_txt(profile, site, publications, talk_groups, posts)
     print(f"done: {len(publications)} publications, {len(posts)} posts")
+    unlinked = [p["title"] for p in publications if not p.get("links")]
+    if unlinked:
+        print(f"\n{len(unlinked)} publications have no link yet:")
+        for title in unlinked:
+            print(f"  {title[:68]}")
     report_placeholders()
 
 
