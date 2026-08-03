@@ -17,6 +17,20 @@
   {% endfor %}
 </section>
 
+{% if news %}
+<section class="section" id="news">
+  <h2>News</h2>
+  <ul class="news">
+    {% for item in news %}
+    <li>
+      <span class="news__when">{{ item.when }}</span>
+      <span class="news__what">{{ item.text | safe }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+
 <section class="section" id="papers">
   <h2>Selected papers</h2>
   {{ m.publication_years(selected_groups, profile.name) }}

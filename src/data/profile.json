@@ -3,19 +3,19 @@
   "monogram": "AG",
   "role": "Principal Machine Learning Engineer",
   "affiliation": "Nubank",
-  "location": "Palo Alto, CA",
+  "location": "San Francisco Bay Area",
   "headshot": "/assets/headshot.jpg",
-  "meta_description": "Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training, efficient inference, and the evaluation of large-scale AI agents.",
+  "meta_description": "Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training and alignment, efficient inference, and the evaluation of large-scale AI agents.",
   "about": [
-    "I lead research on LLM training and agents at <a href=\"https://nubank.com.br\">Nubank</a>, building and evaluating large-scale AI systems that serve financial services to well over 100 million customers.",
+    "I lead company-wide research on AI agents, foundation models, and LLMs at <a href=\"https://nubank.com.br\">Nubank</a>, where the systems we build serve more than 100 million customers.",
     "My work sits at the intersection of large-scale optimization, deep learning, and language models. Lately that has meant alignment and post-training, efficient training and inference, and the surprisingly hard problem of evaluating agents rigorously enough to put them in front of real customers. I care about research that survives contact with production.",
-    "Before Nubank I was a Senior Staff Machine Learning Scientist at LinkedIn, where I managed the AI foundations optimization team and oversaw large-scale optimization frameworks across Feed, Ads, and Jobs. Earlier I built machine learning systems at Apple and Amazon. I studied at Carnegie Mellon and BITS Pilani."
+    "Before Nubank I spent six years at LinkedIn, most recently as a Senior Staff Machine Learning Engineer and Senior Manager in Core AI, where I led the team compressing and distilling LinkedIn's ranking foundation model and drove large-scale optimization across Feed, Ads, and Jobs. Earlier I was a Senior Machine Learning Research Scientist at Apple and a software engineer at Amazon. I studied at Carnegie Mellon and BITS Pilani, and I have published 25+ papers and filed 10+ patents.",
+    "I serve on the program committees for ICLR, KDD, WWW, CIKM, and RecSys, and I am always happy to hear from people who want to work on these problems."
   ],
   "links": {
     "Email": "mailto:aman.gupta@nubank.com.br",
-    "Scholar": "https://scholar.google.com/citations?user=TODO",
-    "GitHub": "https://github.com/TODO",
-    "LinkedIn": "https://www.linkedin.com/in/TODO",
-    "X": "https://x.com/TODO"
+    "GitHub": "https://github.com/aman-gupta1",
+    "LinkedIn": "https://www.linkedin.com/in/aman-gupta1",
+    "Scholar": "https://scholar.google.com/citations?user=TODO"
   }
 }

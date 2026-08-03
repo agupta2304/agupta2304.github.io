@@ -40,6 +40,7 @@ cannot quietly go live.
 | What | Where |
 | --- | --- |
 | Name, about text, contact links | `src/data/profile.json` |
+| News items | `src/data/news.json` |
 | Publications | `src/data/publications.json` |
 | Talks and tutorials | `src/data/talks.json` |
 | Jobs and education | `src/data/experience.json` |
@@ -69,6 +70,21 @@ appears on `/publications/` regardless. The author matching `name` in `profile.j
 automatically. `note` renders as a small badge and can be omitted. Recognised link keys are
 `pdf`, `arxiv`, `code`, `slides`, `poster`, `video`, `bibtex`, and `site`; unknown keys still
 render, just at the end.
+
+### Adding a news item
+
+Prepend an entry to `src/data/news.json`:
+
+```json
+{ "date": "2026-11", "text": "Presented our tutorial at <a href=\"...\">CIKM 2026</a>." }
+```
+
+`date` is `YYYY-MM`. Entries sort newest first regardless of file order. `text` allows inline
+HTML, so links and `<em>` for paper titles both work. The homepage shows the six most recent;
+change `news_limit` in `src/data/site.json` to show more, or set it to `0` for all of them.
+
+The section sits directly below About. To move it above, cut the `{% if news %}` block in
+`src/templates/home.html` and paste it before the `id="about"` section.
 
 ### Adding a talk
 

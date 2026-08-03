@@ -2,25 +2,33 @@
   {
     "type": "tutorial",
     "title": "Building Production LLM Agents: An Evaluation-Driven Playbook",
-    "event": "CIKM 2026 — half-day tutorial (TODO: confirm acceptance before publishing)",
+    "event": "CIKM 2026, half-day tutorial",
     "location": "",
     "date": "2026-11",
     "links": {}
   },
   {
-    "type": "tutorial",
-    "title": "TODO — earlier tutorial title",
-    "event": "KDD (TODO: year and exact title)",
+    "type": "invited",
+    "title": "Self-improving agents and continual learning",
+    "event": "AI Engineer, with Shreya Rajpal",
     "location": "",
-    "date": "2025-08",
+    "date": "2026-07",
     "links": {}
   },
   {
     "type": "invited",
-    "title": "TODO — invited talk title",
-    "event": "TODO — host organization or workshop",
+    "title": "Scaling agentic AI systems",
+    "event": "NuSession Silicon Valley",
     "location": "",
-    "date": "2026-03",
+    "date": "2026-06",
+    "links": {}
+  },
+  {
+    "type": "invited",
+    "title": "Effective Quantization of Muon Optimizer States",
+    "event": "ICLR SPOT workshop",
+    "location": "",
+    "date": "2026-04",
     "links": {}
   }
 ]

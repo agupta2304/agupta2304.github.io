@@ -1,62 +1,635 @@
 [
   {
-    "title": "A Viable Simulation Recipe for Improving Production LLM Agents",
-    "authors": ["Aman Gupta", "TODO — co-authors"],
-    "venue": "TODO — venue",
+    "title": "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework",
+    "authors": [
+      "Aman Gupta",
+      "Kevin Rossell",
+      "Edesio Alcobaça",
+      "José Chrystian Lima Pacheco",
+      "Carolina Baptista de Lima",
+      "Shao Tang",
+      "Luiz Paulo Rabachini",
+      "Luis Moneda",
+      "Herbert Fei",
+      "Daniel Silva",
+      "Rohan Ramanath"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2026,
     "selected": true,
-    "links": {}
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2606.08867"
+    }
   },
   {
-    "title": "Length-Aware Batching for Variable-Length LLM Pretraining",
-    "authors": ["Aman Gupta", "TODO — co-authors"],
-    "venue": "TODO — venue",
-    "year": 2026,
+    "title": "360Brew: A Decoder-only Foundation Model for Personalized Ranking and Recommendation",
+    "authors": [
+      "Hamed Firooz",
+      "Maziar Sanjabi",
+      "Adrian Englhardt",
+      "Aman Gupta",
+      "Ben Levine",
+      "Dre Olgiati",
+      "Gungor Polatkan",
+      "Iuliia Melnychuk",
+      "Karthik Ramgopal",
+      "Kirill Talanine",
+      "Kutta Srinivasan",
+      "Luke Simon",
+      "Natesh Sivasubramoniapillai",
+      "Necip Fazil Ayan",
+      "Qingquan Song",
+      "Samira Sriram",
+      "Souvik Ghosh",
+      "Tao Song",
+      "Vignesh Kothapalli",
+      "Xiaoling Zhai",
+      "Ya Xu",
+      "Yu Wang",
+      "Yun Dai"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2025,
     "selected": true,
-    "links": {}
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2501.16450"
+    }
   },
   {
-    "title": "Adaptive Task Sampling for Multi-Task Training: Mean Validation AUC under Per-Task Safety Floors",
-    "authors": ["Aman Gupta", "TODO — co-authors"],
-    "venue": "TODO — venue",
-    "year": 2026,
+    "title": "AlphaPO: Reward Shape Matters for LLM Alignment",
+    "authors": [
+      "Aman Gupta",
+      "Shao Tang",
+      "Qingquan Song",
+      "Sirou Zhu",
+      "Jiwoo Hong",
+      "Ankan Saha",
+      "Viral Gupta",
+      "Noah Lee",
+      "Eunki Kim",
+      "Siyu Zhu",
+      "Parag Agrawal",
+      "Natesh S. Pillai",
+      "S. Sathiya Keerthi"
+    ],
+    "venue": "International Conference on Machine Learning (ICML)",
+    "year": 2025,
     "selected": true,
-    "links": {}
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2501.03884",
+      "doi": "https://proceedings.mlr.press/v267/gupta25d.html"
+    }
   },
   {
-    "title": "SafeMix-ID: Branch-Free Identification and Constraint-Aware Online Batch Mixing for Multitask LLM Training",
-    "authors": ["Aman Gupta", "TODO — co-authors"],
-    "venue": "TODO — venue",
-    "year": 2026,
-    "selected": false,
-    "links": {}
-  },
-  {
-    "title": "Hardware-Aware LLM Inference Optimization on NVIDIA B200 GPUs",
-    "authors": ["Aman Gupta", "TODO — co-authors"],
-    "venue": "TODO — venue",
-    "year": 2026,
-    "selected": true,
-    "links": {}
-  },
-  {
-    "title": "Post-Training Calibration for Binary DNN Scores",
-    "authors": ["Aman Gupta", "TODO — co-authors"],
-    "venue": "TODO — venue",
-    "year": 2026,
-    "selected": false,
-    "links": {}
-  },
-  {
-    "title": "TODO — replace with a real earlier paper (this entry only exists to show the year grouping)",
-    "authors": ["TODO — first author", "Aman Gupta"],
-    "venue": "NeurIPS",
+    "title": "Effective Quantization of Muon Optimizer States",
+    "authors": [
+      "Aman Gupta",
+      "Rafael Celente",
+      "Abhishek Shivanna",
+      "D. T. Braithwaite",
+      "Gregory Dexter",
+      "Shao Tang",
+      "Hiroto Udagawa",
+      "Daniel Silva",
+      "Rohan Ramanath",
+      "S. Sathiya Keerthi"
+    ],
+    "venue": "arXiv preprint",
     "year": 2025,
     "selected": false,
-    "note": "Spotlight",
     "links": {
-      "arxiv": "https://arxiv.org/abs/TODO",
-      "code": "https://github.com/TODO"
+      "arxiv": "https://arxiv.org/abs/2509.23106"
+    }
+  },
+  {
+    "title": "Efficient AI in Practice: Training and Deployment of Efficient LLMs for Industry Applications",
+    "authors": [
+      "Kayhan Behdin",
+      "Yun Dai",
+      "Ata Fatahi Baarzi",
+      "Aman Gupta",
+      "Qingquan Song",
+      "Shao Tang",
+      "Hejian Sang",
+      "Gregory Dexter",
+      "Sirou Zhu",
+      "Siyu Zhu",
+      "Tejas Dharamsi",
+      "Maziar Sanjabi",
+      "Vignesh Kothapalli",
+      "Hamed Firooz",
+      "Zhoutong Fu",
+      "Yihan Cao",
+      "Pin-Lun Hsu",
+      "Fedor Borisyuk",
+      "Zhipeng Wang",
+      "Rahul Mazumder",
+      "Natesh S. Pillai",
+      "Luke Simon"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2025,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2502.14305"
+    }
+  },
+  {
+    "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
+    "authors": [
+      "Kayhan Behdin",
+      "Yun Dai",
+      "Gregory Dexter",
+      "Aman Gupta",
+      "Rahul Mazumder",
+      "Ankan Saha",
+      "Qingquan Song",
+      "Shao Tang",
+      "Sirou Zhu",
+      "Pin-Lun Hsu"
+    ],
+    "venue": "The Web Conference (WWW), Companion Proceedings",
+    "year": 2025,
+    "selected": false,
+    "links": {
+      "doi": "https://doi.org/10.1145/3701716.3715868"
+    }
+  },
+  {
+    "title": "LANTERN: Scalable Distillation of Large Language Models for Job-Person Fit and Explanation",
+    "authors": [
+      "Zhoutong Fu",
+      "Yihan Cao",
+      "Yi-Lin Chen",
+      "Aman Lunia",
+      "Liming Dong",
+      "Neha Saraf",
+      "Ruijie Jiang",
+      "Yun Dai",
+      "Qingquan Song",
+      "Tan Wang",
+      "Guoyao Li",
+      "Derek Koh",
+      "Haichao Wei",
+      "Zhipeng Wang",
+      "Aman Gupta",
+      "Chengming Jiang",
+      "Jianqiang Shen",
+      "Liangjie Hong",
+      "Wenjing Zhang"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2025,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2510.05490"
+    }
+  },
+  {
+    "title": "LLM Query Scheduling with Prefix Reuse and Latency Constraints",
+    "authors": [
+      "Gregory Dexter",
+      "Shao Tang",
+      "Ata Fatahi Baarzi",
+      "Qingquan Song",
+      "Tejas Dharamsi",
+      "Aman Gupta"
+    ],
+    "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
+    "year": 2025,
+    "selected": true,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2502.04677",
+      "doi": "http://papers.nips.cc/paper_files/paper/2025/hash/878bbdf6227315995c207561211ddb53-Abstract-Conference.html"
+    }
+  },
+  {
+    "title": "On the Robustness of Reward Models for Language Model Alignment",
+    "authors": [
+      "Jiwoo Hong",
+      "Noah Lee",
+      "Eunki Kim",
+      "Guijin Son",
+      "Woojin Chung",
+      "Aman Gupta",
+      "Shao Tang",
+      "James Thorne"
+    ],
+    "venue": "International Conference on Machine Learning (ICML)",
+    "year": 2025,
+    "selected": true,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2505.07271",
+      "doi": "https://proceedings.mlr.press/v267/hong25d.html"
+    }
+  },
+  {
+    "title": "Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems",
+    "authors": [
+      "Kayhan Behdin",
+      "Ata Fatahi Baarzi",
+      "Qingquan Song",
+      "Yun Dai",
+      "Aman Gupta",
+      "Zhipeng Wang",
+      "Hejian Sang",
+      "Shao Tang",
+      "Gregory Dexter",
+      "Sirou Zhu",
+      "Siyu Zhu",
+      "Tejas Dharamsi",
+      "Vignesh Kothapalli",
+      "Zhoutong Fu",
+      "Yihan Cao",
+      "Pin-Lun Hsu",
+      "Fedor Borisyuk",
+      "Natesh S. Pillai",
+      "Luke Simon",
+      "Rahul Mazumder"
+    ],
+    "venue": "Empirical Methods in Natural Language Processing (EMNLP), Industry Track",
+    "year": 2025,
+    "selected": true,
+    "links": {
+      "doi": "https://doi.org/10.18653/v1/2025.emnlp-industry.119"
+    }
+  },
+  {
+    "title": "Your Spending Needs Attention: Modeling Financial Habits with Transformers",
+    "authors": [
+      "D. T. Braithwaite",
+      "Misael Cavalcanti",
+      "R. Austin McEver",
+      "Hiroto Udagawa",
+      "Daniel Silva",
+      "Rohan Ramanath",
+      "Felipe Meneses",
+      "Arissa Yoshida",
+      "Evan Wingert",
+      "Matheus Ramos",
+      "Brian Zanfelice",
+      "Aman Gupta"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2025,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2507.23267"
+    }
+  },
+  {
+    "title": "A Precise Characterization of SGD Stability Using Loss Surface Geometry",
+    "authors": [
+      "Gregory Dexter",
+      "Borja Ocejo",
+      "S. Sathiya Keerthi",
+      "Aman Gupta",
+      "Ayan Acharya",
+      "Rajiv Khanna"
+    ],
+    "venue": "International Conference on Learning Representations (ICLR)",
+    "year": 2024,
+    "selected": true,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2401.12332",
+      "doi": "https://openreview.net/forum?id=UMOlFJzLfL"
+    }
+  },
+  {
+    "title": "Efficient user history modeling with amortized inference for deep learning recommendation models",
+    "authors": [
+      "Lars Hertel",
+      "Neil Daftary",
+      "Fedor Borisyuk",
+      "Aman Gupta",
+      "Rahul Mazumder"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2024,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2412.06924"
+    }
+  },
+  {
+    "title": "FFSplit: Split Feed-Forward Network For Optimizing Accuracy-Efficiency Trade-off in Language Model Inference",
+    "authors": [
+      "Zirui Liu",
+      "Qingquan Song",
+      "Qiang Charles Xiao",
+      "Sathiya Keerthi Selvaraj",
+      "Rahul Mazumder",
+      "Aman Gupta",
+      "Xia Hu"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2024,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2401.04044"
+    }
+  },
+  {
+    "title": "LiMAML: Personalization of Deep Recommender Models via Meta Learning",
+    "authors": [
+      "Ruofan Wang",
+      "Prakruthi Prabhakar",
+      "Gaurav Srivastava",
+      "Tianqi Wang",
+      "Zeinab S. Jalali",
+      "Varun Bharill",
+      "Yunbo Ouyang",
+      "Aastha Nigam",
+      "Divya Venugopalan",
+      "Aman Gupta",
+      "Fedor Borisyuk",
+      "S. Sathiya Keerthi",
+      "Ajith Muralidharan"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "year": 2024,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2403.00803",
+      "doi": "https://doi.org/10.1145/3637528.3671599"
+    }
+  },
+  {
+    "title": "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn",
+    "authors": [
+      "Fedor Borisyuk",
+      "Qingquan Song",
+      "Mingzhou Zhou",
+      "Ganesh Parameswaran",
+      "Madhu Arun",
+      "Siva Popuri",
+      "Tugrul Bingol",
+      "Zhuotao Pei",
+      "Kuang-Hsuan Lee",
+      "Lu Zheng",
+      "Qizhan Shao",
+      "Ali Naqvi",
+      "Sen Zhou",
+      "Aman Gupta"
+    ],
+    "venue": "ACM International Conference on Information and Knowledge Management (CIKM)",
+    "year": 2024,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2407.13218",
+      "doi": "https://doi.org/10.1145/3627673.3680091"
+    }
+  },
+  {
+    "title": "LiRank: Industrial Large Scale Ranking Models at LinkedIn",
+    "authors": [
+      "Fedor Borisyuk",
+      "Mingzhou Zhou",
+      "Qingquan Song",
+      "Siyu Zhu",
+      "Birjodh Singh Tiwana",
+      "Ganesh Parameswaran",
+      "Siddharth Dangi",
+      "Lars Hertel",
+      "Qiang Charles Xiao",
+      "Xiaochen Hou",
+      "Yunbo Ouyang",
+      "Aman Gupta",
+      "Sheallika Singh",
+      "Dan Liu",
+      "Hailing Cheng",
+      "Lei Le",
+      "Jonathan Hung",
+      "S. Sathiya Keerthi",
+      "Ruoyan Wang",
+      "Fengyu Zhang",
+      "Mohit Kothari",
+      "Chen Zhu",
+      "Daqi Sun",
+      "Yun Dai",
+      "Xun Luan",
+      "Sirou Zhu",
+      "Zhiwei Wang",
+      "Neil Daftary",
+      "Qianqi Shen",
+      "Chengming Jiang",
+      "Haichao Wei",
+      "Maneesh Varshney",
+      "Amol Ghoting",
+      "Souvik Ghosh"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "year": 2024,
+    "selected": true,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2402.06859",
+      "doi": "https://doi.org/10.1145/3637528.3671561"
+    }
+  },
+  {
+    "title": "MultiSlot ReRanker: A Generic Model-based Re-Ranking Framework in Recommendation Systems",
+    "authors": [
+      "Qiang Charles Xiao",
+      "Ajith Muralidharan",
+      "Birjodh Singh Tiwana",
+      "Johnson Jia",
+      "Fedor Borisyuk",
+      "Aman Gupta",
+      "Dawn Woodard"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2024,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2401.06293"
+    }
+  },
+  {
+    "title": "Neural Optimization with Adaptive Heuristics for Intelligent Marketing System",
+    "authors": [
+      "Changshuai Wei",
+      "Benjamin Zelditch",
+      "Joyce Chen",
+      "Andre Assuncao Silva T. Ribeiro",
+      "Jingyi Kenneth Tay",
+      "Borja Ocejo Elizondo",
+      "Sathiya Keerthi Selvaraj",
+      "Aman Gupta",
+      "Licurgo Benemann De Almeida"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "year": 2024,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2405.10490",
+      "doi": "https://doi.org/10.1145/3637528.3671591"
+    }
+  },
+  {
+    "title": "Optimizing for Member Value in an Edge Building Marketplace",
+    "authors": [
+      "Ayan Acharya",
+      "Siyuan Gao",
+      "Ankan Saha",
+      "Borja Ocejo",
+      "Kinjal Basu",
+      "Sathiya Keerthi Selvaraj",
+      "Rahul Mazumder",
+      "Aman Gupta",
+      "Parag Agrawal"
+    ],
+    "venue": "ACM International Conference on Information and Knowledge Management (CIKM)",
+    "year": 2023,
+    "selected": false,
+    "links": {
+      "doi": "https://doi.org/10.1145/3583780.3615000"
+    }
+  },
+  {
+    "title": "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
+    "authors": [
+      "Aman Gupta",
+      "S. Sathiya Keerthi",
+      "Ayan Acharya",
+      "Miao Cheng",
+      "Borja Ocejo Elizondo",
+      "Rohan Ramanath",
+      "Rahul Mazumder",
+      "Kinjal Basu",
+      "J. Kenneth Tay",
+      "Rupesh Gupta"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "year": 2023,
+    "selected": true,
+    "links": {
+      "doi": "https://doi.org/10.1145/3580305.3599183"
+    }
+  },
+  {
+    "title": "Promoting Inactive Members in Edge-Building Marketplace",
+    "authors": [
+      "Ayan Acharya",
+      "Siyuan Gao",
+      "Borja Ocejo",
+      "Kinjal Basu",
+      "Ankan Saha",
+      "Sathiya Keerthi Selvaraj",
+      "Rahul Mazumder",
+      "Parag Agrawal",
+      "Aman Gupta"
+    ],
+    "venue": "The Web Conference (WWW), Companion Proceedings",
+    "year": 2023,
+    "selected": false,
+    "links": {
+      "doi": "https://doi.org/10.1145/3543873.3587647"
+    }
+  },
+  {
+    "title": "QuantEase: Optimization-based Quantization for Language Models - An Efficient and Intuitive Algorithm",
+    "authors": [
+      "Kayhan Behdin",
+      "Ayan Acharya",
+      "Aman Gupta",
+      "Sathiya Keerthi Selvaraj",
+      "Rahul Mazumder"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2023,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2309.01885"
+    }
+  },
+  {
+    "title": "mSAM: Micro-Batch-Averaged Sharpness-Aware Minimization",
+    "authors": [
+      "Kayhan Behdin",
+      "Qingquan Song",
+      "Aman Gupta",
+      "Ayan Acharya",
+      "David Durfee",
+      "Borja Ocejo",
+      "S. Sathiya Keerthi",
+      "Rahul Mazumder"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2023,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2302.09693"
+    }
+  },
+  {
+    "title": "Generalized Deep Mixed Models",
+    "authors": [
+      "Jun Shi",
+      "Chengming Jiang",
+      "Aman Gupta",
+      "Mingzhou Zhou",
+      "Yunbo Ouyang",
+      "Qiang Charles Xiao",
+      "Qingquan Song",
+      "Yi (Alice) Wu",
+      "Haichao Wei",
+      "Huiji Gao"
+    ],
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "year": 2022,
+    "selected": false,
+    "links": {
+      "doi": "https://doi.org/10.1145/3534678.3539103"
+    }
+  },
+  {
+    "title": "Heterogeneous Calibration: A post-hoc model-agnostic framework for improved generalization",
+    "authors": [
+      "David Durfee",
+      "Aman Gupta",
+      "Kinjal Basu"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2022,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2202.04837"
+    }
+  },
+  {
+    "title": "Improved Deep Neural Network Generalization Using m-Sharpness-Aware Minimization",
+    "authors": [
+      "Kayhan Behdin",
+      "Qingquan Song",
+      "Aman Gupta",
+      "David Durfee",
+      "Ayan Acharya",
+      "S. Sathiya Keerthi",
+      "Rahul Mazumder"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2022,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2212.04343"
+    }
+  },
+  {
+    "title": "Logit Attenuating Weight Normalization",
+    "authors": [
+      "Aman Gupta",
+      "Rohan Ramanath",
+      "Jun Shi",
+      "Anika Ramachandran",
+      "Sirou Zhou",
+      "Mingzhou Zhou",
+      "S. Sathiya Keerthi"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2021,
+    "selected": false,
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2108.05839"
     }
   }
 ]

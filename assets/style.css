@@ -238,6 +238,38 @@ a:focus-visible {
   font-size: var(--step--1);
 }
 
+/* ---------- News ---------- */
+
+.news {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news li {
+  display: grid;
+  grid-template-columns: 5rem 1fr;
+  gap: 0 1.1rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.news li:last-child { margin-bottom: 0; }
+
+.news__when {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--faint);
+  padding-top: 0.32rem;
+  white-space: nowrap;
+}
+
+.news__what em {
+  font-style: italic;
+  color: var(--ink);
+}
+
 /* ---------- Publications ---------- */
 
 .year-group { margin-bottom: 1.9rem; }
@@ -576,12 +608,16 @@ code, kbd, samp {
     flex-basis: 72px;
   }
 
-  .role {
+  .role,
+  .news li {
     grid-template-columns: 1fr;
     gap: 0.1rem;
   }
 
-  .role__when { padding-top: 0; }
+  .role__when,
+  .news__when { padding-top: 0; }
+
+  .news li { margin-bottom: 0.9rem; }
 
   .contact { grid-template-columns: 1fr; gap: 0.15rem; }
   .contact dd { margin-bottom: 0.5rem; }

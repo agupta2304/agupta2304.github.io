@@ -1,41 +1,42 @@
 {
   "roles": [
     {
-      "when": "20XX — present",
+      "when": "2025 — present",
       "title": "Principal Machine Learning Engineer",
       "org": "Nubank",
       "url": "https://nubank.com.br",
-      "note": "Lead research for LLM training and agents: building, optimizing, and evaluating large-scale AI systems for financial services."
+      "note": "Lead company-wide research on AI agents, foundation models, LLMs, and large-scale constrained optimization for 100M+ customers."
     },
     {
-      "when": "20XX — 20XX",
-      "title": "Senior Staff Machine Learning Scientist",
+      "when": "2019 — 2025",
+      "title": "Senior Staff Machine Learning Engineer, Senior Manager (Core AI)",
       "org": "LinkedIn",
       "url": "https://www.linkedin.com",
-      "note": "Managed the AI foundations optimization team and oversaw the integration of large-scale optimization frameworks across Feed, Ads, and Jobs."
+      "note": "Tech lead for compressing and distilling LinkedIn's ranking foundation model, and manager of the AI foundations optimization team working across Feed, Ads, Jobs, Notifications, and Growth."
     },
     {
-      "when": "20XX — 20XX",
-      "title": "TODO — role",
+      "when": "2016 — 2019",
+      "title": "Senior Machine Learning Research Scientist",
       "org": "Apple",
-      "note": "Built scalable machine learning systems."
+      "note": "Deep learning for computer vision and autonomous systems."
     },
     {
-      "when": "20XX — 20XX",
-      "title": "TODO — role",
+      "when": "2012 — 2014",
+      "title": "Software Engineer",
       "org": "Amazon",
-      "note": "Built scalable machine learning systems."
+      "note": "Scalable services for infrastructure automation and security on the E-Commerce Platform Services team."
     }
   ],
   "education": [
     {
-      "when": "20XX",
-      "title": "TODO — degree",
-      "org": "Carnegie Mellon University"
+      "when": "2014 — 2016",
+      "title": "M.S. in Computer Science",
+      "org": "Carnegie Mellon University",
+      "note": "Research master's in machine learning and AI, supported by a Graduate Research Fellowship."
     },
     {
-      "when": "20XX",
-      "title": "TODO — degree",
+      "when": "2008 — 2012",
+      "title": "B.S. in Computer Science",
       "org": "BITS Pilani"
     }
   ]

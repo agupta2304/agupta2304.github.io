@@ -30,7 +30,9 @@ ASSETS_DIR = ROOT / "assets"
 # Generated directories, wiped on every build so deleted posts do not linger.
 GENERATED_DIRS = (ROOT / "blog", ROOT / "publications")
 
-LINK_ORDER = ("pdf", "arxiv", "code", "slides", "poster", "video", "bibtex", "site")
+LINK_ORDER = ("pdf", "arxiv", "doi", "code", "slides", "poster", "video", "bibtex", "site")
+AUTHOR_LIMIT = 12   # lists longer than this get trimmed
+AUTHOR_KEEP = 8     # to this many names, plus an "and N others"
 TALK_SECTIONS = (("tutorial", "Conference tutorials"), ("invited", "Invited talks"), ("other", "Other"))
 MONTHS = ("January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December")
@@ -82,7 +84,7 @@ def long_date(value: datetime) -> str:
 # content loading
 # --------------------------------------------------------------------------
 
-def load_publications() -> list[dict]:
+def load_publications(me: str) -> list[dict]:
     pubs = load("publications.json")
     for p in pubs:
         p["links"] = ordered_links(p.get("links"))
@@ -90,6 +92,7 @@ def load_publications() -> list[dict]:
             (p["links"][k] for k in ("arxiv", "pdf", "site", "code") if k in p["links"]),
             None,
         )
+        p["authors_shown"], p["authors_more"] = elide_authors(p.get("authors", []), me)
     # Stable sort on year alone, so ordering within a year stays as authored in the JSON.
     pubs.sort(key=lambda p: p.get("year", 0), reverse=True)
     return pubs
@@ -100,6 +103,24 @@ def group_by_year(pubs: list[dict]) -> list[tuple[int, list[dict]]]:
     for p in pubs:
         groups.setdefault(p.get("year", 0), []).append(p)
     return sorted(groups.items(), key=lambda kv: kv[0], reverse=True)
+
+
+def load_news(limit: int) -> list[dict]:
+    items = load("news.json")
+    items.sort(key=lambda n: str(n.get("date", "")), reverse=True)
+    for item in items:
+        item["when"] = month_year(item.get("date", ""))
+    return items[:limit] if limit else items
+
+
+def elide_authors(authors: list[str], me: str) -> tuple[list[str], int]:
+    """Long industry author lists swamp the entry, so trim them but always keep `me`."""
+    if len(authors) <= AUTHOR_LIMIT:
+        return authors, 0
+    kept = authors[:AUTHOR_KEEP]
+    if me in authors and me not in kept:
+        kept = kept[:AUTHOR_KEEP - 1] + [me]
+    return kept, len(authors) - len(kept)
 
 
 def load_talks() -> list[dict]:
@@ -269,9 +290,10 @@ def build() -> None:
         print(f"  note: {headshot} not found, using the monogram instead")
         profile["headshot"] = None
 
-    publications = load_publications()
+    publications = load_publications(profile["name"])
     selected = [p for p in publications if p.get("selected")]
     talk_groups = load_talks()
+    news = load_news(site.get("news_limit", 6))
     experience = load("experience.json")
     mentors = load("mentors.json")
     posts = load_posts()
@@ -298,6 +320,7 @@ def build() -> None:
         page={"path": "/"},
         selected_groups=group_by_year(selected),
         talk_groups=talk_groups,
+        news=news,
         experience=experience.get("roles", []),
         education=experience.get("education", []),
         mentors=mentors.get("people", []),

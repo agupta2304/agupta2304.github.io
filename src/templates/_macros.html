@@ -15,11 +15,12 @@
 {% endmacro %}
 
 
-{% macro authors(list, me) %}
-  {%- for a in list -%}
+{% macro authors(shown, more, me) %}
+  {%- for a in shown -%}
     {%- if a == me -%}<span class="me">{{ a }}</span>{%- else -%}{{ a }}{%- endif -%}
     {%- if not loop.last %}, {% endif -%}
   {%- endfor -%}
+  {%- if more %}, and {{ more }} others{% endif -%}
 {% endmacro %}
 
 
@@ -39,7 +40,7 @@
   {% else %}
   <span class="pub__title">{{ p.title }}</span>
   {% endif %}
-  <p class="pub__authors">{{ authors(p.authors, me) }}</p>
+  <p class="pub__authors">{{ authors(p.authors_shown, p.authors_more, me) }}</p>
   <p class="pub__venue">{{ p.venue }}{% if p.year %}, {{ p.year }}{% endif %}{% if p.note %}<span class="pub__note">{{ p.note }}</span>{% endif %}</p>
   {{ links(p.links) }}
 </div>

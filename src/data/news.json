@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-07",
+    "text": "Our tutorial <em>Building Production LLM Agents: An Evaluation-Driven Playbook</em> was accepted to the <a href=\"https://cikm2026.org\">CIKM 2026</a> tutorials track."
+  },
+  {
+    "date": "2026-07",
+    "text": "Gave a talk at AI Engineer with Shreya Rajpal on self-improving agents and continual learning."
+  },
+  {
+    "date": "2026-06",
+    "text": "Our AI Core team hosted the first NuSession in Silicon Valley, on scaling agentic AI systems to 135M users."
+  },
+  {
+    "date": "2026-05",
+    "text": "<em>Building Customer Support Agents at 100M-User Scale: An Evaluation-Driven Framework</em> was accepted to KDD 2026."
+  },
+  {
+    "date": "2026-04",
+    "text": "Presented <em>Effective Quantization of Muon Optimizer States</em> at the ICLR SPOT workshop, scaling 8-bit Muon to 2.7B parameters."
+  },
+  {
+    "date": "2025-07",
+    "text": "<em>AlphaPO: Reward Shape Matters for LLM Alignment</em> and <em>On the Robustness of Reward Models</em> both appeared at ICML 2025."
+  },
+  {
+    "date": "2025-04",
+    "text": "Joined Nubank to lead research on LLM training and agents."
+  }
+]
