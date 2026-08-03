@@ -352,8 +352,39 @@ a:focus-visible {
   color: var(--faint);
 }
 
-.pub { margin-bottom: 1.35rem; }
+/* Venue acronym sits in its own gutter so the list can be scanned by conference. */
+.pub {
+  display: grid;
+  grid-template-columns: 5.25rem minmax(0, 1fr);
+  gap: 0 1rem;
+  margin-bottom: 1.35rem;
+}
+
 .pub:last-child { margin-bottom: 0; }
+
+.pub__tag {
+  justify-self: start;
+  margin-top: 0.3rem;
+  padding: 0.16rem 0.36rem;
+  border-radius: 3px;
+  background: var(--mark);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: help;
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.pub__badges { margin: 0.25rem 0 0; }
+
+.pub__badges .pub__note {
+  margin: 0 0.35rem 0 0;
+}
 
 .pub__title {
   display: block;
@@ -381,13 +412,6 @@ a.pub__title:hover {
 .pub__authors .me {
   color: var(--ink);
   font-weight: 600;
-}
-
-.pub__venue {
-  margin: 0.1rem 0 0;
-  font-size: 0.9rem;
-  font-style: italic;
-  color: var(--faint);
 }
 
 .pub__note {
@@ -443,6 +467,11 @@ a.pub__title:hover {
   font-family: var(--mono);
   font-size: 0.78rem;
   color: var(--faint);
+}
+
+.talk__views {
+  color: var(--faint);
+  cursor: help;
 }
 
 /* ---------- Experience ---------- */
@@ -689,6 +718,13 @@ code, kbd, samp {
     grid-template-columns: 1fr;
     gap: 0.1rem;
   }
+
+  .pub {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .pub__tag { margin-top: 0; }
 
   .role__when,
   .news__when { padding-top: 0; }

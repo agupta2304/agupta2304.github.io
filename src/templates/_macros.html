@@ -35,14 +35,19 @@
 
 {% macro publication(p, me) %}
 <div class="pub">
-  {% if p.primary_link %}
-  <a class="pub__title" href="{{ p.primary_link }}">{{ p.title }}</a>
-  {% else %}
-  <span class="pub__title">{{ p.title }}</span>
-  {% endif %}
-  <p class="pub__authors">{{ authors(p.authors_shown, p.authors_more, me) }}</p>
-  <p class="pub__venue">{{ p.venue }}{% if p.year %}, {{ p.year }}{% endif %}{% if p.note %}<span class="pub__note">{{ p.note }}</span>{% endif %}</p>
-  {{ links(p.links) }}
+  <span class="pub__tag" title="{{ p.venue_full }}">{{ p.venue_short }}</span>
+  <div class="pub__body">
+    {% if p.primary_link %}
+    <a class="pub__title" href="{{ p.primary_link }}">{{ p.title }}</a>
+    {% else %}
+    <span class="pub__title">{{ p.title }}</span>
+    {% endif %}
+    <p class="pub__authors">{{ authors(p.authors_shown, p.authors_more, me) }}</p>
+    {% if p.badges %}
+    <p class="pub__badges">{% for b in p.badges %}<span class="pub__note">{{ b }}</span>{% endfor %}</p>
+    {% endif %}
+    {{ links(p.links) }}
+  </div>
 </div>
 {% endmacro %}
 
@@ -64,6 +69,11 @@
     {{ t.event }}{% if t.location %}, {{ t.location }}{% endif %}
     <span class="talk__date">&nbsp;{{ t.date }}</span>
   </p>
-  {{ links(t.links) }}
+  {% if t.links or t.views %}
+  <p class="pub__links">
+    {%- for label, href in t.links.items() %}<a href="{{ href }}">{{ label }}</a>{% endfor -%}
+    {%- if t.views %}<span class="talk__views" title="YouTube views as of {{ t.views_as_of }}">{{ t.views }} views</span>{% endif -%}
+  </p>
+  {% endif %}
 </div>
 {% endmacro %}

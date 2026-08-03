@@ -33,6 +33,17 @@ GENERATED_DIRS = (ROOT / "blog", ROOT / "publications")
 LINK_ORDER = ("pdf", "arxiv", "doi", "code", "slides", "poster", "video", "bibtex", "site")
 AUTHOR_LIMIT = 12   # lists longer than this get trimmed
 AUTHOR_KEEP = 8     # to this many names, plus an "and N others"
+
+STATS_FILE = DATA_DIR / "video-stats.json"
+BROWSER_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
+
+# Venues with no parenthesised acronym to pull out.
+VENUE_SHORT = {
+    "arXiv preprint": "arXiv",
+    "International Journal of Data Mining and Bioinformatics": "IJDMB",
+    "Microbial Informatics and Experimentation": "Journal",
+}
 TALK_SECTIONS = (("tutorial", "Conference tutorials"), ("invited", "Invited talks"), ("other", "Other"))
 MONTHS = ("January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December")
@@ -80,6 +91,73 @@ def long_date(value: datetime) -> str:
     return f"{MONTHS[value.month - 1]} {value.day}, {value.year}"
 
 
+def venue_parts(venue: str) -> tuple[str, str, str]:
+    """Split a venue into (acronym for the chip, full name, qualifier).
+
+    'Empirical Methods ... (EMNLP), Industry Track' -> ('EMNLP', 'Empirical Methods
+    ... (EMNLP)', 'Industry Track')
+    """
+    base, _, qualifier = venue.partition(", ")
+    short = VENUE_SHORT.get(base)
+    if not short:
+        parenthesised = re.search(r"\(([^)]+)\)$", base)
+        workshop = re.fullmatch(r"(\S+) Workshop at (\S+)", base)
+        if parenthesised:
+            short = parenthesised.group(1)
+        elif workshop:
+            short = f"{workshop.group(1)}@{workshop.group(2)}"
+        else:
+            short = base
+    return short, base, qualifier
+
+
+def compact_count(number: int) -> str:
+    if number < 1000:
+        return str(number)
+    if number < 1_000_000:
+        return f"{number / 1000:.1f}K".replace(".0K", "K")
+    return f"{number / 1_000_000:.1f}M".replace(".0M", "M")
+
+
+def youtube_id(url: str) -> str | None:
+    found = re.search(r"(?:v=|youtu\.be/|/embed/)([\w-]{11})", url)
+    return found.group(1) if found else None
+
+
+def load_video_stats() -> dict:
+    if STATS_FILE.exists():
+        return json.loads(STATS_FILE.read_text(encoding="utf-8"))
+    return {}
+
+
+def refresh_video_stats(ids: list[str], stats: dict) -> dict:
+    """Read public view counts off the watch pages and cache them.
+
+    Only runs under --refresh-views. The cache is committed, so ordinary builds
+    need no network and stay byte-for-byte reproducible.
+    """
+    import urllib.request
+
+    today = datetime.now(timezone.utc).date().isoformat()
+    for video in ids:
+        request = urllib.request.Request(
+            f"https://www.youtube.com/watch?v={video}", headers={"User-Agent": BROWSER_UA})
+        try:
+            page = urllib.request.urlopen(request, timeout=30).read().decode("utf-8", "replace")
+        except Exception as exc:
+            print(f"  warn: could not fetch {video} ({exc}); keeping cached value")
+            continue
+        found = re.search(r'"viewCount":"(\d+)"', page)
+        if not found:
+            print(f"  warn: no view count in the page for {video}; keeping cached value")
+            continue
+        stats[video] = {"views": int(found.group(1)), "checked": today}
+        print(f"  {video}: {int(found.group(1)):,} views")
+
+    STATS_FILE.write_text(json.dumps(stats, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return stats
+
+
 # --------------------------------------------------------------------------
 # content loading
 # --------------------------------------------------------------------------
@@ -93,6 +171,8 @@ def load_publications(me: str) -> list[dict]:
             None,
         )
         p["authors_shown"], p["authors_more"] = elide_authors(p.get("authors", []), me)
+        p["venue_short"], p["venue_full"], qualifier = venue_parts(p.get("venue", ""))
+        p["badges"] = [b for b in (qualifier, p.get("note")) if b]
     # Stable sort on year alone, so ordering within a year stays as authored in the JSON.
     pubs.sort(key=lambda p: p.get("year", 0), reverse=True)
     return pubs
@@ -123,10 +203,17 @@ def elide_authors(authors: list[str], me: str) -> tuple[list[str], int]:
     return kept, len(authors) - len(kept)
 
 
-def load_talks() -> list[dict]:
+def load_talks(video_stats: dict) -> list[dict]:
     talks = load("talks.json")
     for t in talks:
-        t["links"] = ordered_links(t.get("links"))
+        links = dict(t.get("links") or {})
+        if t.get("video"):
+            links["video"] = t["video"]
+            cached = video_stats.get(youtube_id(t["video"]) or "")
+            if cached:
+                t["views"] = compact_count(cached["views"])
+                t["views_as_of"] = month_year(cached["checked"][:7])
+        t["links"] = ordered_links(links)
         t["sort_key"] = str(t.get("date", ""))
         t["date"] = month_year(t.get("date", ""))
     talks.sort(key=lambda t: t["sort_key"], reverse=True)
@@ -274,7 +361,7 @@ def person_schema(profile: dict, site: dict) -> str:
     return json.dumps(schema, indent=2, ensure_ascii=False)
 
 
-def build() -> None:
+def build(refresh_views: bool = False) -> None:
     for directory in GENERATED_DIRS:
         if directory.exists():
             shutil.rmtree(directory)
@@ -292,7 +379,13 @@ def build() -> None:
 
     publications = load_publications(profile["name"])
     selected = [p for p in publications if p.get("selected")]
-    talk_groups = load_talks()
+    video_stats = load_video_stats()
+    if refresh_views:
+        wanted = [youtube_id(t["video"]) for t in load("talks.json") if t.get("video")]
+        print("refreshing view counts:")
+        video_stats = refresh_video_stats([v for v in wanted if v], video_stats)
+
+    talk_groups = load_talks(video_stats)
     news = load_news(site.get("news_limit", 6))
     experience = load("experience.json")
     mentors = load("mentors.json")
@@ -367,9 +460,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--serve", action="store_true", help="serve the site after building")
     parser.add_argument("--port", type=int, default=8000)
+    parser.add_argument("--refresh-views", action="store_true",
+                        help="re-read YouTube view counts into src/data/video-stats.json")
     args = parser.parse_args()
 
-    build()
+    build(refresh_views=args.refresh_views)
     if args.serve:
         serve(args.port)
 

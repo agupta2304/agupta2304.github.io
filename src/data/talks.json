@@ -9,10 +9,11 @@
   },
   {
     "type": "invited",
-    "title": "Self-improving agents and continual learning",
+    "title": "SimulationMaxxing: How we ship agents 20\u00d7 faster",
     "event": "AI Engineer, with Shreya Rajpal",
     "location": "",
     "date": "2026-07",
+    "video": "https://www.youtube.com/watch?v=KMR_RBoCa4M",
     "links": {}
   },
   {
@@ -29,6 +30,15 @@
     "event": "ICLR SPOT workshop",
     "location": "",
     "date": "2026-04",
+    "links": {}
+  },
+  {
+    "type": "invited",
+    "title": "Building AI Agents for 127 Million Customers: Practical Lessons from Nubank",
+    "event": "QCon AI New York",
+    "location": "",
+    "date": "2025-12",
+    "video": "https://www.youtube.com/watch?v=1GnbsGhRC4o",
     "links": {}
   }
 ]

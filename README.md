@@ -81,6 +81,13 @@ automatically. `note` renders as a small badge and can be omitted. Recognised li
 `pdf`, `arxiv`, `code`, `slides`, `poster`, `video`, `bibtex`, and `site`; unknown keys still
 render, just at the end.
 
+Each entry shows a venue acronym in a left gutter so the list can be scanned by conference.
+The acronym is derived from `venue`: the parenthesised part of, say, `International Conference
+on Machine Learning (ICML)`, or `X Workshop at Y` becomes `X@Y`. Venues with no acronym to
+extract are mapped in `VENUE_SHORT` in [src/build.py](src/build.py). The full venue name shows
+on hover. A trailing qualifier after a comma, like `, Industry Track`, renders as a small badge
+next to the authors rather than in the chip.
+
 ### Adding a news item
 
 Prepend an entry to `src/data/news.json`:
@@ -100,6 +107,21 @@ The section sits directly below About. To move it above, cut the `{% if news %}`
 
 Same idea in `src/data/talks.json`. `type` is `tutorial`, `invited`, or `other`, which controls
 the grouping. `date` is `YYYY-MM` and is displayed as `Nov 2026`.
+
+Add `"video": "https://www.youtube.com/watch?v=..."` and the entry gets a `video` link plus a
+view count.
+
+### Refreshing view counts
+
+```bash
+.venv/bin/python src/build.py --refresh-views
+```
+
+This reads the public view count off each talk's YouTube watch page and caches it in
+`src/data/video-stats.json`, which is committed. Ordinary builds only read that cache, so they
+need no network, no API key, and stay byte-for-byte reproducible. The rendered count carries
+the as-of month in a tooltip, so a stale number is never presented as live. If YouTube changes
+its markup the refresh warns and keeps the cached value rather than dropping the count.
 
 ### Writing a post
 
