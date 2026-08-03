@@ -1,0 +1,21 @@
+{
+  "name": "Aman Gupta",
+  "monogram": "AG",
+  "role": "Principal Machine Learning Engineer",
+  "affiliation": "Nubank",
+  "location": "Palo Alto, CA",
+  "headshot": "/assets/headshot.jpg",
+  "meta_description": "Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training, efficient inference, and the evaluation of large-scale AI agents.",
+  "about": [
+    "I lead research on LLM training and agents at <a href=\"https://nubank.com.br\">Nubank</a>, building and evaluating large-scale AI systems that serve financial services to well over 100 million customers.",
+    "My work sits at the intersection of large-scale optimization, deep learning, and language models. Lately that has meant alignment and post-training, efficient training and inference, and the surprisingly hard problem of evaluating agents rigorously enough to put them in front of real customers. I care about research that survives contact with production.",
+    "Before Nubank I was a Senior Staff Machine Learning Scientist at LinkedIn, where I managed the AI foundations optimization team and oversaw large-scale optimization frameworks across Feed, Ads, and Jobs. Earlier I built machine learning systems at Apple and Amazon. I studied at Carnegie Mellon and BITS Pilani."
+  ],
+  "links": {
+    "Email": "mailto:aman.gupta@nubank.com.br",
+    "Scholar": "https://scholar.google.com/citations?user=TODO",
+    "GitHub": "https://github.com/TODO",
+    "LinkedIn": "https://www.linkedin.com/in/TODO",
+    "X": "https://x.com/TODO"
+  }
+}

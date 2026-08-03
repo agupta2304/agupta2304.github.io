@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Writing — {{ profile.name }}{% endblock %}
+{% block description %}Notes and essays by {{ profile.name }}.{% endblock %}
+
+{% block content %}
+<header class="post__header">
+  <h1 class="post__title">Writing</h1>
+  <p class="masthead__role">Occasional notes on training, evaluating, and shipping large models. <a href="/feed.xml">RSS</a>.</p>
+</header>
+
+<section class="section">
+  {% if posts %}
+  <ul class="postlist">
+    {% for p in posts %}
+    <li>
+      <div class="postlist__date">{{ p.date_display }}</div>
+      <a class="postlist__title" href="{{ p.url }}">{{ p.title }}</a>
+      {% if p.summary %}<p class="postlist__summary">{{ p.summary }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Nothing published yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

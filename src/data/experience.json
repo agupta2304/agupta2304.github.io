@@ -1,0 +1,42 @@
+{
+  "roles": [
+    {
+      "when": "20XX — present",
+      "title": "Principal Machine Learning Engineer",
+      "org": "Nubank",
+      "url": "https://nubank.com.br",
+      "note": "Lead research for LLM training and agents: building, optimizing, and evaluating large-scale AI systems for financial services."
+    },
+    {
+      "when": "20XX — 20XX",
+      "title": "Senior Staff Machine Learning Scientist",
+      "org": "LinkedIn",
+      "url": "https://www.linkedin.com",
+      "note": "Managed the AI foundations optimization team and oversaw the integration of large-scale optimization frameworks across Feed, Ads, and Jobs."
+    },
+    {
+      "when": "20XX — 20XX",
+      "title": "TODO — role",
+      "org": "Apple",
+      "note": "Built scalable machine learning systems."
+    },
+    {
+      "when": "20XX — 20XX",
+      "title": "TODO — role",
+      "org": "Amazon",
+      "note": "Built scalable machine learning systems."
+    }
+  ],
+  "education": [
+    {
+      "when": "20XX",
+      "title": "TODO — degree",
+      "org": "Carnegie Mellon University"
+    },
+    {
+      "when": "20XX",
+      "title": "TODO — degree",
+      "org": "BITS Pilani"
+    }
+  ]
+}

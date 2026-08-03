@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{{ person_schema | safe }}
+</script>
+{% endblock %}
+
+{% block content %}
+{{ m.masthead(profile) }}
+
+<section class="section" id="about">
+  <h2>About</h2>
+  {% for para in profile.about %}
+  <p{% if loop.first %} class="lede"{% endif %}>{{ para | safe }}</p>
+  {% endfor %}
+</section>
+
+<section class="section" id="papers">
+  <h2>Selected papers</h2>
+  {{ m.publication_years(selected_groups, profile.name) }}
+  {% if total_publications > selected_count %}
+  <p class="section__more"><a href="/publications/">See all {{ total_publications }} publications &rarr;</a></p>
+  {% endif %}
+</section>
+
+<section class="section" id="talks">
+  <h2>Talks &amp; tutorials</h2>
+  {% for group in talk_groups %}
+  <div class="talk-group">
+    <h3 class="talk-group__label">{{ group.label }}</h3>
+    {% for t in group.entries %}{{ m.talk(t) }}{% endfor %}
+  </div>
+  {% endfor %}
+</section>
+
+<section class="section" id="experience">
+  <h2>Experience</h2>
+  {% for r in experience %}
+  <div class="role">
+    <div class="role__when">{{ r.when }}</div>
+    <div>
+      <span class="role__what">{{ r.title }}</span>,
+      <span class="role__org">{% if r.url %}<a href="{{ r.url }}">{{ r.org }}</a>{% else %}{{ r.org }}{% endif %}</span>
+      {% if r.note %}<p class="role__note">{{ r.note }}</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+{% if education %}
+<section class="section" id="education">
+  <h2>Education</h2>
+  {% for r in education %}
+  <div class="role">
+    <div class="role__when">{{ r.when }}</div>
+    <div>
+      <span class="role__what">{{ r.title }}</span>,
+      <span class="role__org">{{ r.org }}</span>
+      {% if r.note %}<p class="role__note">{{ r.note }}</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+<section class="section" id="mentors">
+  <h2>Mentors</h2>
+  {% if mentors_intro %}<p>{{ mentors_intro }}</p>{% endif %}
+  {% for p in mentors %}
+  <div class="mentor">
+    <span class="mentor__name">{% if p.url %}<a href="{{ p.url }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</span>{% if p.affiliation %}<span class="mentor__note">{{ p.affiliation }}</span>{% endif %}
+    {% if p.note %}<span class="mentor__note">{{ p.note }}</span>{% endif %}
+  </div>
+  {% endfor %}
+</section>
+
+<section class="section" id="contact">
+  <h2>Elsewhere</h2>
+  <dl class="contact">
+    {% for label, href in profile.links.items() %}
+    <dt>{{ label }}</dt>
+    <dd><a href="{{ href }}">{{ href | pretty_url }}</a></dd>
+    {% endfor %}
+  </dl>
+</section>
+{% endblock %}

@@ -1,0 +1,68 @@
+{# Shared rendering fragments. #}
+
+{% macro masthead(profile) %}
+<header class="masthead">
+  {% if profile.headshot %}
+  <img class="masthead__portrait" src="{{ profile.headshot }}" alt="Portrait of {{ profile.name }}" width="96" height="96">
+  {% else %}
+  <span class="masthead__monogram" aria-hidden="true">{{ profile.monogram }}</span>
+  {% endif %}
+  <div>
+    <h1 class="masthead__name">{{ profile.name }}</h1>
+    <p class="masthead__role">{{ profile.role }}<br>{{ profile.affiliation }} &middot; {{ profile.location }}</p>
+  </div>
+</header>
+{% endmacro %}
+
+
+{% macro authors(list, me) %}
+  {%- for a in list -%}
+    {%- if a == me -%}<span class="me">{{ a }}</span>{%- else -%}{{ a }}{%- endif -%}
+    {%- if not loop.last %}, {% endif -%}
+  {%- endfor -%}
+{% endmacro %}
+
+
+{% macro links(map) %}
+  {%- if map -%}
+  <p class="pub__links">
+    {%- for label, href in map.items() %}<a href="{{ href }}">{{ label }}</a>{% endfor -%}
+  </p>
+  {%- endif -%}
+{% endmacro %}
+
+
+{% macro publication(p, me) %}
+<div class="pub">
+  {% if p.primary_link %}
+  <a class="pub__title" href="{{ p.primary_link }}">{{ p.title }}</a>
+  {% else %}
+  <span class="pub__title">{{ p.title }}</span>
+  {% endif %}
+  <p class="pub__authors">{{ authors(p.authors, me) }}</p>
+  <p class="pub__venue">{{ p.venue }}{% if p.year %}, {{ p.year }}{% endif %}{% if p.note %}<span class="pub__note">{{ p.note }}</span>{% endif %}</p>
+  {{ links(p.links) }}
+</div>
+{% endmacro %}
+
+
+{% macro publication_years(groups, me) %}
+  {% for year, items in groups %}
+  <div class="year-group">
+    <h3 class="year-group__label">{{ year }}</h3>
+    {% for p in items %}{{ publication(p, me) }}{% endfor %}
+  </div>
+  {% endfor %}
+{% endmacro %}
+
+
+{% macro talk(t) %}
+<div class="talk">
+  <span class="talk__title">{{ t.title }}</span>
+  <p class="talk__where">
+    {{ t.event }}{% if t.location %}, {{ t.location }}{% endif %}
+    <span class="talk__date">&nbsp;{{ t.date }}</span>
+  </p>
+  {{ links(t.links) }}
+</div>
+{% endmacro %}

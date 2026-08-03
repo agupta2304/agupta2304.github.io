@@ -1,0 +1,26 @@
+[
+  {
+    "type": "tutorial",
+    "title": "Building Production LLM Agents: An Evaluation-Driven Playbook",
+    "event": "CIKM 2026 — half-day tutorial (TODO: confirm acceptance before publishing)",
+    "location": "",
+    "date": "2026-11",
+    "links": {}
+  },
+  {
+    "type": "tutorial",
+    "title": "TODO — earlier tutorial title",
+    "event": "KDD (TODO: year and exact title)",
+    "location": "",
+    "date": "2025-08",
+    "links": {}
+  },
+  {
+    "type": "invited",
+    "title": "TODO — invited talk title",
+    "event": "TODO — host organization or workshop",
+    "location": "",
+    "date": "2026-03",
+    "links": {}
+  }
+]

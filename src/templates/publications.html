@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+
+{% block title %}Publications — {{ profile.name }}{% endblock %}
+{% block description %}Complete list of publications by {{ profile.name }}.{% endblock %}
+
+{% block content %}
+<header class="post__header">
+  <h1 class="post__title">Publications</h1>
+  <p class="masthead__role">{{ total_publications }} papers. <a href="/#papers">Back to the selected list</a>.</p>
+</header>
+
+<section class="section">
+  {{ m.publication_years(all_groups, profile.name) }}
+</section>
+{% endblock %}

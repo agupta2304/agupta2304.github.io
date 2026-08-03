@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colophon — Aman Gupta</title>
+<meta name="description" content="How this site is put together, and what you can use in a post.">
+<link rel="canonical" href="https://amangupta.github.io/blog/colophon/">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Aman Gupta">
+<meta property="og:title" content="Colophon — Aman Gupta">
+<meta property="og:description" content="How this site is put together, and what you can use in a post.">
+<meta property="og:url" content="https://amangupta.github.io/blog/colophon/">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="alternate" type="application/rss+xml" title="Aman Gupta — posts" href="/feed.xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous"></head>
+<body>
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__home" href="/">Aman Gupta</a>
+    <a href="/#papers">papers</a>
+    <a href="/#talks">talks</a>
+    <a href="/#experience">experience</a>
+    <a href="/blog/">writing</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<article>
+  <header class="post__header">
+    <div class="post__date">August 2, 2026</div>
+    <h1 class="post__title">Colophon</h1>
+  </header>
+  <div class="prose">
+    <p>This site is a few hundred lines of HTML and CSS with no framework behind it. Posts are
+Markdown files in <code>src/posts/</code>, structured content lives in JSON under <code>src/data/</code>, and a
+small Python script stitches the two together into static pages. There is no JavaScript on
+the homepage at all.</p>
+<p>I keep it this way for a boring reason: a personal site should still build in five years.
+Every dependency is one more thing that can rot between the times I remember this repository
+exists.</p>
+<h2 id="what-a-post-can-contain">What a post can contain</h2>
+<p>Ordinary prose, of course, plus the usual Markdown furniture. Lists:</p>
+<ul>
+<li>Nested structure works as you would expect</li>
+<li>So do <a href="https://example.com">links</a> and <em>emphasis</em></li>
+<li>Inline <code>code</code> gets a subtle background</li>
+</ul>
+<p>Blockquotes, for when someone said it better:</p>
+<blockquote>
+<p>The purpose of computing is insight, not numbers.</p>
+</blockquote>
+<p>Fenced code blocks are syntax-highlighted at build time by Pygments, with separate themes
+for light and dark:</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">kl</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">pi</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">pi</span> <span class="o">/</span> <span class="n">qi</span><span class="p">)</span> <span class="k">for</span> <span class="n">pi</span><span class="p">,</span> <span class="n">qi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">))</span>
+</code></pre></div>
+
+<p>Tables, kept narrow enough to read:</p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Cost</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Build</td>
+<td>~0.2s</td>
+<td>Pure Python, no network</td>
+</tr>
+<tr>
+<td>Deploy</td>
+<td>one push</td>
+<td>GitHub Pages serves the committed HTML</td>
+</tr>
+</tbody>
+</table>
+<h2 id="math-when-a-post-asks-for-it">Math, when a post asks for it</h2>
+<p>Setting <code>math: true</code> in the front matter pulls in KaTeX for that page only, so pages that
+do not need it stay free of third-party requests. Inline math like $\mathcal{O}(n \log n)$
+works, and so does display math:</p>
+<p>$$
+\mathcal{L}(\theta) = -\mathbb{E}<em>{x \sim \mathcal{D}} \left[ \log p</em>\theta(x) \right]
+$$</p>
+<h2 id="deleting-this-post">Deleting this post</h2>
+<p>Remove <code>src/posts/2026-08-02-colophon.md</code> and rebuild. Anything with <code>draft: true</code> in its
+front matter is skipped, which is the gentler option while a draft is still cooking.</p>
+  </div>
+</article>
+
+<p class="section__more"><a href="/blog/">&larr; All writing</a></p>
+
+  <footer class="footer">
+    <span>&copy; 2026 Aman Gupta</span>
+    <span><a href="/feed.xml">RSS</a></span>
+  </footer>
+</main>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, {delimiters: [
+          {left: '$$', right: '$$', display: true},
+          {left: '\\[', right: '\\]', display: true},
+          {left: '$', right: '$', display: false},
+          {left: '\\(', right: '\\)', display: false}
+        ]});"></script></body>
+</html>

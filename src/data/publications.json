@@ -1,0 +1,62 @@
+[
+  {
+    "title": "A Viable Simulation Recipe for Improving Production LLM Agents",
+    "authors": ["Aman Gupta", "TODO — co-authors"],
+    "venue": "TODO — venue",
+    "year": 2026,
+    "selected": true,
+    "links": {}
+  },
+  {
+    "title": "Length-Aware Batching for Variable-Length LLM Pretraining",
+    "authors": ["Aman Gupta", "TODO — co-authors"],
+    "venue": "TODO — venue",
+    "year": 2026,
+    "selected": true,
+    "links": {}
+  },
+  {
+    "title": "Adaptive Task Sampling for Multi-Task Training: Mean Validation AUC under Per-Task Safety Floors",
+    "authors": ["Aman Gupta", "TODO — co-authors"],
+    "venue": "TODO — venue",
+    "year": 2026,
+    "selected": true,
+    "links": {}
+  },
+  {
+    "title": "SafeMix-ID: Branch-Free Identification and Constraint-Aware Online Batch Mixing for Multitask LLM Training",
+    "authors": ["Aman Gupta", "TODO — co-authors"],
+    "venue": "TODO — venue",
+    "year": 2026,
+    "selected": false,
+    "links": {}
+  },
+  {
+    "title": "Hardware-Aware LLM Inference Optimization on NVIDIA B200 GPUs",
+    "authors": ["Aman Gupta", "TODO — co-authors"],
+    "venue": "TODO — venue",
+    "year": 2026,
+    "selected": true,
+    "links": {}
+  },
+  {
+    "title": "Post-Training Calibration for Binary DNN Scores",
+    "authors": ["Aman Gupta", "TODO — co-authors"],
+    "venue": "TODO — venue",
+    "year": 2026,
+    "selected": false,
+    "links": {}
+  },
+  {
+    "title": "TODO — replace with a real earlier paper (this entry only exists to show the year grouping)",
+    "authors": ["TODO — first author", "Aman Gupta"],
+    "venue": "NeurIPS",
+    "year": 2025,
+    "selected": false,
+    "note": "Spotlight",
+    "links": {
+      "arxiv": "https://arxiv.org/abs/TODO",
+      "code": "https://github.com/TODO"
+    }
+  }
+]
