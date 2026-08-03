@@ -188,14 +188,20 @@ deploy free of any build infrastructure.
 
 ## GitHub Pages
 
-This deploys to <https://agupta2304.github.io> from the root of `main`, already configured
-under **Settings → Pages** (*Deploy from a branch*, `main`, `/ (root)`). A push goes live
-within a minute or two.
+This deploys to <https://amangupta.dev> from the root of `main`, already configured under
+**Settings → Pages** (*Deploy from a branch*, `main`, `/ (root)`). The default
+<https://agupta2304.github.io> address redirects to the custom domain. A push goes live within
+a minute or two.
 
 `.nojekyll` at the root is required: without it GitHub Pages runs the output through Jekyll,
 which ignores directories beginning with an underscore and can rewrite files unexpectedly.
 
 ### Custom domain
 
-Put the bare domain in a `CNAME` file at the root, point a DNS `ALIAS`/`A` record at GitHub
-Pages, then update `url` in `src/data/site.json` so canonical URLs and the RSS feed match.
+`CNAME` contains `amangupta.dev`. Its apex has GitHub Pages' four `A` records, while `www`
+is a `CNAME` to `agupta2304.github.io`; GitHub redirects both hostnames to the canonical apex.
+The matching `url` in `src/data/site.json` drives canonical URLs and the RSS feed.
+
+Security note: `amangupta.dev` is verified to the `agupta2304` GitHub account and HTTPS is
+enforced. Keep the `_github-pages-challenge-agupta2304` TXT record in DNS permanently so
+another GitHub account cannot claim the domain if Pages is ever disabled or reconfigured.
