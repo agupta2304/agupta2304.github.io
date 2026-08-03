@@ -125,11 +125,27 @@ need no network, no API key, and stay byte-for-byte reproducible. The rendered c
 the as-of month in a tooltip, so a stale number is never presented as live. If YouTube changes
 its markup the refresh warns and keeps the cached value rather than dropping the count.
 
+Locally this scrapes the watch page, which needs no credentials.
+
 You rarely need to run it by hand:
 [.github/workflows/refresh-views.yml](.github/workflows/refresh-views.yml) does it every Monday,
 commits only when a number actually moved, and asks Pages to rebuild. Run it on demand with
 `gh workflow run refresh-views.yml`. This is the one piece of CI in the repo; the site itself
 still deploys from committed HTML with no build step.
+
+**CI needs an API key.** YouTube withholds view counts from datacenter IP ranges, so the scrape
+that works on a laptop returns nothing on a GitHub runner. Create a YouTube Data API v3 key in
+the [Google Cloud console](https://console.cloud.google.com/apis/library/youtube.googleapis.com)
+and add it as a repository secret:
+
+```bash
+gh secret set YOUTUBE_API_KEY --repo agupta2304/agupta2304.github.io
+```
+
+The key stays in GitHub's encrypted secrets and never enters the repository or any page. Reading
+`statistics` costs one quota unit per call against a free daily allowance of 10,000, so a weekly
+job is negligible. Without the secret the job still succeeds, warns, and leaves the cached
+numbers untouched.
 
 ### Writing a post
 

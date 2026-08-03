@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import shutil
 from datetime import datetime, timezone
@@ -130,29 +131,70 @@ def load_video_stats() -> dict:
     return {}
 
 
-def refresh_video_stats(ids: list[str], stats: dict) -> dict:
-    """Read public view counts off the watch pages and cache them.
-
-    Only runs under --refresh-views. The cache is committed, so ordinary builds
-    need no network and stay byte-for-byte reproducible.
-    """
+def views_via_api(ids: list[str], key: str) -> dict[str, int]:
+    """One batched call to the YouTube Data API. Works from anywhere, needs a key."""
     import urllib.request
 
+    url = ("https://www.googleapis.com/youtube/v3/videos"
+           f"?part=statistics&id={','.join(ids)}&key={key}")
+    with urllib.request.urlopen(url, timeout=30) as response:
+        payload = json.load(response)
+    return {item["id"]: int(item["statistics"]["viewCount"])
+            for item in payload.get("items", [])
+            if "viewCount" in item.get("statistics", {})}
+
+
+def views_via_page(video: str) -> int | None:
+    """Scrape the watch page. Fine from an ordinary connection, but YouTube withholds
+    the count from datacenter IPs, so this is the local path rather than the CI one."""
+    import urllib.request
+
+    request = urllib.request.Request(
+        f"https://www.youtube.com/watch?v={video}&hl=en&gl=US",
+        headers={"User-Agent": BROWSER_UA,
+                 "Accept-Language": "en-US,en;q=0.9",
+                 "Cookie": "CONSENT=YES+cb"})
+    try:
+        page = urllib.request.urlopen(request, timeout=30).read().decode("utf-8", "replace")
+    except Exception as exc:
+        print(f"  warn: could not fetch {video} ({exc})")
+        return None
+    found = re.search(r'"viewCount":"(\d+)"', page)
+    return int(found.group(1)) if found else None
+
+
+def refresh_video_stats(ids: list[str], stats: dict) -> dict:
+    """Update cached view counts. Only runs under --refresh-views.
+
+    Prefers the Data API when YOUTUBE_API_KEY is set, since that is the only route
+    that works from CI, and falls back to the watch page otherwise. A video that
+    cannot be read keeps its cached value rather than losing its count.
+    """
     today = datetime.now(timezone.utc).date().isoformat()
-    for video in ids:
-        request = urllib.request.Request(
-            f"https://www.youtube.com/watch?v={video}", headers={"User-Agent": BROWSER_UA})
+    key = os.environ.get("YOUTUBE_API_KEY", "").strip()
+    counts: dict[str, int] = {}
+
+    if key:
         try:
-            page = urllib.request.urlopen(request, timeout=30).read().decode("utf-8", "replace")
+            counts = views_via_api(ids, key)
+            print(f"  via the YouTube Data API: read {len(counts)} of {len(ids)}")
         except Exception as exc:
-            print(f"  warn: could not fetch {video} ({exc}); keeping cached value")
+            print(f"  warn: Data API call failed ({exc}); trying the watch pages")
+    else:
+        print("  no YOUTUBE_API_KEY set; reading the watch pages instead")
+
+    for video in ids:
+        if video in counts:
             continue
-        found = re.search(r'"viewCount":"(\d+)"', page)
-        if not found:
-            print(f"  warn: no view count in the page for {video}; keeping cached value")
+        found = views_via_page(video)
+        if found is None:
+            print(f"  warn: no view count available for {video}; keeping cached value")
             continue
-        stats[video] = {"views": int(found.group(1)), "checked": today}
-        print(f"  {video}: {int(found.group(1)):,} views")
+        counts[video] = found
+
+    for video, number in sorted(counts.items()):
+        stats[video] = {"views": number, "checked": today}
+        print(f"  {video}: {number:,} views")
 
     STATS_FILE.write_text(json.dumps(stats, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return stats

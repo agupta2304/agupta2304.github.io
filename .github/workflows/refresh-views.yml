@@ -1,8 +1,11 @@
 name: Refresh view counts
 
 # Re-reads YouTube view counts, rebuilds, and commits if the numbers moved.
-# If YouTube declines to serve the runner, build.py warns and keeps the cached
-# value, so a failed scrape leaves the site untouched rather than dropping counts.
+#
+# Needs a YOUTUBE_API_KEY repository secret: YouTube withholds view counts from
+# datacenter IPs, so the watch-page scrape that works locally returns nothing here.
+# Without the secret this job still succeeds but reports that nothing could be read
+# and leaves the cached values in place.
 
 on:
   schedule:
@@ -30,13 +33,24 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # secrets is not a valid context in `if`, so the check happens in the shell.
+      - name: Note whether an API key is available
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: |
+          if [ -z "$YOUTUBE_API_KEY" ]; then
+            echo "::warning::No YOUTUBE_API_KEY secret; counts cannot be refreshed from CI"
+          fi
+
       - name: Refresh counts and rebuild
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: python src/build.py --refresh-views | tee /tmp/build.log
 
-      - name: Surface a blocked scrape
+      - name: Surface any unreadable video
         run: |
           if grep -q "warn:" /tmp/build.log; then
-            echo "::warning::YouTube did not serve at least one video; cached values kept"
+            echo "::warning::At least one view count could not be read; cached values kept"
           fi
 
       - run: python src/check.py
@@ -50,7 +64,7 @@ jobs:
             exit 0
           fi
           # Identity is derived rather than hardcoded, so no address is stored in the repo.
-          git config user.name "github-actions[bot]"
+          git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git add -A
           git commit -m "Refresh YouTube view counts"
