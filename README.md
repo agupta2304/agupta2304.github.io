@@ -125,6 +125,12 @@ need no network, no API key, and stay byte-for-byte reproducible. The rendered c
 the as-of month in a tooltip, so a stale number is never presented as live. If YouTube changes
 its markup the refresh warns and keeps the cached value rather than dropping the count.
 
+You rarely need to run it by hand:
+[.github/workflows/refresh-views.yml](.github/workflows/refresh-views.yml) does it every Monday,
+commits only when a number actually moved, and asks Pages to rebuild. Run it on demand with
+`gh workflow run refresh-views.yml`. This is the one piece of CI in the repo; the site itself
+still deploys from committed HTML with no build step.
+
 ### Writing a post
 
 Create `src/posts/YYYY-MM-DD-slug.md`:
