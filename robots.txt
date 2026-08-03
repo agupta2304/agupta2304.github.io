@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amangupta.dev/sitemap.xml

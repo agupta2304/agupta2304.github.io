@@ -4,6 +4,12 @@
 {% block title %}Publications — {{ profile.name }}{% endblock %}
 {% block description %}Complete list of publications by {{ profile.name }}.{% endblock %}
 
+{% block head_extra %}
+<script type="application/ld+json">
+{{ page_schema | safe }}
+</script>
+{% endblock %}
+
 {% block content %}
 <header class="post__header">
   <h1 class="post__title">Publications</h1>

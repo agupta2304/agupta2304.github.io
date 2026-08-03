@@ -5,6 +5,7 @@
 Exits non-zero if anything is wrong, so it works as a pre-push guard.
 """
 
+import json
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -92,6 +93,60 @@ try:
                 problems.append(f"feed.xml: item missing <{field}>")
 except ET.ParseError as exc:
     problems.append(f"feed.xml: not well-formed ({exc})")
+
+# every JSON-LD block must parse, and must not carry placeholder text
+for page in pages:
+    label = str(page.relative_to(ROOT))
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>',
+                            page.read_text(encoding="utf-8"), re.S):
+        try:
+            json.loads(block)
+        except json.JSONDecodeError as exc:
+            problems.append(f"{label}: JSON-LD does not parse ({exc})")
+            continue
+        if "TODO" in block:
+            problems.append(f"{label}: JSON-LD contains a TODO placeholder")
+
+# canonical origin, taken from the homepage, must be used consistently
+canonical = re.search(r'<link rel="canonical" href="(https?://[^/"]+)', home)
+origin = canonical.group(1) if canonical else None
+if not origin:
+    problems.append("index.html: no canonical URL")
+
+# sitemap must be well-formed, on the canonical origin, and point at real pages
+sitemap_path = ROOT / "sitemap.xml"
+if not sitemap_path.exists():
+    problems.append("sitemap.xml: missing")
+else:
+    try:
+        ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+        locs = [e.text for e in ET.parse(sitemap_path).getroot().iter(f"{ns}loc")]
+        if not locs:
+            problems.append("sitemap.xml: no <loc> entries")
+        for loc in locs:
+            if origin and not loc.startswith(origin):
+                problems.append(f"sitemap.xml: {loc} is not on {origin}")
+            target = ROOT / urlparse(loc).path.lstrip("/")
+            if target.is_dir():
+                target = target / "index.html"
+            if not target.exists():
+                problems.append(f"sitemap.xml: {loc} does not resolve to a built page")
+    except ET.ParseError as exc:
+        problems.append(f"sitemap.xml: not well-formed ({exc})")
+
+# robots must advertise the sitemap on the same origin
+robots_path = ROOT / "robots.txt"
+if not robots_path.exists():
+    problems.append("robots.txt: missing")
+else:
+    robots = robots_path.read_text(encoding="utf-8")
+    if "Sitemap:" not in robots:
+        problems.append("robots.txt: no Sitemap directive")
+    elif origin and f"Sitemap: {origin}/sitemap.xml" not in robots:
+        problems.append(f"robots.txt: Sitemap directive does not match {origin}")
+
+if not (ROOT / "llms.txt").exists():
+    problems.append("llms.txt: missing")
 
 # stylesheet sanity
 css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")

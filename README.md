@@ -6,6 +6,29 @@ it to static HTML at the repository root, which is what GitHub Pages serves.
 No framework, no CI, no client-side rendering. The only JavaScript is roughly twenty inline
 lines driving the theme toggle.
 
+## Discoverability
+
+The build emits, alongside the pages:
+
+| File | Purpose |
+| --- | --- |
+| `sitemap.xml` | Every page, with `lastmod` on posts |
+| `robots.txt` | Allows everything and points at the sitemap |
+| `feed.xml` | RSS for posts |
+| `llms.txt` | Plain-text digest of the site for agents |
+
+Structured data is JSON-LD. The homepage carries a `@graph` of `Person` and `WebSite` plus a
+`VideoObject` per recorded talk, each with its view count as an `interactionStatistic`. The
+publications page carries a `CollectionPage` wrapping an `ItemList` of `ScholarlyArticle`
+entries with full author lists, venues, and years. That block is emitted without indentation
+because pretty-printing 36 papers costs roughly 50KB of pure whitespace.
+
+`src/check.py` verifies all of it: that every JSON-LD block parses, that none contains a
+placeholder, that the sitemap is well-formed and every entry resolves to a real built page, and
+that `robots.txt` advertises the sitemap on the same origin as the canonical URLs.
+
+`llms.txt` is not a standard, just a convention some agents look for. It costs nothing to emit.
+
 ## Themes
 
 Cream is the default. A toggle in the nav switches to a dark theme and remembers the choice in

@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import argparse
+import html
 import json
 import os
 import re
@@ -131,20 +132,29 @@ def load_video_stats() -> dict:
     return {}
 
 
-def views_via_api(ids: list[str], key: str) -> dict[str, int]:
+def stats_via_api(ids: list[str], key: str) -> dict[str, dict]:
     """One batched call to the YouTube Data API. Works from anywhere, needs a key."""
     import urllib.request
 
     url = ("https://www.googleapis.com/youtube/v3/videos"
-           f"?part=statistics&id={','.join(ids)}&key={key}")
+           f"?part=snippet,statistics&id={','.join(ids)}&key={key}")
     with urllib.request.urlopen(url, timeout=30) as response:
         payload = json.load(response)
-    return {item["id"]: int(item["statistics"]["viewCount"])
-            for item in payload.get("items", [])
-            if "viewCount" in item.get("statistics", {})}
+
+    found = {}
+    for item in payload.get("items", []):
+        counts, snippet = item.get("statistics", {}), item.get("snippet", {})
+        if "viewCount" not in counts:
+            continue
+        found[item["id"]] = {
+            "views": int(counts["viewCount"]),
+            "title": snippet.get("title", ""),
+            "uploaded": (snippet.get("publishedAt") or "")[:10],
+        }
+    return found
 
 
-def views_via_page(video: str) -> int | None:
+def stats_via_page(video: str) -> dict | None:
     """Scrape the watch page. Fine from an ordinary connection, but YouTube withholds
     the count from datacenter IPs, so this is the local path rather than the CI one."""
     import urllib.request
@@ -159,8 +169,26 @@ def views_via_page(video: str) -> int | None:
     except Exception as exc:
         print(f"  warn: could not fetch {video} ({exc})")
         return None
-    found = re.search(r'"viewCount":"(\d+)"', page)
-    return int(found.group(1)) if found else None
+
+    views = re.search(r'"viewCount":"(\d+)"', page)
+    if not views:
+        return None
+    uploaded = re.search(r'"publishDate":(?:\{"simpleText":)?"(\d{4}-\d{2}-\d{2})', page)
+    title = re.search(r'"videoDetails":\{.*?"title":"((?:[^"\\]|\\.)*)"', page, re.S)
+
+    name = ""
+    if title:
+        # Decode as a JSON string so \uXXXX escapes resolve and literal UTF-8 survives.
+        try:
+            name = json.loads(f'"{title.group(1)}"')
+        except json.JSONDecodeError:
+            name = title.group(1)
+
+    return {
+        "views": int(views.group(1)),
+        "title": name,
+        "uploaded": uploaded.group(1) if uploaded else "",
+    }
 
 
 def refresh_video_stats(ids: list[str], stats: dict) -> dict:
@@ -172,29 +200,29 @@ def refresh_video_stats(ids: list[str], stats: dict) -> dict:
     """
     today = datetime.now(timezone.utc).date().isoformat()
     key = os.environ.get("YOUTUBE_API_KEY", "").strip()
-    counts: dict[str, int] = {}
+    fetched: dict[str, dict] = {}
 
     if key:
         try:
-            counts = views_via_api(ids, key)
-            print(f"  via the YouTube Data API: read {len(counts)} of {len(ids)}")
+            fetched = stats_via_api(ids, key)
+            print(f"  via the YouTube Data API: read {len(fetched)} of {len(ids)}")
         except Exception as exc:
             print(f"  warn: Data API call failed ({exc}); trying the watch pages")
     else:
         print("  no YOUTUBE_API_KEY set; reading the watch pages instead")
 
     for video in ids:
-        if video in counts:
+        if video in fetched:
             continue
-        found = views_via_page(video)
+        found = stats_via_page(video)
         if found is None:
             print(f"  warn: no view count available for {video}; keeping cached value")
             continue
-        counts[video] = found
+        fetched[video] = found
 
-    for video, number in sorted(counts.items()):
-        stats[video] = {"views": number, "checked": today}
-        print(f"  {video}: {number:,} views")
+    for video, record in sorted(fetched.items()):
+        stats[video] = {**record, "checked": today}
+        print(f"  {video}: {record['views']:,} views")
 
     STATS_FILE.write_text(json.dumps(stats, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return stats
@@ -251,8 +279,10 @@ def load_talks(video_stats: dict) -> list[dict]:
         links = dict(t.get("links") or {})
         if t.get("video"):
             links["video"] = t["video"]
-            cached = video_stats.get(youtube_id(t["video"]) or "")
+            t["video_id"] = youtube_id(t["video"])
+            cached = video_stats.get(t["video_id"] or "")
             if cached:
+                t["video_meta"] = cached
                 t["views"] = compact_count(cached["views"])
                 t["views_as_of"] = month_year(cached["checked"][:7])
         t["links"] = ordered_links(links)
@@ -388,19 +418,151 @@ def build_feed(posts: list[dict], profile: dict, site: dict) -> None:
     write(ROOT / "feed.xml", feed)
 
 
-def person_schema(profile: dict, site: dict) -> str:
-    schema = {
-        "@context": "https://schema.org",
+def home_schema(profile: dict, site: dict, talks: list[dict]) -> str:
+    """Person and WebSite, plus a VideoObject per recorded talk carrying its view count."""
+    person_id = site["url"] + "/#person"
+    person = {
         "@type": "Person",
+        "@id": person_id,
         "name": profile["name"],
         "url": site["url"] + "/",
         "jobTitle": profile["role"],
+        "description": profile["meta_description"],
         "worksFor": {"@type": "Organization", "name": profile["affiliation"]},
         "sameAs": [u for u in profile["links"].values() if u.startswith("http")],
     }
     if profile.get("headshot"):
-        schema["image"] = site["url"] + profile["headshot"]
-    return json.dumps(schema, indent=2, ensure_ascii=False)
+        person["image"] = site["url"] + profile["headshot"]
+    if profile.get("knows_about"):
+        person["knowsAbout"] = profile["knows_about"]
+    if profile.get("alumni_of"):
+        person["alumniOf"] = [{"@type": "CollegeOrUniversity", "name": n}
+                              for n in profile["alumni_of"]]
+
+    graph: list[dict] = [person, {
+        "@type": "WebSite",
+        "@id": site["url"] + "/#website",
+        "url": site["url"] + "/",
+        "name": profile["name"],
+        "inLanguage": "en",
+        "publisher": {"@id": person_id},
+    }]
+
+    for talk in talks:
+        meta = talk.get("video_meta")
+        if not meta:
+            continue
+        video = {
+            "@type": "VideoObject",
+            "name": meta.get("title") or talk["title"],
+            "description": f"{talk['title']} — {talk['event']}",
+            "url": talk["links"]["video"],
+            "embedUrl": f"https://www.youtube.com/embed/{talk['video_id']}",
+            "thumbnailUrl": f"https://i.ytimg.com/vi/{talk['video_id']}/hqdefault.jpg",
+            "author": {"@id": person_id},
+            "interactionStatistic": {
+                "@type": "InteractionCounter",
+                "interactionType": "https://schema.org/WatchAction",
+                "userInteractionCount": meta["views"],
+            },
+        }
+        if meta.get("uploaded"):
+            video["uploadDate"] = meta["uploaded"]
+        graph.append(video)
+
+    return json.dumps({"@context": "https://schema.org", "@graph": graph},
+                      indent=2, ensure_ascii=False)
+
+
+def publications_schema(pubs: list[dict], profile: dict, site: dict) -> str:
+    """An ordered ScholarlyArticle list, so the full record is machine-readable."""
+    articles = []
+    for p in pubs:
+        article = {
+            "@type": "ScholarlyArticle",
+            "name": p["title"],
+            "author": [{"@type": "Person", "name": a} for a in p.get("authors", [])],
+        }
+        if p.get("year"):
+            article["datePublished"] = str(p["year"])
+        if p.get("venue_full"):
+            article["isPartOf"] = {"@type": "CreativeWork", "name": p["venue_full"]}
+        if p.get("primary_link"):
+            article["url"] = p["primary_link"]
+        articles.append(article)
+
+    # Emitted compactly: pretty-printing 36 papers with full author lists costs ~50KB
+    # of whitespace, and no human reads this block.
+    return json.dumps({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": f"Publications — {profile['name']}",
+        "url": site["url"] + "/publications/",
+        "about": {"@type": "Person", "name": profile["name"], "url": site["url"] + "/"},
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": len(articles),
+            "itemListElement": [{"@type": "ListItem", "position": i, "item": a}
+                                for i, a in enumerate(articles, start=1)],
+        },
+    }, separators=(",", ":"), ensure_ascii=False)
+
+
+def build_sitemap(site: dict, posts: list[dict]) -> None:
+    entries = [(site["url"] + "/", None),
+               (site["url"] + "/publications/", None),
+               (site["url"] + "/blog/", None)]
+    entries += [(site["url"] + p["url"], p["date"].date().isoformat()) for p in posts]
+
+    body = "".join(
+        "  <url>\n"
+        f"    <loc>{escape(loc)}</loc>\n"
+        + (f"    <lastmod>{lastmod}</lastmod>\n" if lastmod else "")
+        + "  </url>\n"
+        for loc, lastmod in entries)
+    write(ROOT / "sitemap.xml",
+          '<?xml version="1.0" encoding="UTF-8"?>\n'
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          f"{body}</urlset>\n")
+
+
+def build_robots(site: dict) -> None:
+    write(ROOT / "robots.txt",
+          f"User-agent: *\nAllow: /\n\nSitemap: {site['url']}/sitemap.xml\n")
+
+
+def build_llms_txt(profile: dict, site: dict, pubs: list[dict],
+                   talk_groups: list[dict], posts: list[dict]) -> None:
+    """A plain-text digest for agents. Not a standard, but cheap and harmless."""
+    def strip_tags(text: str) -> str:
+        return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", text))).strip()
+
+    lines = [f"# {profile['name']}", "", f"> {profile['meta_description']}", ""]
+    lines += [strip_tags(p) + "\n" for p in profile["about"]]
+
+    lines += ["## Pages", "",
+              f"- [Home]({site['url']}/): about, news, selected papers, talks, experience, mentors",
+              f"- [Publications]({site['url']}/publications/): complete list of {len(pubs)} papers",
+              f"- [Writing]({site['url']}/blog/): {len(posts)} post"
+              f"{'' if len(posts) == 1 else 's'}",
+              f"- [Feed]({site['url']}/feed.xml): RSS", ""]
+
+    lines += ["## Selected papers", ""]
+    for p in (x for x in pubs if x.get("selected")):
+        link = f" {p['primary_link']}" if p.get("primary_link") else ""
+        lines.append(f"- {p['title']} ({p['venue_short']} {p['year']}).{link}")
+    lines.append("")
+
+    lines += ["## Talks", ""]
+    for group in talk_groups:
+        for t in group["entries"]:
+            video = f" {t['links']['video']}" if t["links"].get("video") else ""
+            lines.append(f"- {t['title']} — {t['event']}, {t['date']}.{video}")
+    lines.append("")
+
+    lines += ["## Elsewhere", ""]
+    lines += [f"- {label}: {href}" for label, href in profile["links"].items()]
+    write(ROOT / "llms.txt", "\n".join(lines) + "\n")
 
 
 def build(refresh_views: bool = False) -> None:
@@ -428,6 +590,7 @@ def build(refresh_views: bool = False) -> None:
         video_stats = refresh_video_stats([v for v in wanted if v], video_stats)
 
     talk_groups = load_talks(video_stats)
+    all_talks = [t for group in talk_groups for t in group["entries"]]
     news = load_news(site.get("news_limit", 6))
     experience = load("experience.json")
     mentors = load("mentors.json")
@@ -460,13 +623,14 @@ def build(refresh_views: bool = False) -> None:
         education=experience.get("education", []),
         mentors=mentors.get("people", []),
         mentors_intro=mentors.get("intro"),
-        person_schema=person_schema(profile, site),
+        person_schema=home_schema(profile, site, all_talks),
         **shared,
     ))
 
     write(ROOT / "publications" / "index.html", env.get_template("publications.html").render(
         page={"path": "/publications/"},
         all_groups=group_by_year(publications),
+        page_schema=publications_schema(publications, profile, site),
         **shared,
     ))
 
@@ -485,6 +649,9 @@ def build(refresh_views: bool = False) -> None:
         ))
 
     build_feed(posts, profile, site)
+    build_sitemap(site, posts)
+    build_robots(site)
+    build_llms_txt(profile, site, publications, talk_groups, posts)
     print(f"done: {len(publications)} publications, {len(posts)} posts")
     report_placeholders()
 
