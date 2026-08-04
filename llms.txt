@@ -4,7 +4,7 @@
 
 I build and study foundation models and AI agents that operate reliably at scale — research that survives contact with production.
 
-I lead company-wide research on AI agents, foundation models, and LLMs at Nubank, where the systems we build serve more than 135 million customers. My work sits at the intersection of large-scale optimization, deep learning, and language models.
+I lead company-wide research on AI agents, foundation models, and LLMs at Nubank, where the systems we build serve more than 135 million customers. My work sits at the intersection of large-scale optimization, deep learning, and language models, much of it in long-running collaborations with Keerthi Selvaraj, Rahul Mazumder, and Natesh Pillai.
 
 Before Nubank I spent six years at LinkedIn, most recently as a Senior Staff Machine Learning Engineer and Senior Manager in Core AI, where I led the team compressing and distilling LinkedIn's ranking foundation model and drove large-scale optimization across Feed, Ads, and Jobs. Earlier I was a Senior Machine Learning Research Scientist at Apple and a software engineer at Amazon. I studied at Carnegie Mellon and BITS Pilani.
 

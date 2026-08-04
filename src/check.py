@@ -268,7 +268,15 @@ BROWSER_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.3
 TIMEOUT = 20
 # Publishers that refuse automated requests outright. A refusal from these says
 # nothing about whether the link works in a browser, so it is not a failure.
-BOT_BLOCKED = (403, 429, 503)
+BOT_BLOCKED = (403, 406, 429, 503)
+# Some hosts reject a request with no Accept header outright: nateshpillai.com answers
+# 406 to bare curl and 200 to anything that looks like a browser. Sending the headers a
+# browser would send avoids reporting live pages as dead.
+BROWSER_HEADERS = {
+    "User-Agent": BROWSER_UA,
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 BODY_LIMIT = 200_000   # enough to see an arXiv withdrawal notice, bounded on purpose
 
 
@@ -279,7 +287,7 @@ def fetch(url: str, want_body: bool = False) -> tuple[int | None, str]:
 
     if urlparse(url).scheme not in ("http", "https"):
         return None, "unsupported scheme"
-    request = urllib.request.Request(url, headers={"User-Agent": BROWSER_UA})
+    request = urllib.request.Request(url, headers=BROWSER_HEADERS)
     try:
         with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
             body = ""
