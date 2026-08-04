@@ -76,12 +76,20 @@
 {% endmacro %}
 
 
-{% macro publication_years(groups, me) %}
+{# Native <details> so expanding works with no JavaScript. The most recent
+   `expanded` year groups start open; older ones collapse but still ship their
+   markup, so they stay searchable and in the page for crawlers. #}
+{% macro publication_years(groups, me, expanded=3) %}
   {% for year, items in groups %}
-  <div class="year-group">
-    <h3 class="year-group__label">{{ year }}</h3>
-    {% for p in items %}{{ publication(p, me) }}{% endfor %}
-  </div>
+  <details class="year-group"{% if loop.index0 < expanded %} open{% endif %}>
+    <summary class="year-group__label">
+      <span class="year-group__year">{{ year }}</span>
+      <span class="year-group__count">{{ items | length }} paper{{ '' if items | length == 1 else 's' }}</span>
+    </summary>
+    <div class="year-group__body">
+      {% for p in items %}{{ publication(p, me) }}{% endfor %}
+    </div>
+  </details>
   {% endfor %}
 {% endmacro %}
 

@@ -69,7 +69,7 @@
   {% if profile.venues_note %}
   <p class="section__note">{{ profile.venues_note }}</p>
   {% endif %}
-  {{ m.publication_years(selected_groups, profile.name) }}
+  {{ m.publication_years(selected_groups, profile.name, site.years_expanded) }}
   {% if total_publications > selected_count %}
   <p class="section__more"><a href="/publications/">See all {{ total_publications }} publications &rarr;</a></p>
   {% endif %}

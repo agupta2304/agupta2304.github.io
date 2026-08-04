@@ -155,6 +155,30 @@ front matter is skipped, which is the gentler option while a draft is still cook
 
   describe();
 })();
+
+/* Print the whole publication list even when a year is collapsed, then put the
+   collapsed ones back so the page looks the same afterwards. Without this a
+   printed CV would silently omit the older years. */
+(function () {
+  var groups = document.querySelectorAll("details.year-group");
+  if (!groups.length || !window.addEventListener) return;
+  var reopened = [];
+
+  window.addEventListener("beforeprint", function () {
+    reopened = [];
+    Array.prototype.forEach.call(groups, function (group) {
+      if (!group.open) {
+        group.open = true;
+        reopened.push(group);
+      }
+    });
+  });
+
+  window.addEventListener("afterprint", function () {
+    reopened.forEach(function (group) { group.open = false; });
+    reopened = [];
+  });
+})();
 </script>
 </body>
 </html>

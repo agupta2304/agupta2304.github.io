@@ -363,12 +363,13 @@ a:focus-visible {
   list-style: none;
 }
 
-/* Same venue gutter as the publication list, so the two read as one system. */
+/* Same venue gutter as the publication list, so the two read as one system.
+   Chips here carry a year too, so the column is a little wider. */
 .thread__papers li {
   display: grid;
-  grid-template-columns: 5.25rem minmax(0, 1fr);
+  grid-template-columns: 7.5rem minmax(0, 1fr);
   gap: 0 1rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.55rem;
   font-size: 0.98rem;
   line-height: 1.5;
 }
@@ -384,16 +385,19 @@ a:focus-visible {
 }
 
 .thread__venue {
-  justify-self: start;
+  align-self: start;
+  justify-self: stretch;
+  text-align: center;
   margin-top: 0.18rem;
-  padding: 0.16rem 0.36rem;
+  padding: 0.2rem 0.3rem;
   border-radius: 3px;
   background: var(--mark);
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--muted);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink);
   white-space: nowrap;
 }
 
@@ -437,21 +441,68 @@ a:focus-visible {
 
 /* ---------- Publications ---------- */
 
-.year-group { margin-bottom: 1.9rem; }
+.year-group { margin-bottom: 1.5rem; }
 .year-group:last-child { margin-bottom: 0; }
 
+/* The year is a disclosure control, so it needs to look pressable without turning
+   into a button. Hairline rule and a chevron; the count tells you what is inside
+   while it is shut. */
 .year-group__label {
-  margin: 0 0 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--rule);
   font-family: var(--mono);
   font-size: 0.8rem;
   font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  list-style: none;
+}
+
+.year-group__label::-webkit-details-marker { display: none; }
+
+.year-group__label::after {
+  content: "";
+  width: 0.32rem;
+  height: 0.32rem;
+  margin-left: auto;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-0.1rem) rotate(45deg);
+  transition: transform 0.15s ease;
+}
+
+.year-group[open] > .year-group__label::after {
+  transform: translateY(0.05rem) rotate(225deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .year-group__label::after { transition: none; }
+}
+
+.year-group__label:hover { color: var(--accent); }
+
+.year-group__label:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.year-group__count {
+  font-weight: 400;
+  font-size: 0.74rem;
   color: var(--faint);
 }
+
+.year-group__body { padding-top: 0.9rem; }
 
 /* Venue acronym sits in its own gutter so the list can be scanned by conference. */
 .pub {
   display: grid;
-  grid-template-columns: 5.25rem minmax(0, 1fr);
+  /* Wide enough for the longest acronym, OPT@NeurIPS, without wrapping. */
+  grid-template-columns: 6.75rem minmax(0, 1fr);
   gap: 0 1rem;
   margin-bottom: 1.35rem;
 }
@@ -459,18 +510,22 @@ a:focus-visible {
 .pub:last-child { margin-bottom: 0; }
 
 .pub__tag {
-  justify-self: start;
+  /* Without align-self the chip is a grid item that stretches to the row height,
+     which turned it into a tall bar next to multi-line entries. */
+  align-self: start;
+  justify-self: stretch;
+  text-align: center;
   margin-top: 0.3rem;
-  padding: 0.16rem 0.36rem;
+  padding: 0.2rem 0.3rem;
   border-radius: 3px;
   background: var(--mark);
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   line-height: 1.35;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink);
   cursor: help;
   max-width: 100%;
   overflow-wrap: break-word;
@@ -831,8 +886,15 @@ code, kbd, samp {
     gap: 0.3rem;
   }
 
+  /* One column, so the chip becomes a compact pill above the title rather than a
+     full-width band of colour. */
   .pub__tag,
-  .thread__venue { margin-top: 0; }
+  .thread__venue {
+    justify-self: start;
+    margin-top: 0;
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
 
   .role__when,
   .news__when { padding-top: 0; }
@@ -885,6 +947,19 @@ code, kbd, samp {
   .section { margin: 1.2rem 0; page-break-inside: avoid; }
 
   .pub, .role, .talk, .mentor, .thread { page-break-inside: avoid; }
+
+  /* A collapsed year would print as a heading with nothing under it, which would
+     quietly drop papers from a printed CV. Browsers that support ::details-content
+     get it from CSS alone; the beforeprint handler in base.html covers the rest. */
+  .year-group::details-content { content-visibility: visible; }
+  .year-group__label {
+    border-bottom: none;
+    padding: 0;
+    cursor: auto;
+  }
+  .year-group__label::after,
+  .year-group__count { display: none; }
+  .year-group__body { padding-top: 0.4rem; }
 
   a { text-decoration: none; }
 

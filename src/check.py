@@ -186,7 +186,8 @@ CONTRAST_PAIRS = [
     ("muted", "bg", 4.5, "secondary prose"),
     ("faint", "bg", 4.5, "dates, section labels, venue metadata"),
     ("accent", "bg", 4.5, "links"),
-    ("muted", "mark", 4.5, "venue chips and badges"),
+    ("ink", "mark", 4.5, "venue chips"),
+    ("muted", "mark", 4.5, "publication badges"),
     # The monogram is a 1.9rem decorative glyph and aria-hidden, so the large-text
     # threshold applies. It only renders when there is no portrait.
     ("faint", "mark", 3.0, "masthead monogram (large, decorative)"),

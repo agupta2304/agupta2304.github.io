@@ -175,7 +175,23 @@ automatically. `note` renders as a small badge and can be omitted. Recognised li
 `pdf`, `arxiv`, `code`, `slides`, `poster`, `video`, `bibtex`, and `site`; unknown keys still
 render, just at the end.
 
+Papers are grouped by year into native `<details>` elements, so the years expand and collapse
+with no JavaScript and stay keyboard-accessible. The three most recent groups start open and
+older ones start shut, each showing its paper count so a collapsed year still tells you what is
+inside. Change the number with `years_expanded` in `src/data/site.json`, or set it high enough to
+cover every year to have them all open.
+
+Collapsed years are still fully in the markup, so they remain searchable in-page and visible to
+crawlers. They also still print: browsers that support `::details-content` get that from CSS, and
+a `beforeprint` handler opens the rest and closes them again afterwards, so a printed CV never
+silently loses the older half of the list.
+
 Each entry shows a venue acronym in a left gutter so the list can be scanned by conference.
+The chip fills the gutter to a uniform width and is set in the body ink rather than a muted grey
+— it is a scanning aid, so it has to be legible at 0.72rem. The gutter is sized for the longest
+acronym in use, currently `OPT@NeurIPS`; if you add a longer one, widen the
+`grid-template-columns` on `.pub` to match. On narrow screens the gutter collapses and the chip
+becomes a compact pill above the title instead of a full-width band.
 The acronym is derived from `venue`: the parenthesised part of, say, `International Conference
 on Machine Learning (ICML)`, or `X Workshop at Y` becomes `X@Y`. Venues with no acronym to
 extract are mapped in `VENUE_SHORT` in [src/build.py](src/build.py). The full venue name shows
