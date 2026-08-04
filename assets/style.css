@@ -364,10 +364,11 @@ a:focus-visible {
 }
 
 /* Same venue gutter as the publication list, so the two read as one system.
-   Chips here carry a year too, so the column is a little wider. */
+   Chips here carry a year too, so the column is wider — sized for the longest,
+   currently "SPOT@ICLR 2026", since these chips do not wrap. */
 .thread__papers li {
   display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
+  grid-template-columns: 8.25rem minmax(0, 1fr);
   gap: 0 1rem;
   margin-bottom: 0.55rem;
   font-size: 0.98rem;

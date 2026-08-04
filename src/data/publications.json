@@ -59,12 +59,24 @@
       "Rohan Ramanath",
       "S Sathiya Keerthi"
     ],
-    "venue": "arXiv preprint",
-    "year": 2025,
+    "venue": "SPOT Workshop at ICLR",
+    "year": 2026,
+    "note": "Preprint posted 2025",
     "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2509.23106"
     }
+  },
+  {
+    "title": "Building Production LLM Agents: An Evaluation-Driven Playbook",
+    "authors": [
+      "Aman Gupta"
+    ],
+    "venue": "ACM International Conference on Information and Knowledge Management (CIKM), Tutorials Track",
+    "year": 2026,
+    "note": "To appear",
+    "selected": false,
+    "links": {}
   },
   {
     "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
@@ -519,11 +531,12 @@
       "J Kenneth Tay",
       "Rupesh Gupta"
     ],
-    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
+    "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), Tutorials Track",
     "year": 2023,
     "selected": true,
     "links": {
-      "doi": "https://doi.org/10.1145/3580305.3599183"
+      "doi": "https://doi.org/10.1145/3580305.3599183",
+      "site": "https://sites.google.com/view/kdd-2023-large-scale-lps"
     }
   },
   {
