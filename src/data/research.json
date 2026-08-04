@@ -1,0 +1,30 @@
+[
+  {
+    "label": "Agents in production",
+    "blurb": "Getting agents past a demo means being able to say, with evidence, that they will behave on the next hundred million conversations. I work on evaluation harnesses rigorous enough to gate a deployment, and on the failure modes that only appear once real customers are on the other end.",
+    "papers": [
+      "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework"
+    ],
+    "talks": [
+      "Building Production LLM Agents: An Evaluation-Driven Playbook",
+      "SimulationMaxxing: How we ship agents 20× faster"
+    ]
+  },
+  {
+    "label": "Alignment and post-training",
+    "blurb": "Preference optimization is usually studied through its objective, but the shape of the reward and the robustness of the reward model matter just as much. I look at where the standard recipes are brittle and what to change so alignment holds up outside the benchmark.",
+    "papers": [
+      "AlphaPO: Reward Shape Matters for LLM Alignment",
+      "On the Robustness of Reward Models for Language Model Alignment"
+    ]
+  },
+  {
+    "label": "Efficiency at scale",
+    "blurb": "A model that cannot be served is a result, not a product. This thread covers compressing and distilling large models down to a serving budget, quantizing optimizer state so training fits, and scheduling inference so latency targets survive real traffic.",
+    "papers": [
+      "Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems",
+      "Effective Quantization of Muon Optimizer States",
+      "LLM Query Scheduling with Prefix Reuse and Latency Constraints"
+    ]
+  }
+]

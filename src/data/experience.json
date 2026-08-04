@@ -5,7 +5,7 @@
       "title": "Principal Machine Learning Engineer",
       "org": "Nubank",
       "url": "https://nubank.com.br",
-      "note": "Lead company-wide research on AI agents, foundation models, LLMs, and large-scale constrained optimization for 100M+ customers."
+      "note": "Lead company-wide research on AI agents, foundation models, LLMs, and large-scale constrained optimization for {{ profile.customer_scale }} customers."
     },
     {
       "when": "2019 — 2025",

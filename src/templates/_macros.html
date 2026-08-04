@@ -12,6 +12,9 @@
     <p class="masthead__role">{{ profile.role }}<br>{{ profile.affiliation }} &middot; {{ profile.location }}</p>
   </div>
 </header>
+{% if profile.thesis %}
+<p class="thesis">{{ profile.thesis }}</p>
+{% endif %}
 {% endmacro %}
 
 
@@ -48,6 +51,27 @@
     {% endif %}
     {{ links(p.links) }}
   </div>
+</div>
+{% endmacro %}
+
+
+{% macro research_thread(thread) %}
+<div class="thread">
+  <h3 class="thread__label">{{ thread.label }}</h3>
+  <p class="thread__blurb">{{ thread.blurb }}</p>
+  {% if thread.entries %}
+  <ul class="thread__papers">
+    {% for e in thread.entries %}
+    <li>
+      <span class="thread__venue" title="{{ e.chip_title }}">{{ e.chip }}</span>
+      <span>
+        {% if e.url %}<a href="{{ e.url }}">{{ e.title }}</a>{% else %}{{ e.title }}{% endif %}
+        {% if e.detail %}<span class="thread__detail">{{ e.detail | safe }}</span>{% endif %}
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
 </div>
 {% endmacro %}
 

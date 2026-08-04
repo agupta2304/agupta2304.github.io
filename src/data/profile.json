@@ -2,8 +2,11 @@
   "name": "Aman Gupta",
   "monogram": "AG",
   "role": "Principal Machine Learning Engineer",
+  "title_suffix": "Machine Learning Researcher, Nubank",
   "affiliation": "Nubank",
   "location": "San Francisco Bay Area",
+  "customer_scale": "more than 135 million",
+  "thesis": "I build and study foundation models and AI agents that operate reliably at scale — research that survives contact with production.",
   "headshot": "/assets/headshot.jpg",
   "meta_description": "Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training and alignment, efficient inference, and the evaluation of large-scale AI agents.",
   "knows_about": [
@@ -17,14 +20,25 @@
   ],
   "alumni_of": ["Carnegie Mellon University", "BITS Pilani"],
   "about": [
-    "I lead company-wide research on AI agents, foundation models, and LLMs at <a href=\"https://nubank.com.br\">Nubank</a>, where the systems we build serve more than 100 million customers.",
-    "My work sits at the intersection of large-scale optimization, deep learning, and language models. Lately that has meant alignment and post-training, efficient training and inference, and the surprisingly hard problem of evaluating agents rigorously enough to put them in front of real customers. I care about research that survives contact with production.",
-    "Before Nubank I spent six years at LinkedIn, most recently as a Senior Staff Machine Learning Engineer and Senior Manager in Core AI, where I led the team compressing and distilling LinkedIn's ranking foundation model and drove large-scale optimization across Feed, Ads, and Jobs. Earlier I was a Senior Machine Learning Research Scientist at Apple and a software engineer at Amazon. I studied at Carnegie Mellon and BITS Pilani.",
-    "I have published across ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP, filed more than ten patents, and serve on the program committees for ICLR, KDD, WWW, CIKM, and RecSys. I am always happy to hear from people who want to work on these problems &mdash; <a href=\"https://www.linkedin.com/in/aman-gupta1\">LinkedIn</a> is the fastest way to reach me."
+    "I lead company-wide research on AI agents, foundation models, and LLMs at <a href=\"https://nubank.com.br\">Nubank</a>, where the systems we build serve {{ profile.customer_scale }} customers. My work sits at the intersection of large-scale optimization, deep learning, and language models.",
+    "Before Nubank I spent six years at LinkedIn, most recently as a Senior Staff Machine Learning Engineer and Senior Manager in Core AI, where I led the team compressing and distilling LinkedIn's ranking foundation model and drove large-scale optimization across Feed, Ads, and Jobs. Earlier I was a Senior Machine Learning Research Scientist at Apple and a software engineer at Amazon. I studied at Carnegie Mellon and BITS Pilani."
   ],
+  "venues_note": "Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.",
+  "service": [
+    {
+      "label": "Program committees",
+      "value": "ICLR, KDD, WWW, CIKM, RecSys"
+    },
+    {
+      "label": "Patents",
+      "value": "More than ten filed"
+    }
+  ],
+  "contact_note": "I am always happy to hear from people who want to work on these problems &mdash; <a href=\"https://www.linkedin.com/in/aman-gupta1\">LinkedIn</a> is the fastest way to reach me.",
+  "cv": "/assets/cv.pdf",
   "links": {
-    "GitHub": "https://github.com/agupta2304",
+    "Scholar": "https://scholar.google.com/citations?user=vuGUPbkAAAAJ",
     "LinkedIn": "https://www.linkedin.com/in/aman-gupta1",
-    "Scholar": "https://scholar.google.com/citations?user=vuGUPbkAAAAJ"
+    "GitHub": "https://github.com/agupta2304"
   }
 }

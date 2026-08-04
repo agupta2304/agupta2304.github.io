@@ -24,7 +24,16 @@
 
 <section class="section" id="contact">
   <h2>Elsewhere</h2>
+  {% if profile.contact_note %}
+  <p class="contact__note">{{ profile.contact_note | safe }}</p>
+  {% endif %}
   <dl class="contact">
+    <dt>Papers</dt>
+    <dd><a href="/publications/">All {{ total_publications }} publications</a></dd>
+    {% if profile.cv %}
+    <dt>CV</dt>
+    <dd><a href="{{ profile.cv }}">Download (PDF)</a></dd>
+    {% endif %}
     {% for label, href in profile.links.items() %}
     <dt>{{ label }}</dt>
     <dd><a href="{{ href }}">{{ href | pretty_url }}</a></dd>
@@ -34,6 +43,13 @@
 </aside>
 
 <div class="flow">
+{% if research %}
+<section class="section" id="research">
+  <h2>Featured research</h2>
+  {% for thread in research %}{{ m.research_thread(thread) }}{% endfor %}
+</section>
+{% endif %}
+
 {% if news %}
 <section class="section" id="news">
   <h2>News</h2>
@@ -50,6 +66,9 @@
 
 <section class="section" id="papers">
   <h2>Selected papers</h2>
+  {% if profile.venues_note %}
+  <p class="section__note">{{ profile.venues_note }}</p>
+  {% endif %}
   {{ m.publication_years(selected_groups, profile.name) }}
   {% if total_publications > selected_count %}
   <p class="section__more"><a href="/publications/">See all {{ total_publications }} publications &rarr;</a></p>
@@ -93,6 +112,18 @@
     </div>
   </div>
   {% endfor %}
+</section>
+{% endif %}
+
+{% if profile.service %}
+<section class="section" id="service">
+  <h2>Service</h2>
+  <dl class="contact contact--wide">
+    {% for row in profile.service %}
+    <dt>{{ row.label }}</dt>
+    <dd>{{ row.value }}</dd>
+    {% endfor %}
+  </dl>
 </section>
 {% endif %}
 

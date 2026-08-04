@@ -2,20 +2,43 @@
 
 > Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training and alignment, efficient inference, and the evaluation of large-scale AI agents.
 
-I lead company-wide research on AI agents, foundation models, and LLMs at Nubank, where the systems we build serve more than 100 million customers.
+I build and study foundation models and AI agents that operate reliably at scale — research that survives contact with production.
 
-My work sits at the intersection of large-scale optimization, deep learning, and language models. Lately that has meant alignment and post-training, efficient training and inference, and the surprisingly hard problem of evaluating agents rigorously enough to put them in front of real customers. I care about research that survives contact with production.
+I lead company-wide research on AI agents, foundation models, and LLMs at Nubank, where the systems we build serve more than 135 million customers. My work sits at the intersection of large-scale optimization, deep learning, and language models.
 
 Before Nubank I spent six years at LinkedIn, most recently as a Senior Staff Machine Learning Engineer and Senior Manager in Core AI, where I led the team compressing and distilling LinkedIn's ranking foundation model and drove large-scale optimization across Feed, Ads, and Jobs. Earlier I was a Senior Machine Learning Research Scientist at Apple and a software engineer at Amazon. I studied at Carnegie Mellon and BITS Pilani.
 
-I have published across ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP, filed more than ten patents, and serve on the program committees for ICLR, KDD, WWW, CIKM, and RecSys. I am always happy to hear from people who want to work on these problems — LinkedIn is the fastest way to reach me.
-
 ## Pages
 
-- [Home](https://amangupta.dev/): about, news, selected papers, talks, experience, mentors
+- [Home](https://amangupta.dev/): featured research, news, selected papers, talks, experience, service, mentors
 - [Publications](https://amangupta.dev/publications/): complete list of 36 papers
 - [Writing](https://amangupta.dev/blog/): 1 post
 - [Feed](https://amangupta.dev/feed.xml): RSS
+
+## Research threads
+
+### Agents in production
+
+Getting agents past a demo means being able to say, with evidence, that they will behave on the next hundred million conversations. I work on evaluation harnesses rigorous enough to gate a deployment, and on the failure modes that only appear once real customers are on the other end.
+
+- [KDD 2026] Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework (KDD 2026). https://arxiv.org/abs/2606.08867
+- [Tutorial] Building Production LLM Agents: An Evaluation-Driven Playbook (CIKM 2026, half-day tutorial · Nov 2026).
+- [Talk] SimulationMaxxing: How we ship agents 20× faster (AI Engineer, with Shreya Rajpal · Jul 2026). https://www.youtube.com/watch?v=KMR_RBoCa4M
+
+### Alignment and post-training
+
+Preference optimization is usually studied through its objective, but the shape of the reward and the robustness of the reward model matter just as much. I look at where the standard recipes are brittle and what to change so alignment holds up outside the benchmark.
+
+- [ICML 2025] AlphaPO: Reward Shape Matters for LLM Alignment (ICML 2025). https://arxiv.org/abs/2501.03884
+- [ICML 2025] On the Robustness of Reward Models for Language Model Alignment (ICML 2025). https://arxiv.org/abs/2505.07271
+
+### Efficiency at scale
+
+A model that cannot be served is a result, not a product. This thread covers compressing and distilling large models down to a serving budget, quantizing optimizer state so training fits, and scheduling inference so latency targets survive real traffic.
+
+- [EMNLP 2025] Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems (EMNLP 2025). https://arxiv.org/abs/2502.14305
+- [arXiv 2025] Effective Quantization of Muon Optimizer States (arXiv 2025). https://arxiv.org/abs/2509.23106
+- [NeurIPS 2025] LLM Query Scheduling with Prefix Reuse and Latency Constraints (NeurIPS 2025). https://arxiv.org/abs/2502.04677
 
 ## Selected papers
 
@@ -25,7 +48,7 @@ I have published across ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP, filed mo
 - LLM Query Scheduling with Prefix Reuse and Latency Constraints (NeurIPS 2025). https://arxiv.org/abs/2502.04677
 - On the Robustness of Reward Models for Language Model Alignment (ICML 2025). https://arxiv.org/abs/2505.07271
 - Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems (EMNLP 2025). https://arxiv.org/abs/2502.14305
-- 360Brew: A Decoder-only Foundation Model for Personalized Ranking and Recommendation (arXiv 2024). https://arxiv.org/abs/2501.16450
+- 360Brew: A Decoder-only Foundation Model for Personalized Ranking and Recommendation (arXiv 2025). https://arxiv.org/abs/2501.16450
 - A Precise Characterization of SGD Stability Using Loss Surface Geometry (ICLR 2024). https://arxiv.org/abs/2401.12332
 - LiRank: Industrial Large Scale Ranking Models at LinkedIn (KDD 2024). https://arxiv.org/abs/2402.06859
 - Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference (KDD 2023).
@@ -38,8 +61,13 @@ I have published across ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP, filed mo
 - Effective Quantization of Muon Optimizer States — ICLR SPOT workshop, Apr 2026.
 - Building AI Agents for 127 Million Customers: Practical Lessons from Nubank — QCon AI New York, Dec 2025. https://www.youtube.com/watch?v=1GnbsGhRC4o
 
+## Service
+
+- Program committees: ICLR, KDD, WWW, CIKM, RecSys
+- Patents: More than ten filed
+
 ## Elsewhere
 
-- GitHub: https://github.com/agupta2304
-- LinkedIn: https://www.linkedin.com/in/aman-gupta1
 - Scholar: https://scholar.google.com/citations?user=vuGUPbkAAAAJ
+- LinkedIn: https://www.linkedin.com/in/aman-gupta1
+- GitHub: https://github.com/agupta2304

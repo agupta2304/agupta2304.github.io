@@ -1,8 +1,10 @@
 """Structural checks on the generated site.
 
-    python src/check.py
+    python src/check.py               structure, links, palettes, contrast
+    python src/check.py --external    also fetch every outbound link
 
-Exits non-zero if anything is wrong, so it works as a pre-push guard.
+Exits non-zero if anything is wrong, so it works as a pre-push guard. The network
+sweep is opt-in because it is slow and can fail for reasons that are not our fault.
 """
 
 import json
@@ -17,7 +19,10 @@ ROOT = Path(__file__).resolve().parent.parent
 VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input",
         "link", "meta", "param", "source", "track", "wbr"}
 
+CHECK_EXTERNAL = "--external" in sys.argv[1:]
+
 problems: list[str] = []
+warnings: list[str] = []
 
 
 class Balance(HTMLParser):
@@ -173,6 +178,53 @@ if root_block and dark_block:
 else:
     problems.append("style.css: could not locate both palette blocks")
 
+# every text colour must clear WCAG AA against the surface it sits on, in both
+# palettes. The smallest text on the site uses --faint, which is exactly where this
+# regressed before, so the ratios are asserted rather than eyeballed.
+CONTRAST_PAIRS = [
+    ("ink", "bg", 4.5, "body text"),
+    ("muted", "bg", 4.5, "secondary prose"),
+    ("faint", "bg", 4.5, "dates, section labels, venue metadata"),
+    ("accent", "bg", 4.5, "links"),
+    ("muted", "mark", 4.5, "venue chips and badges"),
+    # The monogram is a 1.9rem decorative glyph and aria-hidden, so the large-text
+    # threshold applies. It only renders when there is no portrait.
+    ("faint", "mark", 3.0, "masthead monogram (large, decorative)"),
+]
+
+
+def relative_luminance(hex_colour: str) -> float:
+    value = hex_colour.lstrip("#")
+    channels = [int(value[i:i + 2], 16) / 255 for i in (0, 2, 4)]
+    linear = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
+              for c in channels]
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+
+def contrast_ratio(one: str, two: str) -> float:
+    a, b = relative_luminance(one), relative_luminance(two)
+    lighter, darker = max(a, b), min(a, b)
+    return (lighter + 0.05) / (darker + 0.05)
+
+
+def palette_tokens(block: str) -> dict[str, str]:
+    return dict(re.findall(r"(--[\w-]+):\s*(#[0-9a-fA-F]{6})", block))
+
+
+if root_block and dark_block:
+    palettes = {"light": palette_tokens(root_block.group(1)),
+                "dark": palette_tokens(dark_block.group(1))}
+    for name, tokens in palettes.items():
+        for fg, bg, minimum, why in CONTRAST_PAIRS:
+            if f"--{fg}" not in tokens or f"--{bg}" not in tokens:
+                problems.append(f"style.css: {name} palette has no --{fg} or --{bg}")
+                continue
+            ratio = contrast_ratio(tokens[f"--{fg}"], tokens[f"--{bg}"])
+            if ratio < minimum:
+                problems.append(
+                    f"style.css: {name} --{fg} on --{bg} is {ratio:.2f}:1, "
+                    f"below the {minimum}:1 needed for {why}")
+
 # syntax highlighting needs a rule per theme
 if ".codehilite .k " not in css and ".codehilite .k{" not in css:
     problems.append("style.css: no default syntax highlighting rules")
@@ -206,7 +258,101 @@ for page in pages:
         if "katex" not in src:
             problems.append(f"{label}: unexpected external script {src}")
 
-print(f"checked {len(pages)} pages, {sum(len(v) for v in all_refs.values())} references")
+# ---------------------------------------------------------------------------
+# opt-in network sweep
+# ---------------------------------------------------------------------------
+
+BROWSER_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
+TIMEOUT = 20
+# Publishers that refuse automated requests outright. A refusal from these says
+# nothing about whether the link works in a browser, so it is not a failure.
+BOT_BLOCKED = (403, 429, 503)
+BODY_LIMIT = 200_000   # enough to see an arXiv withdrawal notice, bounded on purpose
+
+
+def fetch(url: str, want_body: bool = False) -> tuple[int | None, str]:
+    """GET a URL, returning (status, body). Read-only, bounded, http(s) only."""
+    import urllib.error
+    import urllib.request
+
+    if urlparse(url).scheme not in ("http", "https"):
+        return None, "unsupported scheme"
+    request = urllib.request.Request(url, headers={"User-Agent": BROWSER_UA})
+    try:
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            body = ""
+            if want_body:
+                body = response.read(BODY_LIMIT).decode("utf-8", "replace")
+            return response.status, body
+    except urllib.error.HTTPError as exc:
+        return exc.code, ""
+    except Exception as exc:                      # DNS, TLS, timeout, reset
+        return None, str(exc)
+
+
+def sweep_external() -> None:
+    from concurrent.futures import ThreadPoolExecutor
+
+    # Our own canonical and og:url references point at the deployed copy. Whether
+    # that is up is a deploy question, and the live host rate-limits bursts, so the
+    # sweep stays on genuinely outbound links.
+    outbound = sorted({
+        ref for refs in all_refs.values() for ref in refs
+        if urlparse(ref).scheme in ("http", "https")
+        and not (origin and ref.startswith(origin))
+    })
+    print(f"fetching {len(outbound)} outbound links...")
+
+    def probe(url: str) -> tuple[str, int | None, str]:
+        status, detail = fetch(url)
+        return url, status, detail
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for url, status, detail in pool.map(probe, outbound):
+            if status is None:
+                warnings.append(f"{url} could not be reached ({detail})")
+            elif status in BOT_BLOCKED:
+                warnings.append(f"{url} returned {status} (refuses automated requests)")
+            elif status >= 400:
+                problems.append(f"dead outbound link: {url} returned {status}")
+
+    # arXiv keeps serving the abstract page after a withdrawal, so a 200 is not
+    # enough: this is the exact defect that shipped unnoticed. A withdrawn paper is
+    # allowed, but only if its entry says so.
+    try:
+        pubs = json.loads((ROOT / "src" / "data" / "publications.json").read_text())
+    except (OSError, json.JSONDecodeError) as exc:
+        problems.append(f"publications.json: could not read ({exc})")
+        return
+
+    abs_links = [(p, p.get("links", {})["arxiv"]) for p in pubs
+                 if p.get("links", {}).get("arxiv", "").find("/abs/") != -1]
+
+    def withdrawal(pair):
+        paper, url = pair
+        _, body = fetch(url, want_body=True)
+        return paper, url, "has been withdrawn" in body.lower()
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for paper, url, withdrawn in pool.map(withdrawal, abs_links):
+            if not withdrawn:
+                continue
+            if "withdrawn" in str(paper.get("note", "")).lower():
+                warnings.append(f"{paper['title'][:56]}: withdrawn on arXiv, labelled as such")
+            else:
+                problems.append(
+                    f"{paper['title'][:56]}: arXiv record at {url} is withdrawn, "
+                    "but the entry does not say so")
+
+
+if CHECK_EXTERNAL:
+    sweep_external()
+
+total_refs = sum(len(v) for v in all_refs.values())
+print(f"checked {len(pages)} pages, {total_refs} references")
+for w in warnings:
+    print(f"  warn  {w}")
 for p in problems:
     print(f"  FAIL  {p}")
 print("all checks passed" if not problems else f"{len(problems)} problem(s)")

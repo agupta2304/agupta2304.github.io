@@ -12,7 +12,9 @@
   --bg:      #faf7f0;
   --ink:     #1f1c18;
   --muted:   #6a635a;
-  --faint:   #8c8478;
+  /* 4.78:1 on --bg. The smallest text on the site uses this, so it has to clear
+     WCAG AA on its own; src/check.py asserts the ratio for both palettes. */
+  --faint:   #746d63;
   --rule:    #e6ded0;
   --accent:  #8a2f2f;
   --mark:    #f2ebdc;
@@ -122,7 +124,7 @@ a:focus-visible {
   align-items: center;
   gap: 0 1.15rem;
   font-family: var(--mono);
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   letter-spacing: 0.02em;
 }
 
@@ -215,6 +217,15 @@ a:focus-visible {
   line-height: 1.5;
 }
 
+/* The one sentence a visitor should leave with, so it sits above the biography
+   and reads a step larger than the prose around it. */
+.thesis {
+  margin: 1.4rem 0 0;
+  font-size: var(--step-1);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
 /* ---------- Two-column homepage ---------- */
 
 .layout {
@@ -238,6 +249,14 @@ a:focus-visible {
   align-items: flex-start;
   gap: 0.9rem;
   padding-top: 0;
+}
+
+/* The rail is only 18rem, so the thesis steps down from --step-1 to stay a
+   comfortable measure rather than breaking into two-word lines. */
+.rail .thesis {
+  margin-top: 1.1rem;
+  font-size: 1.12rem;
+  line-height: 1.5;
 }
 
 .rail .lede {
@@ -273,7 +292,10 @@ a:focus-visible {
     gap: 1.4rem;
   }
 
-  .rail .lede { font-size: var(--step-1); }
+  /* Single column: the thesis takes the emphasis and the lede returns to body size,
+     so there is one enlarged line rather than two competing for it. */
+  .rail .thesis { font-size: var(--step-1); }
+  .rail .lede { font-size: var(--step-0); }
 
   .rail .contact { grid-template-columns: 6rem 1fr; gap: 0.5rem 1rem; }
 }
@@ -287,7 +309,7 @@ a:focus-visible {
   padding-bottom: 0.4rem;
   border-bottom: 1px solid var(--rule);
   font-family: var(--mono);
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.11em;
   text-transform: uppercase;
@@ -305,6 +327,74 @@ a:focus-visible {
 .section__more {
   margin-top: 1.4rem;
   font-size: var(--step--1);
+}
+
+/* A one-line gloss under a section heading, e.g. the venue breadth above the papers. */
+.section__note {
+  margin: -0.3rem 0 1.2rem;
+  color: var(--muted);
+  font-size: var(--step--1);
+}
+
+/* ---------- Featured research ---------- */
+
+.thread { margin-bottom: 2.1rem; }
+.thread:last-child { margin-bottom: 0; }
+
+.thread__label {
+  margin: 0 0 0.4rem;
+  font-size: var(--step-1);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.thread__blurb {
+  margin: 0 0 0.7rem;
+  max-width: var(--measure);
+  color: var(--muted);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.thread__papers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Same venue gutter as the publication list, so the two read as one system. */
+.thread__papers li {
+  display: grid;
+  grid-template-columns: 5.25rem minmax(0, 1fr);
+  gap: 0 1rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.thread__papers li:last-child { margin-bottom: 0; }
+
+/* A talk's venue and date, since its chip carries the kind rather than the venue. */
+.thread__detail {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--faint);
+  line-height: 1.4;
+}
+
+.thread__venue {
+  justify-self: start;
+  margin-top: 0.18rem;
+  padding: 0.16rem 0.36rem;
+  border-radius: 3px;
+  background: var(--mark);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 /* ---------- News ---------- */
@@ -538,6 +628,16 @@ a.pub__title:hover {
   font-size: 0.96rem;
 }
 
+/* "Program committees" does not fit the 6rem label column of the Elsewhere list. */
+.contact--wide { grid-template-columns: 11rem 1fr; }
+
+.contact__note {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
 .contact dt {
   font-family: var(--mono);
   font-size: 0.74rem;
@@ -725,12 +825,14 @@ code, kbd, samp {
     gap: 0.1rem;
   }
 
-  .pub {
+  .pub,
+  .thread__papers li {
     grid-template-columns: 1fr;
     gap: 0.3rem;
   }
 
-  .pub__tag { margin-top: 0; }
+  .pub__tag,
+  .thread__venue { margin-top: 0; }
 
   .role__when,
   .news__when { padding-top: 0; }
@@ -772,9 +874,17 @@ code, kbd, samp {
 
   .masthead { padding-top: 0; }
 
+  /* rem sizes are unchanged by the 10.5pt body, so the thesis is set in em to stay
+     proportionate on paper instead of towering over the text. */
+  .thesis,
+  .rail .thesis {
+    margin: 0.5rem 0 0;
+    font-size: 1.1em;
+  }
+
   .section { margin: 1.2rem 0; page-break-inside: avoid; }
 
-  .pub, .role, .talk, .mentor { page-break-inside: avoid; }
+  .pub, .role, .talk, .mentor, .thread { page-break-inside: avoid; }
 
   a { text-decoration: none; }
 

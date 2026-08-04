@@ -14,7 +14,7 @@
   } catch (e) {}
 })();
 </script>
-<title>{% block title %}{{ profile.name }}{% endblock %}</title>
+<title>{% block title %}{{ profile.name }}{% if profile.title_suffix %} — {{ profile.title_suffix }}{% endif %}{% endblock %}</title>
 <meta name="description" content="{% block description %}{{ profile.meta_description }}{% endblock %}">
 <link rel="canonical" href="{{ site.url }}{{ page.path }}">
 
@@ -36,10 +36,16 @@
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__home" href="/">{{ profile.name }}</a>
+    <a href="/#research">research</a>
     <a href="/#papers">papers</a>
     <a href="/#talks">talks</a>
     <a href="/#experience">experience</a>
+    {# Writing stays out of the nav until there is enough of it to be worth a click.
+       The page and feed are still built, so nothing 404s and links already shared
+       keep working. #}
+    {% if writing_linked %}
     <a href="/blog/">writing</a>
+    {% endif %}
     <button class="theme-toggle" type="button" hidden>
       <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
         <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>

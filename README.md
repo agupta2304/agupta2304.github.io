@@ -65,21 +65,92 @@ To sanity-check the output before pushing:
 ```
 
 It verifies HTML tag balance, that every internal link resolves, that the RSS feed is
-well-formed, that both themes define the same colour tokens, and that no unexpected external
-script sneaks in. It exits non-zero on failure.
+well-formed, that both themes define the same colour tokens, that every text colour clears
+WCAG AA against the surface it sits on, and that no unexpected external script sneaks in. It
+exits non-zero on failure.
+
+The contrast assertion exists because it caught a real regression: the smallest text on the
+site sat at 3.45:1 against the cream background for a while. Thresholds and the reason for each
+pair live in `CONTRAST_PAIRS` in [src/check.py](src/check.py) — 4.5:1 for body and metadata,
+3:1 for the large decorative monogram.
+
+There is also an opt-in network sweep, kept separate because it is slow and can fail for
+reasons that are not your fault:
+
+```bash
+.venv/bin/python src/check.py --external
+```
+
+It fetches every outbound link and fails on a genuine 404. Publishers that refuse automated
+requests — ACM, IEEE, Inderscience, Google Scholar — return 403 and are reported as warnings,
+since a refusal says nothing about whether the link works in a browser.
+
+It also handles a case a status code cannot catch: arXiv keeps serving the abstract page after
+a paper is withdrawn, so the link returns 200 while the PDF is gone. A withdrawn paper is
+allowed, but only if its entry carries a `note` saying so. Two of the papers here are in that
+state, which is why they show a "Withdrawn by the authors" badge.
 
 ## Editing content
 
 | What | Where |
 | --- | --- |
-| Name, about text, contact links | `src/data/profile.json` |
+| Name, thesis line, about text, service, contact links | `src/data/profile.json` |
+| Featured research threads | `src/data/research.json` |
 | News items | `src/data/news.json` |
 | Publications | `src/data/publications.json` |
 | Talks and tutorials | `src/data/talks.json` |
 | Jobs and education | `src/data/experience.json` |
 | Mentors | `src/data/mentors.json` |
-| Canonical site URL | `src/data/site.json` |
+| Canonical site URL, list limits | `src/data/site.json` |
 | Look and feel | `src/styles/style.css` |
+
+### The top of the homepage
+
+`profile.thesis` is the one sentence under your name and title. It is the first thing a visitor
+reads, so it should say what you work on rather than where you work — the masthead already
+covers that. It renders a step larger than the surrounding prose and is the only enlarged line,
+which is why the first About paragraph is no longer given the `lede` treatment on narrow
+screens.
+
+`profile.about` is deliberately two paragraphs: positioning, then career. Anything longer turns
+the 18rem rail into a wall of text. Proof points that used to sit in a fourth paragraph now live
+where they belong — publication venues as a one-line gloss under Selected papers
+(`profile.venues_note`), and program committees and patents in their own Service section
+(`profile.service`).
+
+Prose in the JSON data is rendered as Jinja before it reaches the templates, so a fact quoted in
+more than one place has a single definition. The customer count appears in both the bio and the
+Nubank role and is written `{{ profile.customer_scale }}` in each; update
+`profile.customer_scale` and both move together. Keep that figure sourced — the current value
+comes from Nu Holdings' most recent quarterly results.
+
+### Featured research
+
+`src/data/research.json` holds the threads shown above News. Each has a `label`, a `blurb` of a
+sentence or two, and any mix of `papers` and `talks`:
+
+```json
+{
+  "label": "Agents in production",
+  "blurb": "What the thread is about, in one or two sentences.",
+  "papers": ["Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework"],
+  "talks": ["Building Production LLM Agents: An Evaluation-Driven Playbook"]
+}
+```
+
+Both are named by title and resolved against `publications.json` and `talks.json`, so a venue,
+date, or link is only ever edited in one file. A title that does not match exactly **fails the
+build** rather than silently disappearing, because a thread quietly losing its evidence is worse
+than a broken build.
+
+Papers and talks render as one list, papers first. The left gutter differs between them on
+purpose: a paper's chip is its venue and year, since "KDD 2026" already implies a paper, while a
+talk's chip is its kind — `Tutorial` for `type: tutorial`, `Talk` otherwise — with the event and
+date underneath. That way a tutorial is never mistaken for a conference paper. Talk titles link
+to the recording when there is one.
+
+Threads are ordered as written. Three is a good number; much more and the section stops being
+"featured".
 
 ### Adding a paper
 
@@ -125,8 +196,8 @@ render bold rather than italic, so the eye lands on the title and the conference
 shows the six most recent;
 change `news_limit` in `src/data/site.json` to show more, or set it to `0` for all of them.
 
-The section sits directly below About. To move it above, cut the `{% if news %}` block in
-`src/templates/home.html` and paste it before the `id="about"` section.
+News sits below Featured research. To lead with it instead, swap the two blocks in
+`src/templates/home.html`.
 
 ### Adding a talk
 
@@ -191,11 +262,31 @@ It publishes at `/blog/<slug>/`. Set `draft: true` to keep it out of the build. 
 third-party requests. Fenced code blocks are highlighted at build time by Pygments, with
 separate light and dark themes baked into the stylesheet.
 
+**Writing is hidden from the nav until there are three posts.** A nav item promising essays
+that turn out to be a single colophon is worse than no nav item. The page, the feed, and every
+post URL are still built and still in the sitemap, so nothing 404s and any link already shared
+keeps working — only the nav link is withheld, and it reappears on its own at the third post.
+Change the threshold with `writing_min_posts` in `src/data/site.json`, or set it to `0` to
+always show the link.
+
 ### Adding a headshot
 
 Drop a square image at `assets/headshot.jpg`. If the file is missing the build falls back to
 an "AG" monogram and says so, so a missing portrait never ships as a broken image. Change the
 path or set it to `null` in `profile.json`.
+
+The portrait renders at 96px, which a 200x200 source covers at 2x for retina screens. If you
+want it larger you need a larger source first: at 120px a 200px image is only 1.67x and will
+visibly soften.
+
+### Adding a CV
+
+Drop a PDF at `assets/cv.pdf` and a CV link appears at the top of the Elsewhere list. Until the
+file exists the build says so and leaves the link out, the same rule as the portrait — so there
+is never a link to a missing download. Change the path or set `cv` to `null` in `profile.json`.
+
+Printing the homepage already produces a serviceable CV: the print stylesheet drops the nav and
+chrome, collapses to one column, renders monochrome, and expands link URLs inline.
 
 ## Publishing
 
@@ -225,6 +316,33 @@ which ignores directories beginning with an underscore and can rewrite files une
 is a `CNAME` to `agupta2304.github.io`; GitHub redirects both hostnames to the canonical apex.
 The matching `url` in `src/data/site.json` drives canonical URLs and the RSS feed.
 
-Security note: `amangupta.dev` is verified to the `agupta2304` GitHub account and HTTPS is
-enforced. Keep the `_github-pages-challenge-agupta2304` TXT record in DNS permanently so
-another GitHub account cannot claim the domain if Pages is ever disabled or reconfigured.
+`amangupta.dev` is verified to the `agupta2304` GitHub account and HTTPS is enforced. Keep the
+`_github-pages-challenge-agupta2304` TXT record in DNS permanently so another GitHub account
+cannot claim the domain if Pages is ever disabled or reconfigured.
+
+## Security notes
+
+The site is static, has no forms, no backend, and no user input, so most of the usual web
+surface does not exist here. The parts that are worth stating:
+
+**No secrets in the repository.** The only credential in play is `YOUTUBE_API_KEY`, which lives
+in GitHub's encrypted Actions secrets and is read from the environment at refresh time. It never
+enters a data file, a committed page, or a log line. Nothing else the build touches requires
+authentication.
+
+**Prose in the JSON data is rendered as a Jinja template.** That is what makes
+`{{ profile.customer_scale }}` work in `profile.json` and `experience.json`. It also means those
+files are executable template input rather than inert strings, so treat them with the same care
+as the templates themselves. This is safe because every one of those files is author-written and
+version-controlled — there is no path by which a visitor, an API, or any external system can
+reach them. Do not extend this rendering to content fetched from elsewhere.
+
+**The `--external` sweep makes outbound requests** to URLs stored in the repo's own data. It is
+opt-in, never part of an ordinary build, restricted to `http` and `https`, sends no credentials
+or cookies, issues only read-only GETs with a 20-second timeout, and caps each response read so
+a hostile or enormous body cannot exhaust memory. It is a local pre-push convenience, not
+something CI depends on.
+
+**Third-party requests from the served pages** are limited to KaTeX, and only on posts that set
+`math: true`. `src/check.py` fails if any other external script appears on any page, which is
+what keeps an analytics snippet or a font CDN from creeping in unnoticed.

@@ -44,10 +44,13 @@ BROWSER_UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.3
 # Venues with no parenthesised acronym to pull out.
 VENUE_SHORT = {
     "arXiv preprint": "arXiv",
+    "arXiv technical report": "arXiv",
     "International Journal of Data Mining and Bioinformatics": "IJDMB",
     "Microbial Informatics and Experimentation": "Journal",
 }
 TALK_SECTIONS = (("tutorial", "Conference tutorials"), ("invited", "Invited talks"), ("other", "Other"))
+# Chip labels when a talk appears as evidence under a research thread.
+TALK_KINDS = {"tutorial": "Tutorial", "invited": "Talk", "other": "Talk"}
 MONTHS = ("January", "February", "March", "April", "May", "June",
           "July", "August", "September", "October", "November", "December")
 
@@ -256,6 +259,62 @@ def group_by_year(pubs: list[dict]) -> list[tuple[int, list[dict]]]:
     return sorted(groups.items(), key=lambda kv: kv[0], reverse=True)
 
 
+def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
+    """Resolve each thread's papers and talks by title, into one normalised list.
+
+    Threads name their evidence rather than restating it, so a venue, date or link is
+    only ever edited in publications.json or talks.json. A title that no longer matches
+    is a hard error: silently dropping it would leave a thread quietly claiming less
+    than it should.
+
+    Papers and talks are flattened to the same shape here so the template renders one
+    list without branching on what each entry happens to be.
+    """
+    papers_by_title = {p["title"]: p for p in pubs}
+    talks_by_title = {t["title"]: t for t in talks}
+    threads = load("research.json")
+
+    for thread in threads:
+        entries = []
+        for title in thread.get("papers", []):
+            paper = papers_by_title.get(title)
+            if paper is None:
+                raise SystemExit(
+                    f"research.json: no publication titled {title!r}. "
+                    "Titles must match publications.json exactly."
+                )
+            entries.append({
+                "kind": "paper",
+                "chip": f"{paper['venue_short']} {paper['year']}",
+                "chip_title": paper["venue_full"],
+                "title": paper["title"],
+                "url": paper.get("primary_link"),
+                "detail": None,
+            })
+
+        for title in thread.get("talks", []):
+            talk = talks_by_title.get(title)
+            if talk is None:
+                raise SystemExit(
+                    f"research.json: no talk titled {title!r}. "
+                    "Titles must match talks.json exactly."
+                )
+            # A paper's chip carries its venue, which already implies "paper". For a
+            # talk the useful distinction is what kind of thing it is, so the venue and
+            # date move under the title instead.
+            entries.append({
+                "kind": "talk",
+                "chip": TALK_KINDS.get(talk.get("type", "other"), "Talk"),
+                "chip_title": talk["event"],
+                "title": talk["title"],
+                "url": talk["links"].get("video"),
+                "detail": f"{talk['event']} &middot; {talk['date']}",
+            })
+
+        thread["entries"] = entries
+    return threads
+
+
 def load_news(limit: int) -> list[dict]:
     items = load("news.json")
     items.sort(key=lambda n: str(n.get("date", "")), reverse=True)
@@ -368,6 +427,21 @@ def report_placeholders() -> None:
     print(f"\n{sum(counts.values())} placeholders still on the site — edit src/data/*.json:")
     for path, found in sorted(counts.items(), key=lambda kv: -kv[1]):
         print(f"  {found:3d}  {path.relative_to(ROOT)}")
+
+
+def expand_prose(profile: dict, experience: dict, env: Environment) -> None:
+    """Render the prose in the JSON data as Jinja, so a figure quoted in more than one
+    place has a single definition. The customer count appears in both the bio and the
+    Nubank role, and the two drifting apart reads as carelessness to a visitor.
+    """
+    def render(text: str) -> str:
+        return env.from_string(text).render(profile=profile)
+
+    profile["about"] = [render(p) for p in profile["about"]]
+    for group in ("roles", "education"):
+        for role in experience.get(group, []):
+            if role.get("note"):
+                role["note"] = render(role["note"])
 
 
 def build_stylesheet() -> None:
@@ -532,21 +606,33 @@ def build_robots(site: dict) -> None:
           f"User-agent: *\nAllow: /\n\nSitemap: {site['url']}/sitemap.xml\n")
 
 
-def build_llms_txt(profile: dict, site: dict, pubs: list[dict],
+def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[dict],
                    talk_groups: list[dict], posts: list[dict]) -> None:
     """A plain-text digest for agents. Not a standard, but cheap and harmless."""
     def strip_tags(text: str) -> str:
         return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", text))).strip()
 
     lines = [f"# {profile['name']}", "", f"> {profile['meta_description']}", ""]
+    if profile.get("thesis"):
+        lines += [profile["thesis"], ""]
     lines += [strip_tags(p) + "\n" for p in profile["about"]]
 
     lines += ["## Pages", "",
-              f"- [Home]({site['url']}/): about, news, selected papers, talks, experience, mentors",
+              f"- [Home]({site['url']}/): featured research, news, selected papers, "
+              "talks, experience, service, mentors",
               f"- [Publications]({site['url']}/publications/): complete list of {len(pubs)} papers",
               f"- [Writing]({site['url']}/blog/): {len(posts)} post"
               f"{'' if len(posts) == 1 else 's'}",
               f"- [Feed]({site['url']}/feed.xml): RSS", ""]
+
+    lines += ["## Research threads", ""]
+    for thread in research:
+        lines += [f"### {thread['label']}", "", thread["blurb"], ""]
+        for entry in thread["entries"]:
+            where = strip_tags(entry["detail"]) if entry["detail"] else entry["chip"]
+            link = f" {entry['url']}" if entry.get("url") else ""
+            lines.append(f"- [{entry['chip']}] {entry['title']} ({where}).{link}")
+        lines.append("")
 
     lines += ["## Selected papers", ""]
     for p in (x for x in pubs if x.get("selected")):
@@ -560,6 +646,11 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict],
             video = f" {t['links']['video']}" if t["links"].get("video") else ""
             lines.append(f"- {t['title']} — {t['event']}, {t['date']}.{video}")
     lines.append("")
+
+    if profile.get("service"):
+        lines += ["## Service", ""]
+        lines += [f"- {row['label']}: {row['value']}" for row in profile["service"]]
+        lines.append("")
 
     lines += ["## Elsewhere", ""]
     lines += [f"- {label}: {href}" for label, href in profile["links"].items()]
@@ -582,6 +673,13 @@ def build(refresh_views: bool = False) -> None:
         print(f"  note: {headshot} not found, using the monogram instead")
         profile["headshot"] = None
 
+    # The CV is a file to drop in rather than a URL, so the link appears on its own
+    # once the file exists and stays hidden until then.
+    cv = profile.get("cv")
+    if cv and not (ROOT / cv.lstrip("/")).exists():
+        print(f"  note: {cv} not found, leaving the CV out of the Elsewhere list")
+        profile["cv"] = None
+
     publications = load_publications(profile["name"])
     selected = [p for p in publications if p.get("selected")]
     video_stats = load_video_stats()
@@ -592,6 +690,7 @@ def build(refresh_views: bool = False) -> None:
 
     talk_groups = load_talks(video_stats)
     all_talks = [t for group in talk_groups for t in group["entries"]]
+    research = load_research(publications, all_talks)
     news = load_news(site.get("news_limit", 6))
     experience = load("experience.json")
     mentors = load("mentors.json")
@@ -604,12 +703,16 @@ def build(refresh_views: bool = False) -> None:
         lstrip_blocks=True,
     )
     env.filters["pretty_url"] = pretty_url
+    expand_prose(profile, experience, env)
 
     shared = {
         "profile": profile,
         "site": site,
         "total_publications": len(publications),
         "selected_count": len(selected),
+        # One post is a colophon, not a body of writing. Linking it from the nav
+        # promises essays the site cannot yet deliver.
+        "writing_linked": len(posts) >= site.get("writing_min_posts", 3),
     }
 
     print("building:")
@@ -618,6 +721,7 @@ def build(refresh_views: bool = False) -> None:
     write(ROOT / "index.html", env.get_template("home.html").render(
         page={"path": "/"},
         selected_groups=group_by_year(selected),
+        research=research,
         talk_groups=talk_groups,
         news=news,
         experience=experience.get("roles", []),
@@ -652,7 +756,7 @@ def build(refresh_views: bool = False) -> None:
     build_feed(posts, profile, site)
     build_sitemap(site, posts)
     build_robots(site)
-    build_llms_txt(profile, site, publications, talk_groups, posts)
+    build_llms_txt(profile, site, publications, research, talk_groups, posts)
     print(f"done: {len(publications)} publications, {len(posts)} posts")
     unlinked = [p["title"] for p in publications if not p.get("links")]
     if unlinked:
