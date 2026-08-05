@@ -29,7 +29,7 @@
   },
   {
     "label": "Recommender systems at scale",
-    "blurb": "A production recommender is a stack rather than a model: retrieval, ranking, per-member personalization, and above all of it an optimization layer that decides what the scores are actually used for. Much of my work sits in that last part — solving linear programs with trillions of variables so business objectives can be optimized on top of deep models.",
+    "blurb": "I have worked across the recommender stack: retrieval, ranking, personalization, and the large-scale constrained optimization that sits on top of it. That last part meant solving linear programs with trillions of variables.",
     "papers": [
       "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
       "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",

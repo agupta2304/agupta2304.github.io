@@ -66,13 +66,15 @@
 
 <section class="section" id="papers">
   <h2>Selected papers</h2>
-  {% if profile.venues_note %}
-  <p class="section__note">{{ profile.venues_note }}</p>
-  {% endif %}
+  {# The full list is what most visitors want, so the link sits above the excerpt
+     rather than after it. #}
+  <p class="section__note">
+    {% if profile.venues_note %}{{ profile.venues_note }}{% endif %}
+    {% if total_publications > selected_count %}
+    <a href="/publications/">See all {{ total_publications }} publications &rarr;</a>
+    {% endif %}
+  </p>
   {{ m.publication_years(selected_groups, profile.name, site.years_expanded) }}
-  {% if total_publications > selected_count %}
-  <p class="section__more"><a href="/publications/">See all {{ total_publications }} publications &rarr;</a></p>
-  {% endif %}
 </section>
 
 <section class="section" id="talks">

@@ -42,7 +42,7 @@ A model that cannot be served is a result, not a product. This thread covers com
 
 ### Recommender systems at scale
 
-A production recommender is a stack rather than a model: retrieval, ranking, per-member personalization, and above all of it an optimization layer that decides what the scores are actually used for. Much of my work sits in that last part — solving linear programs with trillions of variables so business objectives can be optimized on top of deep models.
+I have worked across the recommender stack: retrieval, ranking, personalization, and the large-scale constrained optimization that sits on top of it. That last part meant solving linear programs with trillions of variables.
 
 - [Tutorial @ KDD 2023] Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference. https://sites.google.com/view/kdd-2023-large-scale-lps
 - [WWW 2025] Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems. https://doi.org/10.1145/3701716.3715868
