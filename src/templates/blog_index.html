@@ -1,46 +1,40 @@
 {% extends "base.html" %}
 
 {% block title %}Writing — {{ profile.name }}{% endblock %}
-{% block description %}Notes and essays by {{ profile.name }}.{% endblock %}
+{% block description %}Essays and engineering writing by {{ profile.name }}.{% endblock %}
 
 {% block content %}
 <header class="post__header">
   <h1 class="post__title">Writing</h1>
-  <p class="masthead__role">Occasional notes on training, evaluating, and shipping large models. <a href="/feed.xml">RSS</a>.</p>
+  <p class="masthead__role">Notes on training, evaluating, and shipping large models, here and elsewhere. <a href="/feed.xml">RSS</a>.</p>
 </header>
 
 <section class="section">
-  {% if posts %}
+  {% if entries %}
   <ul class="postlist">
-    {% for p in posts %}
+    {% for e in entries %}
     <li>
-      <div class="postlist__date">{{ p.date_display }}</div>
-      <a class="postlist__title" href="{{ p.url }}">{{ p.title }}</a>
-      {% if p.summary %}<p class="postlist__summary">{{ p.summary }}</p>{% endif %}
+      <div class="postlist__date">{{ e.when }}</div>
+      <a class="postlist__title" href="{{ e.url }}">{{ e.title }}</a>
+      {% if e.outlet or e.note %}
+      <p class="postlist__where">
+        <span class="postlist__outlet">{{ e.outlet }}</span>{% if e.note %} &middot; {{ e.note }}{% endif %}
+      </p>
+      {% endif %}
+      {% if e.summary %}<p class="postlist__summary">{{ e.summary }}</p>{% endif %}
     </li>
     {% endfor %}
   </ul>
   {% else %}
   <p>Nothing published yet.</p>
   {% endif %}
-</section>
 
-{% if writing %}
-<section class="section" id="elsewhere">
-  <h2>Elsewhere</h2>
-  <p class="section__note">Pieces published on other people&rsquo;s blogs. Each links to the original.</p>
-  <ul class="postlist">
-    {% for w in writing %}
-    <li>
-      <div class="postlist__date">{{ w.when }}</div>
-      <a class="postlist__title" href="{{ w.url }}">{{ w.title }}</a>
-      <p class="postlist__summary">
-        <span class="postlist__outlet">{{ w.outlet }}</span>{% if w.note %} &middot; {{ w.note }}{% endif %}
-        {% if w.summary %}<br>{{ w.summary }}{% endif %}
-      </p>
-    </li>
+  {% if minor_posts %}
+  <p class="section__more">
+    {% for p in minor_posts %}
+    How this site is built is documented in the <a href="{{ p.url }}">{{ p.title | lower }}</a>.
     {% endfor %}
-  </ul>
+  </p>
+  {% endif %}
 </section>
-{% endif %}
 {% endblock %}

@@ -772,6 +772,12 @@ a.pub__title:hover {
 
 /* Names the publication a piece appeared in, so an external link is obvious
    before the click. */
+.postlist__where {
+  margin: 0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .postlist__outlet {
   font-family: var(--mono);
   font-size: 0.78rem;
@@ -781,6 +787,10 @@ a.pub__title:hover {
 }
 
 .post__header { padding: 3rem 0 0; }
+
+/* The header's padding and the section's margin were stacking into a ~6rem void
+   between the intro line and the first entry. */
+.post__header + .section { margin-top: 1.75rem; }
 
 .post__title {
   margin: 0.4rem 0 0;

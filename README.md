@@ -292,6 +292,9 @@ Body in Markdown.
 ```
 
 It publishes at `/blog/<slug>/`. Set `draft: true` to keep it out of the build. Set
+`minor: true` for site housekeeping like the colophon — it still publishes, and stays in the
+feed and the sitemap, but drops out of the main list on `/blog/` into a footnote, so a note
+about the website cannot outrank real writing on date order alone. Set
 `math: true` to load KaTeX on that page only, which keeps every other page free of
 third-party requests. Fenced code blocks are highlighted at build time by Pygments, with
 separate light and dark themes baked into the stylesheet.
@@ -305,9 +308,9 @@ the link.
 
 ### Writing published elsewhere
 
-`src/data/writing.json` lists pieces that appeared on someone else's blog. They render in an
-Elsewhere section on `/blog/` and link to the original rather than being reproduced here, since
-the canonical copy belongs to the outlet:
+`src/data/writing.json` lists pieces that appeared on someone else's blog. They join the posts
+in one date-ordered list on `/blog/` and link to the original rather than being reproduced here,
+since the canonical copy belongs to the outlet:
 
 ```json
 {
@@ -320,10 +323,11 @@ the canonical copy belongs to the outlet:
 }
 ```
 
-`date` is `YYYY-MM` and they sort newest first regardless of file order. `note` is for
-co-authors — worth filling in, since none of these are single-author pieces and the list should
-not imply otherwise. These count toward the nav threshold above, because a Writing page that
-lists them is worth a click even when only one post lives on this site.
+`date` is `YYYY-MM` and entries sort newest first regardless of file order, interleaved with
+posts written here — an outlet name marks the ones published elsewhere. `note` is for
+co-authors, worth filling in since none of these are single-author pieces and the list should not
+imply otherwise. These count toward the nav threshold above, because a Writing page that lists
+them is worth a click even when only one post lives on this site.
 
 ### Adding a headshot
 

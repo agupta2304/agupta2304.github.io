@@ -338,6 +338,34 @@ def load_writing() -> list[dict]:
     return items
 
 
+def writing_index(posts: list[dict], external: list[dict]) -> tuple[list[dict], list[dict]]:
+    """One date-ordered list for /blog/, mixing posts here with pieces published
+    elsewhere. Splitting them into two lists left the single local post orphaned in an
+    unlabelled section above a labelled one, and put a note about the website above
+    real engineering writing.
+
+    Posts marked `minor` in their front matter drop out of the list and are mentioned
+    in a footnote instead, so site housekeeping does not head the page.
+    """
+    entries = []
+    for p in posts:
+        if p.get("minor"):
+            continue
+        entries.append({
+            "title": p["title"], "url": p["url"], "when": p["date_display"],
+            "sort": p["date"].strftime("%Y-%m"), "outlet": None,
+            "note": None, "summary": p.get("summary"),
+        })
+    for w in external:
+        entries.append({
+            "title": w["title"], "url": w["url"], "when": w["when"],
+            "sort": str(w.get("date", "")), "outlet": w["outlet"],
+            "note": w.get("note"), "summary": w.get("summary"),
+        })
+    entries.sort(key=lambda e: e["sort"], reverse=True)
+    return entries, [p for p in posts if p.get("minor")]
+
+
 def load_news(limit: int) -> list[dict]:
     items = load("news.json")
     items.sort(key=lambda n: str(n.get("date", "")), reverse=True)
@@ -415,6 +443,9 @@ def load_posts() -> list[dict]:
             "title": meta.get("title", slug),
             "summary": meta.get("summary", ""),
             "math": bool(meta.get("math")),
+            # Housekeeping rather than writing: still published, but kept out of the
+            # main list on /blog/ so it does not outrank substantive pieces.
+            "minor": bool(meta.get("minor")),
             "date": published,
             "date_display": long_date(published),
             "slug": slug,
@@ -773,10 +804,11 @@ def build(refresh_views: bool = False) -> None:
         **shared,
     ))
 
+    entries, minor_posts = writing_index(posts, writing)
     write(ROOT / "blog" / "index.html", env.get_template("blog_index.html").render(
         page={"path": "/blog/"},
-        posts=posts,
-        writing=writing,
+        entries=entries,
+        minor_posts=minor_posts,
         **shared,
     ))
 
