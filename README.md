@@ -151,6 +151,11 @@ repeated, so `event: "CIKM 2026, half-day tutorial"` gives a `Tutorial @ CIKM 20
 `half-day tutorial · Nov 2026` line. A tutorial is therefore never mistaken for a conference
 paper. Talk titles link to the recording when there is one.
 
+A tutorial published in a conference's proceedings gets the same treatment from the other
+direction: a paper whose venue carries the `Tutorials Track` qualifier renders as
+`Tutorial @ KDD 2023` rather than a bare `KDD 2023`, so it cannot be mistaken for a research
+paper whether it is listed as a publication or as a talk.
+
 The gutter is sized to keep the longest of those chips on one line. If you add a talk whose
 event name is long, either shorten what precedes the comma or widen `grid-template-columns` on
 `.thread__papers li`; the chip wraps rather than overflowing, but a two-line chip splits the
@@ -181,6 +186,12 @@ appears on `/publications/` regardless. The author matching `name` in `profile.j
 automatically. `note` renders as a small badge and can be omitted. Recognised link keys are
 `pdf`, `arxiv`, `code`, `slides`, `poster`, `video`, `bibtex`, and `site`; unknown keys still
 render, just at the end.
+
+The title itself links to the first available of `arxiv`, `pdf`, `preprint`, `site`, `code`,
+`doi` — open versions first, with the DOI as a last resort. The DOI is included because research
+threads show only the linked title, so a DOI-only paper would be a dead end there; it also means
+a paywalled ACM or IEEE link is better than no link at all. The build lists any paper with no
+link whatsoever.
 
 Papers are grouped by year into native `<details>` elements, so the years expand and collapse
 with no JavaScript and stay keyboard-accessible. The three most recent groups start open and

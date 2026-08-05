@@ -240,8 +240,13 @@ def load_publications(me: str) -> list[dict]:
     pubs = load("publications.json")
     for p in pubs:
         p["links"] = ordered_links(p.get("links"))
+        # Open versions first, then the DOI as a last resort. Including the DOI matters
+        # because research threads show only the linked title, so a DOI-only paper would
+        # otherwise be a dead end there.
         p["primary_link"] = next(
-            (p["links"][k] for k in ("arxiv", "pdf", "site", "code") if k in p["links"]),
+            (p["links"][k]
+             for k in ("arxiv", "pdf", "preprint", "site", "code", "doi")
+             if k in p["links"]),
             None,
         )
         p["authors_shown"], p["authors_more"] = elide_authors(p.get("authors", []), me)
@@ -283,9 +288,13 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
                     f"research.json: no publication titled {title!r}. "
                     "Titles must match publications.json exactly."
                 )
+            # A tutorial published in a conference's proceedings would otherwise show a
+            # bare "KDD 2023" chip and read as a research paper, so it is labelled the
+            # same way a tutorial coming from talks.json is.
+            where = f"{paper['venue_short']} {paper['year']}"
             entries.append({
                 "kind": "paper",
-                "chip": f"{paper['venue_short']} {paper['year']}",
+                "chip": f"Tutorial @ {where}" if "Tutorials Track" in paper["venue"] else where,
                 "chip_title": paper["venue_full"],
                 "title": paper["title"],
                 "url": paper.get("primary_link"),
@@ -633,9 +642,11 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
     for thread in research:
         lines += [f"### {thread['label']}", "", thread["blurb"], ""]
         for entry in thread["entries"]:
-            where = strip_tags(entry["detail"]) if entry["detail"] else entry["chip"]
+            # A paper's chip already says venue and year, so only a talk's extra
+            # detail is worth a parenthetical here.
+            where = f" ({strip_tags(entry['detail'])})" if entry["detail"] else ""
             link = f" {entry['url']}" if entry.get("url") else ""
-            lines.append(f"- [{entry['chip']}] {entry['title']} ({where}).{link}")
+            lines.append(f"- [{entry['chip']}] {entry['title']}{where}.{link}")
         lines.append("")
 
     lines += ["## Selected papers", ""]

@@ -26,5 +26,15 @@
       "Effective Quantization of Muon Optimizer States",
       "LLM Query Scheduling with Prefix Reuse and Latency Constraints"
     ]
+  },
+  {
+    "label": "Recommender systems at scale",
+    "blurb": "A production recommender is a stack rather than a model: retrieval, ranking, per-member personalization, and above all of it an optimization layer that decides what the scores are actually used for. Much of my work sits in that last part — solving linear programs with trillions of variables so business objectives can be optimized on top of deep models.",
+    "papers": [
+      "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
+      "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
+      "LiRank: Industrial Large Scale Ranking Models at LinkedIn",
+      "Generalized Deep Mixed Models"
+    ]
   }
 ]
