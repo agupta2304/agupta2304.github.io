@@ -57,7 +57,6 @@ A production recommender is a stack rather than a model: retrieval, ranking, per
 - LLM Query Scheduling with Prefix Reuse and Latency Constraints (NeurIPS 2025). https://arxiv.org/abs/2502.04677
 - On the Robustness of Reward Models for Language Model Alignment (ICML 2025). https://arxiv.org/abs/2505.07271
 - Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems (EMNLP 2025). https://arxiv.org/abs/2502.14305
-- 360Brew: A Decoder-only Foundation Model for Personalized Ranking and Recommendation (arXiv 2025). https://arxiv.org/abs/2501.16450
 - A Precise Characterization of SGD Stability Using Loss Surface Geometry (ICLR 2024). https://arxiv.org/abs/2401.12332
 - LiRank: Industrial Large Scale Ranking Models at LinkedIn (KDD 2024). https://arxiv.org/abs/2402.06859
 - Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference (KDD 2023). https://sites.google.com/view/kdd-2023-large-scale-lps

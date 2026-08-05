@@ -283,7 +283,7 @@
     "venue": "arXiv technical report",
     "year": 2025,
     "note": "Withdrawn by the authors; no PDF available",
-    "selected": true,
+    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2501.16450"
     }
