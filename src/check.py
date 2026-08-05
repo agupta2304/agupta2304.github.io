@@ -153,6 +153,18 @@ else:
 if not (ROOT / "llms.txt").exists():
     problems.append("llms.txt: missing")
 
+# Search engines cut the description off around 155-160 characters. That is a
+# convention rather than a rule, so an overlong one is a warning, not a failure.
+for page in pages:
+    label = str(page.relative_to(ROOT))
+    found = re.search(r'<meta name="description" content="([^"]*)"',
+                      page.read_text(encoding="utf-8"))
+    if not found:
+        problems.append(f"{label}: no meta description")
+    elif len(found.group(1)) > 160:
+        warnings.append(f"{label}: meta description is {len(found.group(1))} characters, "
+                        "so search results will truncate it")
+
 # stylesheet sanity
 css = (ROOT / "assets" / "style.css").read_text(encoding="utf-8")
 if css.count("{") != css.count("}"):

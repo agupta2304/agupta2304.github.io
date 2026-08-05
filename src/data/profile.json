@@ -6,9 +6,9 @@
   "affiliation": "Nubank",
   "location": "San Francisco Bay Area",
   "customer_scale": "more than 135 million",
-  "thesis": "I build and study foundation models and AI agents that operate reliably at scale — research that survives contact with production.",
+  "thesis": "I build and study language models, foundation models, AI agents, and recommender systems. Shipping to millions and doing research that holds up are the same job.",
   "headshot": "/assets/headshot.jpg",
-  "meta_description": "Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM training and alignment, efficient inference, and the evaluation of large-scale AI agents.",
+  "meta_description": "Aman Gupta is a Principal Machine Learning Engineer at Nubank, working on LLM alignment, AI agents, efficient inference, and large-scale recommender systems.",
   "knows_about": [
     "Large language models",
     "LLM alignment and post-training",
