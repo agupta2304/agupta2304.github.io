@@ -32,12 +32,13 @@
       "when": "2014 — 2016",
       "title": "M.S. in Computer Science",
       "org": "Carnegie Mellon University",
-      "note": "A research master's at the Language Technologies Institute: full-time research on a scholarship rather than a coursework degree. Also offered PhD admission, which I declined."
+      "note": "A research master's at the Language Technologies Institute: full-time research on a Graduate Research Fellowship rather than a coursework degree. Also offered PhD admission, which I declined."
     },
     {
       "when": "2008 — 2012",
       "title": "B.S. in Computer Science",
-      "org": "BITS Pilani"
+      "org": "BITS Pilani",
+      "note": "AIMA All India Merit Scholarship, All India Rank 2, and a BITS Pilani merit scholarship."
     }
   ]
 }

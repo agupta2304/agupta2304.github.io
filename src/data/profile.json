@@ -30,8 +30,16 @@
       "value": "NeurIPS, ICLR, KDD, WWW, CIKM, RecSys"
     },
     {
+      "label": "Reviewing",
+      "value": "Excellent Reviewer, <a href=\"https://kdd.org/kdd2025/applied-data-science-ads-track-program-committee/\">KDD 2025</a> Applied Data Science track"
+    },
+    {
       "label": "Patents",
-      "value": "11+ filed"
+      "value": "11+ filed, including <a href=\"https://patents.google.com/patent/US12008331B2/en\">US 12,008,331</a> and <a href=\"https://patents.google.com/patent/US10275808B1/en\">US 10,275,808</a>"
+    },
+    {
+      "label": "Open source",
+      "value": "Commits to <a href=\"https://github.com/linkedin/gdmix\">GDMix</a>, and merged patches to <a href=\"https://github.com/google-deepmind/optax/pull/1121\">optax</a> and <a href=\"https://github.com/vllm-project/llm-compressor/pull/1218\">llm-compressor</a>"
     }
   ],
   "contact_note": "I am always happy to hear from people who want to work on these problems &mdash; <a href=\"https://www.linkedin.com/in/aman-gupta1\">LinkedIn</a> is the fastest way to reach me.",

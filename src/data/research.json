@@ -34,6 +34,7 @@
       "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
       "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
       "LiRank: Industrial Large Scale Ranking Models at LinkedIn",
+      "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn",
       "Generalized Deep Mixed Models"
     ]
   }
