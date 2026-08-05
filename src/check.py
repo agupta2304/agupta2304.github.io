@@ -86,6 +86,18 @@ for anchor in re.findall(r'href="/#([\w-]+)"', home):
     if f'id="{anchor}"' not in home:
         problems.append(f"index.html: nav points at #{anchor} but no such id")
 
+# Every collapsible year must keep a heading inside its <summary>. Turning those
+# into plain spans once removed all 11 years from the publications page outline,
+# leaving one heading on the whole page.
+for page in pages:
+    label = str(page.relative_to(ROOT))
+    text = page.read_text(encoding="utf-8")
+    groups = re.findall(r"<summary[^>]*>(.*?)</summary>", text, re.S)
+    headless = [g for g in groups if not re.search(r"<h[1-6][\s>]", g)]
+    if headless:
+        problems.append(f"{label}: {len(headless)} of {len(groups)} year summaries have "
+                        "no heading, so they are missing from the document outline")
+
 # feed must be well-formed XML with items
 try:
     tree = ET.parse(ROOT / "feed.xml")

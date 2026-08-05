@@ -82,8 +82,11 @@
 {% macro publication_years(groups, me, expanded=3) %}
   {% for year, items in groups %}
   <details class="year-group"{% if loop.index0 < expanded %} open{% endif %}>
+    {# The year stays a heading inside the summary, which the spec allows, so the
+       document outline still lists every year for screen readers and in-page
+       navigation. Making it a plain span cost that outline entirely. #}
     <summary class="year-group__label">
-      <span class="year-group__year">{{ year }}</span>
+      <h3 class="year-group__year">{{ year }}</h3>
       <span class="year-group__count">{{ items | length }} paper{{ '' if items | length == 1 else 's' }}</span>
     </summary>
     <div class="year-group__body">

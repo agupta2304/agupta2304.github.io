@@ -103,6 +103,26 @@ a:focus-visible {
   border-radius: 2px;
 }
 
+/* Off-screen until focused, so a keyboard user can jump the nav. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10;
+  padding: 0.5rem 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  left: 0.75rem;
+  top: 0.75rem;
+}
+
 /* ---------- Nav ---------- */
 
 .nav {
@@ -492,6 +512,15 @@ a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* A heading for the outline's sake, but it sits inline in the summary row. */
+.year-group__year {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  color: inherit;
 }
 
 .year-group__count {
@@ -927,7 +956,7 @@ code, kbd, samp {
     --mark: #fff;
   }
 
-  .nav, .footer, .section__more { display: none; }
+  .nav, .footer, .section__more, .skip-link { display: none; }
 
   body { font-size: 10.5pt; line-height: 1.4; }
 
