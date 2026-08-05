@@ -328,6 +328,16 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
     return threads
 
 
+def load_writing() -> list[dict]:
+    """Pieces published on someone else's blog. Listed rather than reproduced, since
+    the canonical copy lives at the outlet."""
+    items = load("writing.json")
+    items.sort(key=lambda w: str(w.get("date", "")), reverse=True)
+    for item in items:
+        item["when"] = month_year(item.get("date", ""))
+    return items
+
+
 def load_news(limit: int) -> list[dict]:
     items = load("news.json")
     items.sort(key=lambda n: str(n.get("date", "")), reverse=True)
@@ -620,7 +630,8 @@ def build_robots(site: dict) -> None:
 
 
 def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[dict],
-                   talk_groups: list[dict], posts: list[dict]) -> None:
+                   talk_groups: list[dict], posts: list[dict],
+                   writing: list[dict]) -> None:
     """A plain-text digest for agents. Not a standard, but cheap and harmless."""
     def strip_tags(text: str) -> str:
         return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", "", text))).strip()
@@ -661,6 +672,12 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
             video = f" {t['links']['video']}" if t["links"].get("video") else ""
             lines.append(f"- {t['title']} — {t['event']}, {t['date']}.{video}")
     lines.append("")
+
+    if writing:
+        lines += ["## Writing elsewhere", ""]
+        for w in writing:
+            lines.append(f"- {w['title']} ({w['outlet']}, {w['when']}). {w['url']}")
+        lines.append("")
 
     if profile.get("service"):
         lines += ["## Service", ""]
@@ -710,6 +727,7 @@ def build(refresh_views: bool = False) -> None:
     experience = load("experience.json")
     mentors = load("mentors.json")
     posts = load_posts()
+    writing = load_writing()
 
     env = Environment(
         loader=FileSystemLoader(TEMPLATE_DIR),
@@ -725,9 +743,10 @@ def build(refresh_views: bool = False) -> None:
         "site": site,
         "total_publications": len(publications),
         "selected_count": len(selected),
-        # One post is a colophon, not a body of writing. Linking it from the nav
-        # promises essays the site cannot yet deliver.
-        "writing_linked": len(posts) >= site.get("writing_min_posts", 3),
+        # One colophon is not a body of writing, and linking it from the nav promises
+        # essays the site cannot deliver. Pieces published elsewhere count, since the
+        # page is worth a click once it lists them.
+        "writing_linked": len(posts) + len(writing) >= site.get("writing_min_posts", 3),
     }
 
     print("building:")
@@ -757,6 +776,7 @@ def build(refresh_views: bool = False) -> None:
     write(ROOT / "blog" / "index.html", env.get_template("blog_index.html").render(
         page={"path": "/blog/"},
         posts=posts,
+        writing=writing,
         **shared,
     ))
 
@@ -771,7 +791,7 @@ def build(refresh_views: bool = False) -> None:
     build_feed(posts, profile, site)
     build_sitemap(site, posts)
     build_robots(site)
-    build_llms_txt(profile, site, publications, research, talk_groups, posts)
+    build_llms_txt(profile, site, publications, research, talk_groups, posts, writing)
     print(f"done: {len(publications)} publications, {len(posts)} posts")
     unlinked = [p["title"] for p in publications if not p.get("links")]
     if unlinked:

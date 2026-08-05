@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Building AI agents for 131 million customers",
+    "outlet": "Building Nubank",
+    "date": "2026-03",
+    "url": "https://building.nubank.com/building-ai-agents-for-131-million-customers/",
+    "note": "with Daniel Braithwaite",
+    "summary": "Five lessons from putting customer-support agents into production: why evaluation comes first, what transactional NPS actually measures, and how prompt optimization and composite tools behave at scale."
+  },
+  {
+    "title": "Muon for improved foundation model pretraining data efficiency",
+    "outlet": "Building Nubank",
+    "date": "2025-09",
+    "url": "https://building.nubank.com/muon-for-improved-foundation-model-pretraining-data-efficiency/",
+    "note": "with Daniel Braithwaite, Arissa Yoshida and Rafael Celente",
+    "summary": "What the Muon optimizer buys you when pretraining transaction-data foundation models, and the groundwork for quantizing its optimizer state."
+  },
+  {
+    "title": "GDMix: A deep ranking personalization framework",
+    "outlet": "LinkedIn Engineering",
+    "date": "2020-09",
+    "url": "https://www.linkedin.com/blog/engineering/member-customer-experience/gdmix-a-deep-ranking-personalization-framework",
+    "note": "with Jun Shi, Chengming Jiang and others",
+    "summary": "The open-source framework behind per-member personalization of LinkedIn's ranking models, and how generalized mixed models train at that scale."
+  }
+]

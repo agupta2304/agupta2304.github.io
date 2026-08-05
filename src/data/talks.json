@@ -18,11 +18,13 @@
   },
   {
     "type": "invited",
-    "title": "Scaling agentic AI systems",
+    "title": "The iteration machine: Building the next-generation AI agents",
     "event": "NuSession Silicon Valley",
     "location": "",
     "date": "2026-06",
-    "links": {}
+    "links": {
+      "site": "https://www.aicamp.ai/event/eventdetails/W2026062317"
+    }
   },
   {
     "type": "invited",
@@ -39,6 +41,8 @@
     "location": "",
     "date": "2025-12",
     "video": "https://www.youtube.com/watch?v=1GnbsGhRC4o",
-    "links": {}
+    "links": {
+      "site": "https://ai.qconferences.com/presentation/newyork2025/building-ai-agents-127-million-customers-practical-lessons-nubank"
+    }
   }
 ]

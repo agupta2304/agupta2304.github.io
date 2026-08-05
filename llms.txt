@@ -65,9 +65,15 @@ A production recommender is a stack rather than a model: retrieval, ranking, per
 
 - Building Production LLM Agents: An Evaluation-Driven Playbook — CIKM 2026, half-day tutorial, Nov 2026.
 - SimulationMaxxing: How we ship agents 20× faster — AI Engineer, with Shreya Rajpal, Jul 2026. https://www.youtube.com/watch?v=KMR_RBoCa4M
-- Scaling agentic AI systems — NuSession Silicon Valley, Jun 2026.
+- The iteration machine: Building the next-generation AI agents — NuSession Silicon Valley, Jun 2026.
 - Effective Quantization of Muon Optimizer States — ICLR SPOT workshop, Apr 2026.
 - Building AI Agents for 127 Million Customers: Practical Lessons from Nubank — QCon AI New York, Dec 2025. https://www.youtube.com/watch?v=1GnbsGhRC4o
+
+## Writing elsewhere
+
+- Building AI agents for 131 million customers (Building Nubank, Mar 2026). https://building.nubank.com/building-ai-agents-for-131-million-customers/
+- Muon for improved foundation model pretraining data efficiency (Building Nubank, Sep 2025). https://building.nubank.com/muon-for-improved-foundation-model-pretraining-data-efficiency/
+- GDMix: A deep ranking personalization framework (LinkedIn Engineering, Sep 2020). https://www.linkedin.com/blog/engineering/member-customer-experience/gdmix-a-deep-ranking-personalization-framework
 
 ## Service
 

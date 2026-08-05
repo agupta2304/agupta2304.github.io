@@ -39,6 +39,7 @@
     ],
     "venue": "International Conference on Machine Learning (ICML)",
     "year": 2025,
+    "note": "Implemented in Hugging Face TRL",
     "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2501.03884",

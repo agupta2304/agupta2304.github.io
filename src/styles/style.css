@@ -770,6 +770,16 @@ a.pub__title:hover {
   font-size: 0.96rem;
 }
 
+/* Names the publication a piece appeared in, so an external link is obvious
+   before the click. */
+.postlist__outlet {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
 .post__header { padding: 3rem 0 0; }
 
 .post__title {

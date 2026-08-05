@@ -296,12 +296,34 @@ It publishes at `/blog/<slug>/`. Set `draft: true` to keep it out of the build. 
 third-party requests. Fenced code blocks are highlighted at build time by Pygments, with
 separate light and dark themes baked into the stylesheet.
 
-**Writing is hidden from the nav until there are three posts.** A nav item promising essays
+**Writing is hidden from the nav until there are three pieces.** A nav item promising essays
 that turn out to be a single colophon is worse than no nav item. The page, the feed, and every
 post URL are still built and still in the sitemap, so nothing 404s and any link already shared
-keeps working — only the nav link is withheld, and it reappears on its own at the third post.
-Change the threshold with `writing_min_posts` in `src/data/site.json`, or set it to `0` to
-always show the link.
+keeps working — only the nav link is withheld, and it reappears on its own once the threshold is
+met. Change it with `writing_min_posts` in `src/data/site.json`, or set it to `0` to always show
+the link.
+
+### Writing published elsewhere
+
+`src/data/writing.json` lists pieces that appeared on someone else's blog. They render in an
+Elsewhere section on `/blog/` and link to the original rather than being reproduced here, since
+the canonical copy belongs to the outlet:
+
+```json
+{
+  "title": "Building AI agents for 131 million customers",
+  "outlet": "Building Nubank",
+  "date": "2026-03",
+  "url": "https://building.nubank.com/...",
+  "note": "with Daniel Braithwaite",
+  "summary": "One or two sentences on what the piece argues."
+}
+```
+
+`date` is `YYYY-MM` and they sort newest first regardless of file order. `note` is for
+co-authors — worth filling in, since none of these are single-author pieces and the list should
+not imply otherwise. These count toward the nav threshold above, because a Writing page that
+lists them is worth a click even when only one post lives on this site.
 
 ### Adding a headshot
 
