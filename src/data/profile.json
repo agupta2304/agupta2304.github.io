@@ -27,11 +27,11 @@
   "service": [
     {
       "label": "Program committees",
-      "value": "ICLR, KDD, WWW, CIKM, RecSys"
+      "value": "NeurIPS, ICLR, KDD, WWW, CIKM, RecSys"
     },
     {
       "label": "Patents",
-      "value": "More than ten filed"
+      "value": "11+ filed"
     }
   ],
   "contact_note": "I am always happy to hear from people who want to work on these problems &mdash; <a href=\"https://www.linkedin.com/in/aman-gupta1\">LinkedIn</a> is the fastest way to reach me.",

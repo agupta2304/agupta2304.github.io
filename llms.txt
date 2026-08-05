@@ -72,8 +72,8 @@ A production recommender is a stack rather than a model: retrieval, ranking, per
 
 ## Service
 
-- Program committees: ICLR, KDD, WWW, CIKM, RecSys
-- Patents: More than ten filed
+- Program committees: NeurIPS, ICLR, KDD, WWW, CIKM, RecSys
+- Patents: 11+ filed
 
 ## Elsewhere
 
