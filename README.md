@@ -253,27 +253,26 @@ need no network, no API key, and stay byte-for-byte reproducible. The rendered c
 the as-of month in a tooltip, so a stale number is never presented as live. If YouTube changes
 its markup the refresh warns and keeps the cached value rather than dropping the count.
 
-Locally this scrapes the watch page, which needs no credentials.
+It scrapes the watch page, which needs no credentials. If you set a `YOUTUBE_API_KEY`
+environment variable it uses the YouTube Data API instead, but that is optional and only
+matters from a network YouTube withholds counts from.
 
-You rarely need to run it by hand:
-[.github/workflows/refresh-views.yml](.github/workflows/refresh-views.yml) does it every Monday,
-commits only when a number actually moved, and asks Pages to rebuild. Run it on demand with
-`gh workflow run refresh-views.yml`. This is the one piece of CI in the repo; the site itself
-still deploys from committed HTML with no build step.
+**Run this by hand, on your own machine, and commit the result.** There is deliberately no
+scheduled job for it — see the note below.
 
-**CI needs an API key.** YouTube withholds view counts from datacenter IP ranges, so the scrape
-that works on a laptop returns nothing on a GitHub runner. Create a YouTube Data API v3 key in
-the [Google Cloud console](https://console.cloud.google.com/apis/library/youtube.googleapis.com)
-and add it as a repository secret:
+### Why there is no CI
 
-```bash
-gh secret set YOUTUBE_API_KEY --repo agupta2304/agupta2304.github.io
-```
+This repository has no GitHub Actions, and should not gain any.
 
-The key stays in GitHub's encrypted secrets and never enters the repository or any page. Reading
-`statistics` costs one quota unit per call against a free daily allowance of 10,000, so a weekly
-job is negligible. Without the secret the job still succeeds, warns, and leaves the cached
-numbers untouched.
+It previously had a weekly workflow that polled YouTube for view counts and committed them.
+GitHub restricted the account over it: the
+[Additional Product Terms](https://docs.github.com/site-policy/github-terms/github-terms-for-additional-products-and-features)
+prohibit using Actions for work unrelated to building or testing the repository itself, and a
+scheduled job whose only purpose is to fetch from a third-party site is squarely that. The site
+was offline until the workflow was removed.
+
+Refreshing a view count is a two-minute manual task a few times a year. It is not worth a
+scheduled runner, and definitely not worth the account.
 
 ### Writing a post
 
@@ -385,10 +384,10 @@ cannot claim the domain if Pages is ever disabled or reconfigured.
 The site is static, has no forms, no backend, and no user input, so most of the usual web
 surface does not exist here. The parts that are worth stating:
 
-**No secrets in the repository.** The only credential in play is `YOUTUBE_API_KEY`, which lives
-in GitHub's encrypted Actions secrets and is read from the environment at refresh time. It never
-enters a data file, a committed page, or a log line. Nothing else the build touches requires
-authentication.
+**No secrets in the repository, and no credentials in CI.** Nothing the build needs is
+authenticated. The optional `YOUTUBE_API_KEY` is read from your local environment when
+refreshing view counts by hand and never enters a data file, a committed page, or a log line.
+There are no Actions secrets because there are no Actions.
 
 **Prose in the JSON data is rendered as a Jinja template.** That is what makes
 `{{ profile.customer_scale }}` work in `profile.json` and `experience.json`. It also means those
@@ -400,8 +399,9 @@ reach them. Do not extend this rendering to content fetched from elsewhere.
 **The `--external` sweep makes outbound requests** to URLs stored in the repo's own data. It is
 opt-in, never part of an ordinary build, restricted to `http` and `https`, sends no credentials
 or cookies, issues only read-only GETs with a 20-second timeout, and caps each response read so
-a hostile or enormous body cannot exhaust memory. It is a local pre-push convenience, not
-something CI depends on.
+a hostile or enormous body cannot exhaust memory. It is a local pre-push convenience, and it
+must stay local — running outbound fetches from a GitHub runner is what cost this account its
+Pages hosting once already.
 
 **Third-party requests from the served pages** are limited to KaTeX, and only on posts that set
 `math: true`. `src/check.py` fails if any other external script appears on any page, which is
