@@ -299,16 +299,20 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
                     f"research.json: no talk titled {title!r}. "
                     "Titles must match talks.json exactly."
                 )
-            # A paper's chip carries its venue, which already implies "paper". For a
-            # talk the useful distinction is what kind of thing it is, so the venue and
-            # date move under the title instead.
+            # A paper's chip is "venue year", so a talk's says both what it is and
+            # where: "Tutorial @ CIKM 2026". The event's leading segment carries the
+            # venue, so whatever follows the comma goes under the title instead of
+            # being repeated in the chip.
+            venue, _, qualifier = talk["event"].partition(", ")
+            kind = TALK_KINDS.get(talk.get("type", "other"), "Talk")
+            detail = " &middot; ".join(p for p in (qualifier, talk["date"]) if p)
             entries.append({
                 "kind": "talk",
-                "chip": TALK_KINDS.get(talk.get("type", "other"), "Talk"),
+                "chip": f"{kind} @ {venue}",
                 "chip_title": talk["event"],
                 "title": talk["title"],
                 "url": talk["links"].get("video"),
-                "detail": f"{talk['event']} &middot; {talk['date']}",
+                "detail": detail,
             })
 
         thread["entries"] = entries

@@ -22,8 +22,8 @@ Before Nubank I spent six years at LinkedIn, most recently as a Senior Staff Mac
 Getting agents past a demo means being able to say, with evidence, that they will behave on the next hundred million conversations. I work on evaluation harnesses rigorous enough to gate a deployment, and on the failure modes that only appear once real customers are on the other end.
 
 - [KDD 2026] Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework (KDD 2026). https://arxiv.org/abs/2606.08867
-- [Tutorial] Building Production LLM Agents: An Evaluation-Driven Playbook (CIKM 2026, half-day tutorial · Nov 2026).
-- [Talk] SimulationMaxxing: How we ship agents 20× faster (AI Engineer, with Shreya Rajpal · Jul 2026). https://www.youtube.com/watch?v=KMR_RBoCa4M
+- [Tutorial @ CIKM 2026] Building Production LLM Agents: An Evaluation-Driven Playbook (half-day tutorial · Nov 2026).
+- [Talk @ AI Engineer] SimulationMaxxing: How we ship agents 20× faster (with Shreya Rajpal · Jul 2026). https://www.youtube.com/watch?v=KMR_RBoCa4M
 
 ### Alignment and post-training
 

@@ -363,12 +363,12 @@ a:focus-visible {
   list-style: none;
 }
 
-/* Same venue gutter as the publication list, so the two read as one system.
-   Chips here carry a year too, so the column is wider — sized for the longest,
-   currently "SPOT@ICLR 2026", since these chips do not wrap. */
+/* Same venue gutter as the publication list, so the two read as one system. Chips
+   here carry a year, and talks name their venue too, so the column is sized for the
+   longest of those — "Tutorial @ CIKM 2026" — to keep it on one line. */
 .thread__papers li {
   display: grid;
-  grid-template-columns: 8.25rem minmax(0, 1fr);
+  grid-template-columns: 10.5rem minmax(0, 1fr);
   gap: 0 1rem;
   margin-bottom: 0.55rem;
   font-size: 0.98rem;
@@ -399,7 +399,10 @@ a:focus-visible {
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--ink);
-  white-space: nowrap;
+  /* A talk chip names its venue too ("Tutorial @ CIKM 2026"), which can outrun the
+     gutter, so these wrap rather than spilling into the title column. */
+  line-height: 1.35;
+  overflow-wrap: break-word;
 }
 
 /* ---------- News ---------- */

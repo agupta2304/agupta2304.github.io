@@ -143,11 +143,18 @@ date, or link is only ever edited in one file. A title that does not match exact
 build** rather than silently disappearing, because a thread quietly losing its evidence is worse
 than a broken build.
 
-Papers and talks render as one list, papers first. The left gutter differs between them on
-purpose: a paper's chip is its venue and year, since "KDD 2026" already implies a paper, while a
-talk's chip is its kind — `Tutorial` for `type: tutorial`, `Talk` otherwise — with the event and
-date underneath. That way a tutorial is never mistaken for a conference paper. Talk titles link
-to the recording when there is one.
+Papers and talks render as one list, papers first, with a chip in the left gutter. A paper's
+chip is its venue and year — `KDD 2026` — which already implies a paper. A talk's names both
+what it is and where: `Tutorial @ CIKM 2026`, from `type` plus the part of `event` before the
+first comma. Whatever follows that comma drops under the title with the date rather than being
+repeated, so `event: "CIKM 2026, half-day tutorial"` gives a `Tutorial @ CIKM 2026` chip and a
+`half-day tutorial · Nov 2026` line. A tutorial is therefore never mistaken for a conference
+paper. Talk titles link to the recording when there is one.
+
+The gutter is sized to keep the longest of those chips on one line. If you add a talk whose
+event name is long, either shorten what precedes the comma or widen `grid-template-columns` on
+`.thread__papers li`; the chip wraps rather than overflowing, but a two-line chip splits the
+venue from its year and reads worse.
 
 Threads are ordered as written. Three is a good number; much more and the section stops being
 "featured".
