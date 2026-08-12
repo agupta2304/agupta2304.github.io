@@ -783,6 +783,7 @@ def build(refresh_views: bool = False) -> None:
     mentors = load("mentors.json")
     posts = load_posts()
     writing = load_writing()
+    writing_entries, minor_posts = writing_index(posts, writing)
 
     env = Environment(
         loader=FileSystemLoader(TEMPLATE_DIR),
@@ -813,6 +814,7 @@ def build(refresh_views: bool = False) -> None:
         research=research,
         featured_talks=featured_talks,
         talk_groups=home_talk_groups,
+        writing_entries=writing_entries[:site.get("home_writing_limit", 3)],
         news=news,
         experience=experience.get("roles", []),
         education=experience.get("education", []),
@@ -829,10 +831,9 @@ def build(refresh_views: bool = False) -> None:
         **shared,
     ))
 
-    entries, minor_posts = writing_index(posts, writing)
     write(ROOT / "blog" / "index.html", env.get_template("blog_index.html").render(
         page={"path": "/blog/"},
-        entries=entries,
+        entries=writing_entries,
         minor_posts=minor_posts,
         **shared,
     ))

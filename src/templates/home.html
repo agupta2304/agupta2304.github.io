@@ -95,6 +95,24 @@
   {% endfor %}
 </section>
 
+{% if writing_entries %}
+<section class="section" id="writing">
+  <h2>Writing</h2>
+  <ul class="writing-preview">
+    {% for e in writing_entries %}
+    <li>
+      <span class="writing-preview__when">{{ e.when }}</span>
+      <span>
+        <a class="writing-preview__title" href="{{ e.url }}">{{ e.title }}</a>
+        {% if e.outlet %}<span class="writing-preview__outlet">{{ e.outlet }}</span>{% endif %}
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+  <p class="section__more"><a href="/blog/">See all writing &rarr;</a></p>
+</section>
+{% endif %}
+
 <section class="section" id="experience">
   <h2>Experience</h2>
   {% for r in experience %}

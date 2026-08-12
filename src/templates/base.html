@@ -47,13 +47,13 @@
     <a href="/#research">research</a>
     <a href="/#papers">papers</a>
     <a href="/#talks">talks</a>
-    <a href="/#experience">experience</a>
-    {# Writing stays out of the nav until there is enough of it to be worth a click.
-       The page and feed are still built, so nothing 404s and links already shared
-       keep working. #}
+    {# Writing stays out of the nav until there is enough of it to be worth a section.
+       Its homepage preview leads to the complete page and feed. #}
     {% if writing_linked %}
-    <a href="/blog/">writing</a>
+    <a href="/#writing">writing</a>
     {% endif %}
+    <a href="/#experience">experience</a>
+    <a href="/#mentors">mentors</a>
     <button class="theme-toggle" type="button" hidden>
       <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
         <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>

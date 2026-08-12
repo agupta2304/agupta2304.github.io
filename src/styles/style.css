@@ -762,6 +762,52 @@ a.pub__title:hover {
   cursor: help;
 }
 
+/* ---------- Writing preview ---------- */
+
+.writing-preview {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.writing-preview li {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  gap: 0 1.1rem;
+  margin-bottom: 0.85rem;
+}
+
+.writing-preview li:last-child { margin-bottom: 0; }
+
+.writing-preview__when {
+  padding-top: 0.24rem;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.writing-preview__title {
+  display: block;
+  color: var(--ink);
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.writing-preview__title:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.writing-preview__outlet {
+  display: block;
+  margin-top: 0.05rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 /* ---------- Experience ---------- */
 
 .role {
@@ -1032,7 +1078,8 @@ code, kbd, samp {
   }
 
   .role,
-  .news li {
+  .news li,
+  .writing-preview li {
     grid-template-columns: 1fr;
     gap: 0.1rem;
   }
@@ -1054,7 +1101,8 @@ code, kbd, samp {
   }
 
   .role__when,
-  .news__when { padding-top: 0; }
+  .news__when,
+  .writing-preview__when { padding-top: 0; }
 
   .news li { margin-bottom: 0.9rem; }
 

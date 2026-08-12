@@ -1,6 +1,7 @@
 {
   "url": "https://amangupta.dev",
   "news_limit": 8,
+  "home_writing_limit": 3,
   "writing_min_posts": 3,
   "years_expanded": 3
 }

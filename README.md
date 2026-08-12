@@ -300,12 +300,11 @@ about the website cannot outrank real writing on date order alone. Set
 third-party requests. Fenced code blocks are highlighted at build time by Pygments, with
 separate light and dark themes baked into the stylesheet.
 
-**Writing is hidden from the nav until there are three pieces.** A nav item promising essays
-that turn out to be a single colophon is worse than no nav item. The page, the feed, and every
-post URL are still built and still in the sitemap, so nothing 404s and any link already shared
-keeps working — only the nav link is withheld, and it reappears on its own once the threshold is
-met. Change it with `writing_min_posts` in `src/data/site.json`, or set it to `0` to always show
-the link.
+**Writing is hidden from the nav until there are three pieces.** Once that threshold is met, the
+nav points to a compact homepage preview; its “See all writing” link opens the complete
+date-ordered page. The page, feed, and post URLs are always built and stay in the sitemap, so
+nothing 404s while the nav link is withheld. Change the threshold with `writing_min_posts` in
+`src/data/site.json`, and control the preview length with `home_writing_limit`.
 
 ### Writing published elsewhere
 
@@ -412,3 +411,6 @@ what keeps an analytics snippet or a font CDN from creeping in unnoticed.
 Talk thumbnails are committed under `assets/` rather than loaded from YouTube. Merely opening
 the homepage therefore sends YouTube no visitor IP address or referrer; that request happens
 only after someone chooses to follow a video link.
+
+The Mentors and Writing navigation additions are root-relative links rendered entirely from
+version-controlled data. They introduce no client-side script, user input, or runtime request.
