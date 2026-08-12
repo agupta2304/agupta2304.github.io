@@ -14,6 +14,7 @@
     "location": "",
     "date": "2026-07",
     "video": "https://www.youtube.com/watch?v=KMR_RBoCa4M",
+    "thumbnail": "/assets/talk-simulationmaxxing.jpg",
     "links": {}
   },
   {
@@ -41,6 +42,7 @@
     "location": "",
     "date": "2025-12",
     "video": "https://www.youtube.com/watch?v=1GnbsGhRC4o",
+    "thumbnail": "/assets/talk-qcon-agents.jpg",
     "links": {
       "site": "https://ai.qconferences.com/presentation/newyork2025/building-ai-agents-127-million-customers-practical-lessons-nubank"
     }

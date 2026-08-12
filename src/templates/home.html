@@ -79,6 +79,14 @@
 
 <section class="section" id="talks">
   <h2>Talks &amp; tutorials</h2>
+  {% if featured_talks %}
+  <div class="talk-group talk-group--featured">
+    <h3 class="talk-group__label">Featured recordings</h3>
+    <div class="talk-cards">
+      {% for t in featured_talks %}{{ m.featured_talk(t) }}{% endfor %}
+    </div>
+  </div>
+  {% endif %}
   {% for group in talk_groups %}
   <div class="talk-group">
     <h3 class="talk-group__label">{{ group.label }}</h3>

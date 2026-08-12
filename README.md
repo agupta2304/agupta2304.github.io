@@ -239,7 +239,9 @@ Same idea in `src/data/talks.json`. `type` is `tutorial`, `invited`, or `other`,
 the grouping. `date` is `YYYY-MM` and is displayed as `Nov 2026`.
 
 Add `"video": "https://www.youtube.com/watch?v=..."` and the entry gets a `video` link plus a
-view count.
+view count. Add a root-relative `"thumbnail": "/assets/talk-name.jpg"` as well to feature the
+recording visually on the homepage; use a self-hosted 16:9 image. Featured recordings are
+removed from the compact text list below them so each talk appears only once.
 
 ### Refreshing view counts
 
@@ -406,3 +408,7 @@ Pages hosting once already.
 **Third-party requests from the served pages** are limited to KaTeX, and only on posts that set
 `math: true`. `src/check.py` fails if any other external script appears on any page, which is
 what keeps an analytics snippet or a font CDN from creeping in unnoticed.
+
+Talk thumbnails are committed under `assets/` rather than loaded from YouTube. Merely opening
+the homepage therefore sends YouTube no visitor IP address or referrer; that request happens
+only after someone chooses to follow a video link.

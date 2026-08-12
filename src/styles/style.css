@@ -260,8 +260,13 @@ a:focus-visible {
 
 .layout .section:first-child { margin-top: 0; }
 
-/* The rail is a narrower measure, so step everything down a little. */
-.rail { font-size: 0.95rem; }
+/* The shortened rail stays in view while the longer body scrolls. Its padding
+   keeps the portrait clear of the sticky nav when the rail reaches this offset. */
+.rail {
+  position: sticky;
+  top: 2.75rem;
+  font-size: 0.95rem;
+}
 .rail .section { margin: 2.25rem 0; }
 
 .rail .masthead {
@@ -302,6 +307,7 @@ a:focus-visible {
   .layout > * + * { padding-top: 0; }
 
   .rail {
+    position: static;
     font-size: var(--step-0);
     max-width: var(--measure);
   }
@@ -632,6 +638,104 @@ a.pub__title:hover {
   font-weight: 600;
 }
 
+.talk-group--featured { margin-bottom: 2.3rem; }
+
+.talk-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.talk-card { min-width: 0; }
+
+.talk-card__image {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--mark);
+  text-decoration: none;
+}
+
+.talk-card__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  filter: saturate(0.88);
+  transition: filter 160ms ease, transform 160ms ease;
+}
+
+.talk-card__image:hover img {
+  filter: saturate(1);
+  transform: scale(1.015);
+}
+
+.talk-card__play {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 24%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  color: var(--ink);
+  box-shadow: 0 1px 5px color-mix(in srgb, var(--ink) 18%, transparent);
+  transform: translate(-50%, -50%);
+}
+
+.talk-card__play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 53%;
+  border-top: 0.34rem solid transparent;
+  border-bottom: 0.34rem solid transparent;
+  border-left: 0.52rem solid currentColor;
+  transform: translate(-40%, -50%);
+}
+
+.talk-card__title {
+  margin: 0.65rem 0 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.talk-card__title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.talk-card__title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.talk-card__where {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.talk-card__where span {
+  margin-left: 0.25rem;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.talk-card__links { margin-top: 0.35rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .talk-card__image img { transition: none; }
+  .talk-card__image:hover img { transform: none; }
+}
+
 .talk { margin-bottom: 1.1rem; }
 .talk:last-child { margin-bottom: 0; }
 
@@ -953,6 +1057,8 @@ code, kbd, samp {
   .news__when { padding-top: 0; }
 
   .news li { margin-bottom: 0.9rem; }
+
+  .talk-cards { grid-template-columns: 1fr; }
 
   .contact,
   .rail .contact { grid-template-columns: 1fr; gap: 0.15rem; }

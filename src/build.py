@@ -396,6 +396,24 @@ def load_talks(video_stats: dict) -> list[dict]:
                 t["video_meta"] = cached
                 t["views"] = compact_count(cached["views"])
                 t["views_as_of"] = month_year(cached["checked"][:7])
+        thumbnail = t.get("thumbnail")
+        if thumbnail:
+            target = (ROOT / thumbnail.lstrip("/")).resolve()
+            try:
+                target.relative_to(ROOT.resolve())
+            except ValueError:
+                target = None
+            if (
+                not thumbnail.startswith("/")
+                or target is None
+                or target.suffix.lower() not in {".jpg", ".jpeg", ".png", ".webp", ".avif"}
+                or not target.is_file()
+            ):
+                raise SystemExit(
+                    f"talks.json: thumbnail for {t['title']!r} must be a root-relative "
+                    f"path to an existing file (got {thumbnail!r})"
+                )
+        t["featured_recording"] = bool(t.get("video") and thumbnail)
         t["links"] = ordered_links(links)
         t["sort_key"] = str(t.get("date", ""))
         t["date"] = month_year(t.get("date", ""))
@@ -753,6 +771,12 @@ def build(refresh_views: bool = False) -> None:
 
     talk_groups = load_talks(video_stats)
     all_talks = [t for group in talk_groups for t in group["entries"]]
+    featured_talks = [t for t in all_talks if t["featured_recording"]]
+    home_talk_groups = []
+    for group in talk_groups:
+        entries = [t for t in group["entries"] if not t["featured_recording"]]
+        if entries:
+            home_talk_groups.append({"label": group["label"], "entries": entries})
     research = load_research(publications, all_talks)
     news = load_news(site.get("news_limit", 6))
     experience = load("experience.json")
@@ -787,7 +811,8 @@ def build(refresh_views: bool = False) -> None:
         page={"path": "/"},
         selected_groups=group_by_year(selected),
         research=research,
-        talk_groups=talk_groups,
+        featured_talks=featured_talks,
+        talk_groups=home_talk_groups,
         news=news,
         experience=experience.get("roles", []),
         education=experience.get("education", []),

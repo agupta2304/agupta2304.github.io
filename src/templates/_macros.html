@@ -97,6 +97,24 @@
 {% endmacro %}
 
 
+{% macro featured_talk(t) %}
+<article class="talk-card">
+  <a class="talk-card__image" href="{{ t.video }}" aria-label="Watch {{ t.title }} on YouTube">
+    <img src="{{ t.thumbnail }}" alt="" width="800" height="450" loading="lazy" decoding="async">
+    <span class="talk-card__play" aria-hidden="true"></span>
+  </a>
+  <h4 class="talk-card__title"><a href="{{ t.video }}">{{ t.title }}</a></h4>
+  <p class="talk-card__where">{{ t.event }} <span>{{ t.date }}</span></p>
+  {% if t.links or t.views %}
+  <p class="pub__links talk-card__links">
+    {%- for label, href in t.links.items() %}<a href="{{ href }}">{{ label }}</a>{% endfor -%}
+    {%- if t.views %}<span class="talk__views" title="YouTube views as of {{ t.views_as_of }}">{{ t.views }} views</span>{% endif -%}
+  </p>
+  {% endif %}
+</article>
+{% endmacro %}
+
+
 {% macro talk(t) %}
 <div class="talk">
   <span class="talk__title">{{ t.title }}</span>
