@@ -414,3 +414,6 @@ only after someone chooses to follow a video link.
 
 The Mentors and Writing navigation additions are root-relative links rendered entirely from
 version-controlled data. They introduce no client-side script, user input, or runtime request.
+
+The two-line tagline is stored as separate plain-text fields and remains Jinja-autoescaped;
+formatting is applied by the template rather than by placing HTML in profile data.

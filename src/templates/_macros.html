@@ -13,7 +13,10 @@
   </div>
 </header>
 {% if profile.thesis %}
-<p class="thesis">{{ profile.thesis }}</p>
+<p class="thesis">
+  {{ profile.thesis }}
+  {% if profile.thesis_detail %}<span class="thesis__detail">{{ profile.thesis_detail }}</span>{% endif %}
+</p>
 {% endif %}
 {% endmacro %}
 

@@ -7,6 +7,7 @@
   "location": "San Francisco Bay Area",
   "customer_scale": "more than 135 million",
   "thesis": "Reliable AI agents and efficient foundation models at production scale.",
+  "thesis_detail": "LLM post-training \u00b7 constrained optimization",
   "headshot": "/assets/headshot.jpg",
   "meta_description": "Aman Gupta leads research on reliable AI agents and efficient foundation models at Nubank for systems serving more than 135 million customers.",
   "knows_about": [
