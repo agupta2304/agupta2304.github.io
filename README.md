@@ -114,6 +114,12 @@ identity without another keyword strip.
 a wall of text and repeats the Experience section. Publication breadth now appears on the full
 Publications page through `profile.venues_note`; program committees and patents live in Service.
 
+On desktop the rail is sticky but capped to the available viewport height, so a short screen
+scrolls the rail independently instead of hiding its bottom until the main column ends. Browser
+scrollbar chrome is hidden to preserve the document-like layout; wheel, trackpad, touch, and
+focus-driven scrolling still work. Below the two-column breakpoint—and when printing—the rail
+returns to normal document flow with no clipping.
+
 Prose in the JSON data is rendered as Jinja before it reaches the templates, so a fact quoted in
 more than one place has a single definition. The customer count appears in both the bio and the
 Nubank role and is written `{{ profile.customer_scale }}` in each; update
@@ -426,3 +432,6 @@ formatting is applied by the template rather than by placing HTML in profile dat
 Research contribution summaries are likewise plain text and autoescaped. Flagship titles are
 resolved by exact lookup against version-controlled publication data; both the build and
 structural checker reject missing, duplicate, or self-repeated highlights before deployment.
+
+The bounded desktop rail is CSS-only. It adds no scroll listener or script, and explicitly
+returns to unbounded document flow for narrow screens and print output.

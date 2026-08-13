@@ -272,13 +272,22 @@ a:focus-visible {
 
 .layout .section:first-child { margin-top: 0; }
 
-/* The shortened rail stays in view while the longer body scrolls. Its padding
-   keeps the portrait clear of the sticky nav when the rail reaches this offset. */
+/* The rail stays in view while the longer body scrolls. On a short viewport it
+   gets its own scroll area; without the height bound, a sticky rail taller than
+   the viewport hides its bottom until the right column reaches the page end. */
 .rail {
   position: sticky;
   top: 2.75rem;
+  max-height: calc(100vh - 2.75rem);
+  max-height: calc(100svh - 2.75rem);
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   font-size: 0.95rem;
 }
+
+.rail::-webkit-scrollbar { display: none; }
 .rail .section { margin: 2.25rem 0; }
 
 .rail .masthead {
@@ -320,6 +329,11 @@ a:focus-visible {
 
   .rail {
     position: static;
+    max-height: none;
+    overflow-y: visible;
+    overscroll-behavior-y: auto;
+    scrollbar-width: auto;
+    -ms-overflow-style: auto;
     font-size: var(--step-0);
     max-width: var(--measure);
   }
@@ -1209,7 +1223,12 @@ code, kbd, samp {
   /* A printed CV reads as one column. */
   .layout { display: block; }
   .layout > *, .layout > * + * { padding-top: 0; }
-  .rail { font-size: inherit; }
+  .rail {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    font-size: inherit;
+  }
 
   .masthead { padding-top: 0; }
 

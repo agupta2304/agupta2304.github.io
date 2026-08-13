@@ -246,10 +246,14 @@ for needle, why in [
     ('[data-theme="dark"]', "dark theme block"),
     ("@media print", "print stylesheet"),
     ("max-width: 40rem", "mobile breakpoint"),
+    ("max-height: calc(100svh - 2.75rem)", "viewport-bounded desktop rail"),
+    ("overflow-y: auto", "independently scrollable desktop rail"),
     ("codehilite", "syntax highlighting"),
 ]:
     if needle not in css:
         problems.append(f"style.css: missing {why}")
+if css.count("max-height: none") < 2:
+    problems.append("style.css: rail height is not reset for both stacked and print layouts")
 
 # both palettes must define the same colour tokens
 root_block = re.search(r":root \{(.*?)\n\}", css, re.S)
