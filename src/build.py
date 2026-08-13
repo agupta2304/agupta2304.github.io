@@ -265,12 +265,12 @@ def group_by_year(pubs: list[dict]) -> list[tuple[int, list[dict]]]:
 
 
 def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
-    """Resolve each thread's papers and talks by title, into one normalised list.
+    """Resolve each thread's flagship, papers, and talks by title.
 
-    Threads name their evidence rather than restating it, so a venue, date or link is
-    only ever edited in publications.json or talks.json. A title that no longer matches
-    is a hard error: silently dropping it would leave a thread quietly claiming less
-    than it should.
+    Threads name their evidence rather than restating it, so venue, date, and link
+    metadata are only ever edited in publications.json or talks.json. A missing or
+    duplicated flagship is a hard error: silently dropping it would weaken the
+    research narrative without anyone noticing.
 
     Papers and talks are flattened to the same shape here so the template renders one
     list without branching on what each entry happens to be.
@@ -278,8 +278,56 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
     papers_by_title = {p["title"]: p for p in pubs}
     talks_by_title = {t["title"]: t for t in talks}
     threads = load("research.json")
+    seen_highlights = set()
+
+    def paper_entry(paper: dict) -> dict:
+        # A tutorial published in a conference's proceedings would otherwise show a
+        # bare "KDD 2023" chip and read as a research paper, so label it explicitly.
+        where = f"{paper['venue_short']} {paper['year']}"
+        return {
+            "kind": "paper",
+            "chip": f"Tutorial @ {where}" if "Tutorials Track" in paper["venue"] else where,
+            "chip_title": paper["venue_full"],
+            "title": paper["title"],
+            "url": paper.get("primary_link"),
+            "links": paper["links"],
+            "detail": None,
+        }
 
     for thread in threads:
+        spec = thread.get("highlight")
+        if not isinstance(spec, dict):
+            raise SystemExit(
+                f"research.json: {thread.get('label', 'unnamed thread')!r} needs one "
+                "'highlight' object"
+            )
+        title = spec.get("paper")
+        contribution = spec.get("contribution")
+        if not isinstance(title, str) or not title.strip():
+            raise SystemExit(
+                f"research.json: {thread.get('label', 'unnamed thread')!r} highlight "
+                "needs a publication title"
+            )
+        if not isinstance(contribution, str) or not contribution.strip():
+            raise SystemExit(f"research.json: highlight {title!r} needs a contribution")
+        if title in seen_highlights:
+            raise SystemExit(f"research.json: highlight {title!r} appears in multiple threads")
+        if title in thread.get("papers", []):
+            raise SystemExit(
+                f"research.json: highlight {title!r} is repeated in its related papers"
+            )
+        paper = papers_by_title.get(title)
+        if paper is None:
+            raise SystemExit(
+                f"research.json: no publication titled {title!r}. "
+                "Titles must match publications.json exactly."
+            )
+        seen_highlights.add(title)
+        thread["highlight"] = {
+            **paper_entry(paper),
+            "contribution": contribution.strip(),
+        }
+
         entries = []
         for title in thread.get("papers", []):
             paper = papers_by_title.get(title)
@@ -288,18 +336,7 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
                     f"research.json: no publication titled {title!r}. "
                     "Titles must match publications.json exactly."
                 )
-            # A tutorial published in a conference's proceedings would otherwise show a
-            # bare "KDD 2023" chip and read as a research paper, so it is labelled the
-            # same way a tutorial coming from talks.json is.
-            where = f"{paper['venue_short']} {paper['year']}"
-            entries.append({
-                "kind": "paper",
-                "chip": f"Tutorial @ {where}" if "Tutorials Track" in paper["venue"] else where,
-                "chip_title": paper["venue_full"],
-                "title": paper["title"],
-                "url": paper.get("primary_link"),
-                "detail": None,
-            })
+            entries.append(paper_entry(paper))
 
         for title in thread.get("talks", []):
             talk = talks_by_title.get(title)
@@ -688,19 +725,32 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
     lines = [f"# {profile['name']}", "", f"> {profile['meta_description']}", ""]
     if profile.get("thesis"):
         lines += [profile["thesis"], ""]
+    if profile.get("thesis_detail"):
+        lines += [profile["thesis_detail"], ""]
     lines += [strip_tags(p) + "\n" for p in profile["about"]]
 
     lines += ["## Pages", "",
-              f"- [Home]({site['url']}/): featured research, news, selected papers, "
-              "talks, experience, service, mentors",
-              f"- [Publications]({site['url']}/publications/): complete list of {len(pubs)} papers",
+              f"- [Home]({site['url']}/): research directions, news, talks, writing, "
+              "experience, service, mentors",
+              f"- [Publications]({site['url']}/publications/): complete list of "
+              f"{len(pubs)} publications",
               f"- [Writing]({site['url']}/blog/): {len(posts)} post"
               f"{'' if len(posts) == 1 else 's'}",
               f"- [Feed]({site['url']}/feed.xml): RSS", ""]
 
-    lines += ["## Research threads", ""]
+    lines += ["## Research directions", ""]
     for thread in research:
         lines += [f"### {thread['label']}", "", thread["blurb"], ""]
+        highlight = thread["highlight"]
+        highlight_link = f" {highlight['url']}" if highlight.get("url") else ""
+        lines += [
+            f"Flagship: {highlight['title']} ({highlight['chip']}).{highlight_link}",
+            "",
+            highlight["contribution"],
+            "",
+        ]
+        if thread["entries"]:
+            lines += ["Related work:", ""]
         for entry in thread["entries"]:
             # A paper's chip already says venue and year, so only a talk's extra
             # detail is worth a parenthetical here.
@@ -708,12 +758,6 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
             link = f" {entry['url']}" if entry.get("url") else ""
             lines.append(f"- [{entry['chip']}] {entry['title']}{where}.{link}")
         lines.append("")
-
-    lines += ["## Selected papers", ""]
-    for p in (x for x in pubs if x.get("selected")):
-        link = f" {p['primary_link']}" if p.get("primary_link") else ""
-        lines.append(f"- {p['title']} ({p['venue_short']} {p['year']}).{link}")
-    lines.append("")
 
     lines += ["## Talks", ""]
     for group in talk_groups:
@@ -762,7 +806,6 @@ def build(refresh_views: bool = False) -> None:
         profile["cv"] = None
 
     publications = load_publications(profile["name"])
-    selected = [p for p in publications if p.get("selected")]
     video_stats = load_video_stats()
     if refresh_views:
         wanted = [youtube_id(t["video"]) for t in load("talks.json") if t.get("video")]
@@ -798,7 +841,6 @@ def build(refresh_views: bool = False) -> None:
         "profile": profile,
         "site": site,
         "total_publications": len(publications),
-        "selected_count": len(selected),
         # One colophon is not a body of writing, and linking it from the nav promises
         # essays the site cannot deliver. Pieces published elsewhere count, since the
         # page is worth a click once it lists them.
@@ -810,7 +852,6 @@ def build(refresh_views: bool = False) -> None:
 
     write(ROOT / "index.html", env.get_template("home.html").render(
         page={"path": "/"},
-        selected_groups=group_by_year(selected),
         research=research,
         featured_talks=featured_talks,
         talk_groups=home_talk_groups,

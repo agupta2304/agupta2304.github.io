@@ -16,9 +16,9 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2026,
-    "selected": true,
     "links": {
-      "arxiv": "https://arxiv.org/abs/2606.08867"
+      "arxiv": "https://arxiv.org/abs/2606.08867",
+      "doi": "https://doi.org/10.1145/3770855.3818332"
     }
   },
   {
@@ -40,7 +40,6 @@
     "venue": "International Conference on Machine Learning (ICML)",
     "year": 2025,
     "note": "Implemented in Hugging Face TRL",
-    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2501.03884",
       "doi": "https://proceedings.mlr.press/v267/gupta25d.html"
@@ -63,7 +62,6 @@
     "venue": "SPOT Workshop at ICLR",
     "year": 2026,
     "note": "Preprint posted 2025",
-    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2509.23106"
     }
@@ -76,7 +74,6 @@
     "venue": "ACM International Conference on Information and Knowledge Management (CIKM), Tutorials Track",
     "year": 2026,
     "note": "To appear",
-    "selected": false,
     "links": {}
   },
   {
@@ -95,7 +92,6 @@
     ],
     "venue": "The Web Conference (WWW), Tutorials Track",
     "year": 2025,
-    "selected": false,
     "note": "corresponding author, joint 1st author",
     "links": {
       "doi": "https://doi.org/10.1145/3701716.3715868"
@@ -125,7 +121,6 @@
     ],
     "venue": "arXiv technical report",
     "year": 2025,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2502.03417"
     }
@@ -155,7 +150,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2025,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2510.05490"
     }
@@ -172,7 +166,6 @@
     ],
     "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
     "year": 2025,
-    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2502.04677",
       "doi": "http://papers.nips.cc/paper_files/paper/2025/hash/878bbdf6227315995c207561211ddb53-Abstract-Conference.html"
@@ -192,7 +185,6 @@
     ],
     "venue": "International Conference on Machine Learning (ICML)",
     "year": 2025,
-    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2505.07271",
       "doi": "https://proceedings.mlr.press/v267/hong25d.html"
@@ -224,7 +216,6 @@
     ],
     "venue": "Empirical Methods in Natural Language Processing (EMNLP)",
     "year": 2025,
-    "selected": true,
     "note": "joint 1st author",
     "links": {
       "arxiv": "https://arxiv.org/abs/2502.14305"
@@ -248,7 +239,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2025,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2507.23267"
     }
@@ -284,7 +274,6 @@
     "venue": "arXiv technical report",
     "year": 2025,
     "note": "Withdrawn by the authors; no PDF available",
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2501.16450"
     }
@@ -301,7 +290,6 @@
     ],
     "venue": "International Conference on Learning Representations (ICLR)",
     "year": 2024,
-    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2401.12332",
       "doi": "https://openreview.net/forum?id=UMOlFJzLfL"
@@ -318,7 +306,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2024,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2412.06924"
     }
@@ -336,7 +323,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2024,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2401.04044"
     }
@@ -360,7 +346,6 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2024,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2403.00803",
       "doi": "https://doi.org/10.1145/3637528.3671599"
@@ -386,7 +371,6 @@
     ],
     "venue": "ACM International Conference on Information and Knowledge Management (CIKM)",
     "year": 2024,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2407.13218",
       "doi": "https://doi.org/10.1145/3627673.3680091"
@@ -432,7 +416,6 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2024,
-    "selected": true,
     "links": {
       "arxiv": "https://arxiv.org/abs/2402.06859",
       "doi": "https://doi.org/10.1145/3637528.3671561"
@@ -451,7 +434,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2024,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2401.06293"
     }
@@ -471,7 +453,6 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2024,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2405.10490",
       "doi": "https://doi.org/10.1145/3637528.3671591"
@@ -493,7 +474,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2023,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2302.09693"
     }
@@ -513,7 +493,6 @@
     ],
     "venue": "ACM International Conference on Information and Knowledge Management (CIKM)",
     "year": 2023,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1145/3583780.3615000"
     }
@@ -534,9 +513,9 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD), Tutorials Track",
     "year": 2023,
-    "selected": true,
     "links": {
       "doi": "https://doi.org/10.1145/3580305.3599183",
+      "code": "https://github.com/linkedin/DuaLip",
       "site": "https://sites.google.com/view/kdd-2023-large-scale-lps"
     }
   },
@@ -555,7 +534,6 @@
     ],
     "venue": "The Web Conference (WWW), Companion Proceedings",
     "year": 2023,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1145/3543873.3587647"
     }
@@ -573,7 +551,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2023,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2309.01885"
     }
@@ -590,7 +567,6 @@
     ],
     "venue": "OPT Workshop at NeurIPS",
     "year": 2022,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2211.12409"
     }
@@ -611,7 +587,6 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2022,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1145/3534678.3539103"
     }
@@ -625,7 +600,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2022,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2202.04837"
     }
@@ -643,7 +617,6 @@
     ],
     "venue": "OPT Workshop at NeurIPS",
     "year": 2022,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2212.04343"
     }
@@ -658,7 +631,6 @@
     ],
     "venue": "OPT Workshop at NeurIPS",
     "year": 2021,
-    "selected": false,
     "links": {
       "pdf": "https://opt-ml.org/papers/2021/paper53.pdf"
     }
@@ -676,7 +648,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2021,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2108.05839"
     }
@@ -697,7 +668,6 @@
     ],
     "venue": "ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)",
     "year": 2020,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1145/3394486.3406485"
     }
@@ -715,7 +685,6 @@
     ],
     "venue": "arXiv preprint",
     "year": 2020,
-    "selected": false,
     "links": {
       "arxiv": "https://arxiv.org/abs/2012.11673"
     }
@@ -729,7 +698,6 @@
     ],
     "venue": "International Journal of Data Mining and Bioinformatics",
     "year": 2017,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1504/ijdmb.2017.085711"
     }
@@ -743,7 +711,6 @@
     ],
     "venue": "MLG Workshop at KDD",
     "year": 2016,
-    "selected": false,
     "links": {
       "pdf": "https://www.mlgworkshop.org/2016/paper/MLG2016_paper_28.pdf"
     }
@@ -757,7 +724,6 @@
     ],
     "venue": "IEEE International Conference on Bioinformatics and Biomedicine (BIBM)",
     "year": 2015,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1109/bibm.2015.7359871",
       "preprint": "https://doi.org/10.1101/031906"
@@ -776,7 +742,6 @@
     ],
     "venue": "Microbial Informatics and Experimentation",
     "year": 2012,
-    "selected": false,
     "links": {
       "doi": "https://doi.org/10.1186/2042-5783-2-4"
     }

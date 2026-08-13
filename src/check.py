@@ -86,6 +86,57 @@ for anchor in re.findall(r'href="/#([\w-]+)"', home):
     if f'id="{anchor}"' not in home:
         problems.append(f"index.html: nav points at #{anchor} but no such id")
 
+# Research directions must each have one distinct flagship contribution, and that
+# flagship must not be repeated in the compact related-work list.
+research = json.loads((ROOT / "src" / "data" / "research.json").read_text(encoding="utf-8"))
+publications = json.loads(
+    (ROOT / "src" / "data" / "publications.json").read_text(encoding="utf-8")
+)
+publication_titles = {p["title"] for p in publications}
+if any("selected" in publication for publication in publications):
+    problems.append(
+        "publications.json: obsolete 'selected' flags remain after homepage bibliography removal"
+    )
+highlight_titles = set()
+for index, thread in enumerate(research, start=1):
+    label = thread.get("label") or f"thread {index}"
+    highlight = thread.get("highlight")
+    if not isinstance(highlight, dict):
+        problems.append(f"research.json: {label!r} has no highlight object")
+        continue
+    title = highlight.get("paper")
+    contribution = highlight.get("contribution")
+    if not isinstance(title, str) or not title.strip():
+        problems.append(f"research.json: {label!r} highlight has no paper title")
+        continue
+    if title not in publication_titles:
+        problems.append(f"research.json: highlight {title!r} is not in publications.json")
+    if title in highlight_titles:
+        problems.append(f"research.json: highlight {title!r} appears more than once")
+    highlight_titles.add(title)
+    if title in thread.get("papers", []):
+        problems.append(f"research.json: highlight {title!r} repeats in related work")
+    if not isinstance(contribution, str) or not contribution.strip():
+        problems.append(f"research.json: highlight {title!r} has no contribution")
+
+expected_highlights = len(research)
+rendered_highlights = home.count('class="thread__highlight"')
+rendered_contributions = home.count('class="thread__contribution"')
+if rendered_highlights != expected_highlights:
+    problems.append(
+        f"index.html: expected {expected_highlights} research highlights, found "
+        f"{rendered_highlights}"
+    )
+if rendered_contributions != expected_highlights:
+    problems.append(
+        f"index.html: expected {expected_highlights} contribution summaries, found "
+        f"{rendered_contributions}"
+    )
+if 'id="papers"' in home or 'href="/#papers"' in home:
+    problems.append("index.html: obsolete homepage Selected Papers section or nav link remains")
+if 'href="/publications/">publications</a>' not in home:
+    problems.append("index.html: nav does not link directly to the publications page")
+
 # Every collapsible year must keep a heading inside its <summary>. Turning those
 # into plain spans once removed all 11 years from the publications page outline,
 # leaving one heading on the whole page.
@@ -162,8 +213,18 @@ else:
     elif origin and f"Sitemap: {origin}/sitemap.xml" not in robots:
         problems.append(f"robots.txt: Sitemap directive does not match {origin}")
 
-if not (ROOT / "llms.txt").exists():
+llms_path = ROOT / "llms.txt"
+if not llms_path.exists():
     problems.append("llms.txt: missing")
+else:
+    llms = llms_path.read_text(encoding="utf-8")
+    if "## Selected papers" in llms:
+        problems.append("llms.txt: obsolete Selected papers section remains")
+    if llms.count("Flagship:") != expected_highlights:
+        problems.append(
+            f"llms.txt: expected {expected_highlights} flagships, "
+            f"found {llms.count('Flagship:')}"
+        )
 
 # Search engines cut the description off around 155-160 characters. That is a
 # convention rather than a rule, so an overlong one is a warning, not a failure.

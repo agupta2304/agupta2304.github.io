@@ -95,7 +95,7 @@ state, which is why they show a "Withdrawn by the authors" badge.
 | What | Where |
 | --- | --- |
 | Name, thesis line, about text, service, contact links | `src/data/profile.json` |
-| Featured research threads | `src/data/research.json` |
+| Research directions, highlights, and related work | `src/data/research.json` |
 | News items | `src/data/news.json` |
 | Publications | `src/data/publications.json` |
 | Talks and tutorials | `src/data/talks.json` |
@@ -106,17 +106,13 @@ state, which is why they show a "Withdrawn by the authors" badge.
 
 ### The top of the homepage
 
-`profile.thesis` is the one sentence under your name and title. It is the first thing a visitor
-reads, so it should say what you work on rather than where you work — the masthead already
-covers that. It renders a step larger than the surrounding prose and is the only enlarged line,
-which is why the first About paragraph is no longer given the `lede` treatment on narrow
-screens.
+`profile.thesis` is the primary research promise under the formal job title;
+`profile.thesis_detail` is its smaller methodological line. Together they establish the research
+identity without another keyword strip.
 
-`profile.about` is deliberately two paragraphs: positioning, then career. Anything longer turns
-the 18rem rail into a wall of text. Proof points that used to sit in a fourth paragraph now live
-where they belong — publication venues as a one-line gloss under Selected papers
-(`profile.venues_note`), and program committees and patents in their own Service section
-(`profile.service`).
+`profile.about` is deliberately one paragraph. Anything longer turns the 18rem sticky rail into
+a wall of text and repeats the Experience section. Publication breadth now appears on the full
+Publications page through `profile.venues_note`; program committees and patents live in Service.
 
 Prose in the JSON data is rendered as Jinja before it reaches the templates, so a fact quoted in
 more than one place has a single definition. The customer count appears in both the bio and the
@@ -124,26 +120,36 @@ Nubank role and is written `{{ profile.customer_scale }}` in each; update
 `profile.customer_scale` and both move together. Keep that figure sourced — the current value
 comes from Nu Holdings' most recent quarterly results.
 
-### Featured research
+### Research directions
 
-`src/data/research.json` holds the threads shown above News. Each has a `label`, a `blurb` of a
-sentence or two, and any mix of `papers` and `talks`:
+`src/data/research.json` holds the four directions shown above News. Each has a `label`, a
+question-led `blurb`, exactly one flagship `highlight`, and any mix of related `papers` and
+`talks`:
 
 ```json
 {
-  "label": "Agents in production",
-  "blurb": "What the thread is about, in one or two sentences.",
-  "papers": ["Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework"],
+  "label": "Reliable AI agents",
+  "blurb": "The research question and point of view, in one or two sentences.",
+  "highlight": {
+    "paper": "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework",
+    "contribution": "One abstract-grounded sentence explaining the central contribution."
+  },
+  "papers": [],
   "talks": ["Building Production LLM Agents: An Evaluation-Driven Playbook"]
 }
 ```
 
-Both are named by title and resolved against `publications.json` and `talks.json`, so a venue,
-date, or link is only ever edited in one file. A title that does not match exactly **fails the
-build** rather than silently disappearing, because a thread quietly losing its evidence is worse
-than a broken build.
+The flagship and related evidence are named by title and resolved against `publications.json`
+and `talks.json`, so venue, date, and link metadata are only edited once. A missing flagship,
+duplicate flagship, title mismatch, empty contribution, or flagship repeated in its own related
+list **fails the build** rather than silently weakening the narrative.
 
-Papers and talks render as one list, papers first, with a chip in the left gutter. A paper's
+Each flagship renders as venue, title, contribution, and every available paper/code/site link.
+The contribution is plain text and Jinja-autoescaped. Write it from the paper's abstract rather
+than promotional copy, and explain the result rather than merely restating the title.
+
+Related papers and talks render as one compact list, papers first, with a chip in the left
+gutter. A paper's
 chip is its venue and year — `KDD 2026` — which already implies a paper. A talk's names both
 what it is and where: `Tutorial @ CIKM 2026`, from `type` plus the part of `event` before the
 first comma. Whatever follows that comma drops under the title with the date rather than being
@@ -161,8 +167,8 @@ event name is long, either shorten what precedes the comma or widen `grid-templa
 `.thread__papers li`; the chip wraps rather than overflowing, but a two-line chip splits the
 venue from its year and reads worse.
 
-Threads are ordered as written. Three is a good number; much more and the section stops being
-"featured".
+Directions are ordered as written and intentionally mirror the two-line thesis. Keep one
+flagship per direction; additional evidence belongs under Related work.
 
 ### Adding a paper
 
@@ -174,24 +180,23 @@ Append an object to `src/data/publications.json`:
   "authors": ["Coauthor One", "Aman Gupta"],
   "venue": "NeurIPS",
   "year": 2026,
-  "selected": true,
   "note": "Oral",
   "links": { "arxiv": "https://arxiv.org/abs/...", "code": "https://github.com/..." }
 }
 ```
 
 Entries are grouped by year, newest first; within a year they keep the order in the file, so
-reorder by moving objects around. `selected: true` puts a paper on the homepage — everything
-appears on `/publications/` regardless. The author matching `name` in `profile.json` is bolded
-automatically. `note` renders as a small badge and can be omitted. Recognised link keys are
+reorder by moving objects around. Every paper appears on `/publications/`; homepage curation is
+controlled by `research.json`, not a second bibliography. The author matching `name` in
+`profile.json` is bolded automatically. `note` renders as a small badge and can be omitted.
+Recognised link keys are
 `pdf`, `arxiv`, `code`, `slides`, `poster`, `video`, `bibtex`, and `site`; unknown keys still
 render, just at the end.
 
 The title itself links to the first available of `arxiv`, `pdf`, `preprint`, `site`, `code`,
 `doi` — open versions first, with the DOI as a last resort. The DOI is included because research
-threads show only the linked title, so a DOI-only paper would be a dead end there; it also means
-a paywalled ACM or IEEE link is better than no link at all. The build lists any paper with no
-link whatsoever.
+directions link their flagship and related titles, so a DOI-only paper would otherwise be a dead
+end. The build lists any paper with no link whatsoever.
 
 Papers are grouped by year into native `<details>` elements, so the years expand and collapse
 with no JavaScript and stay keyboard-accessible. The three most recent groups start open and
@@ -417,3 +422,7 @@ version-controlled data. They introduce no client-side script, user input, or ru
 
 The two-line tagline is stored as separate plain-text fields and remains Jinja-autoescaped;
 formatting is applied by the template rather than by placing HTML in profile data.
+
+Research contribution summaries are likewise plain text and autoescaped. Flagship titles are
+resolved by exact lookup against version-controlled publication data; both the build and
+structural checker reject missing, duplicate, or self-repeated highlights before deployment.

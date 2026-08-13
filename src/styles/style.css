@@ -376,7 +376,7 @@ a:focus-visible {
 
 /* ---------- Featured research ---------- */
 
-.thread { margin-bottom: 2.1rem; }
+.thread { margin-bottom: 2.6rem; }
 .thread:last-child { margin-bottom: 0; }
 
 .thread__label {
@@ -388,11 +388,69 @@ a:focus-visible {
 }
 
 .thread__blurb {
-  margin: 0 0 0.7rem;
+  margin: 0 0 0.9rem;
   max-width: var(--measure);
   color: var(--muted);
   line-height: 1.55;
   text-wrap: pretty;
+}
+
+.thread__highlight {
+  margin: 0 0 0.9rem;
+  padding: 0.85rem 0.95rem;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  background: color-mix(in srgb, var(--mark) 70%, var(--bg));
+}
+
+.thread__highlight-venue {
+  display: inline-block;
+  padding: 0.16rem 0.36rem;
+  border-radius: 3px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.thread__highlight-title {
+  margin: 0.45rem 0 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.thread__highlight-title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.thread__highlight-title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.thread__contribution {
+  margin: 0.35rem 0 0;
+  font-size: 0.96rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.thread__highlight .pub__links { margin-top: 0.5rem; }
+
+.thread__related-label {
+  margin: 0.9rem 0 0.45rem;
+  color: var(--faint);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .thread__papers {

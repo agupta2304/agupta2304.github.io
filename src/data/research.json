@@ -1,38 +1,50 @@
 [
   {
-    "label": "Agents in production",
-    "blurb": "Getting agents past a demo means being able to say, with evidence, that they will behave on the next hundred million conversations. I work on evaluation harnesses rigorous enough to gate a deployment, and on the failure modes that only appear once real customers are on the other end.",
-    "papers": [
-      "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework"
-    ],
+    "label": "Reliable AI agents",
+    "blurb": "How do we know an agent is ready for real customers? I build evaluation systems that connect offline simulation, human judgment, and online experiments so iteration speed does not come at the cost of reliability.",
+    "highlight": {
+      "paper": "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework",
+      "contribution": "A unified framework for context engineering, prompt optimization, offline evaluation, and production validation across five Nubank deployments; offline metrics tracked online outcomes, and the card-delivery agent improved transactional NPS by 37 percentage points."
+    },
+    "papers": [],
     "talks": [
       "Building Production LLM Agents: An Evaluation-Driven Playbook",
       "SimulationMaxxing: How we ship agents 20× faster"
     ]
   },
   {
-    "label": "Alignment and post-training",
-    "blurb": "Preference optimization is usually studied through its objective, but the shape of the reward and the robustness of the reward model matter just as much. I look at where the standard recipes are brittle and what to change so alignment holds up outside the benchmark.",
+    "label": "LLM alignment and post-training",
+    "blurb": "How do reward design and evaluation shape model behavior after pretraining? I study where standard preference-optimization recipes become brittle and how to make alignment more controllable.",
+    "highlight": {
+      "paper": "AlphaPO: Reward Shape Matters for LLM Alignment",
+      "contribution": "Introduces an alpha-parameterized reward shape that controls likelihood displacement and over-optimization, improving alignment performance over SimPO and DPO across Mistral-7B and Llama-3-8B."
+    },
     "papers": [
-      "AlphaPO: Reward Shape Matters for LLM Alignment",
       "On the Robustness of Reward Models for Language Model Alignment"
     ]
   },
   {
-    "label": "Efficiency at scale",
-    "blurb": "A model that cannot be served is a result, not a product. This thread covers compressing and distilling large models down to a serving budget, quantizing optimizer state so training fits, and scheduling inference so latency targets survive real traffic.",
+    "label": "Efficient foundation models",
+    "blurb": "How do we preserve model quality while meeting real training, latency, and serving budgets? I work across distillation, compression, quantization, and systems-aware inference.",
+    "highlight": {
+      "paper": "Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems",
+      "contribution": "Distills and compresses production language models with structured pruning and quantization, retaining much of larger-model quality while reducing training and serving cost and latency across recommendation workloads."
+    },
     "papers": [
-      "Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems",
       "Effective Quantization of Muon Optimizer States",
-      "LLM Query Scheduling with Prefix Reuse and Latency Constraints"
+      "LLM Query Scheduling with Prefix Reuse and Latency Constraints",
+      "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems"
     ]
   },
   {
-    "label": "Recommender systems at scale",
-    "blurb": "I have worked across the recommender stack: retrieval, ranking, personalization, and the large-scale constrained optimization that sits on top of it. That last part meant solving linear programs with trillions of variables.",
+    "label": "Constrained optimization at scale",
+    "blurb": "How do we optimize recommendations against global business, allocation, and diversity constraints at web scale? I develop optimization methods that turn model predictions into globally coordinated decisions.",
+    "highlight": {
+      "paper": "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
+      "contribution": "Presents DuaLip, a distributed solver for linear programs with trillions of variables, deployed across LinkedIn recommender systems and released as an extensible open-source library."
+    },
     "papers": [
-      "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
-      "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
+      "A Light-speed Linear Program Solver for Personalized Recommendation with Diversity Constraints",
       "LiRank: Industrial Large Scale Ranking Models at LinkedIn",
       "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn",
       "Generalized Deep Mixed Models"

@@ -13,7 +13,11 @@
 {% block content %}
 <header class="post__header">
   <h1 class="post__title">Publications</h1>
-  <p class="masthead__role">{{ total_publications }} papers. <a href="/#papers">Back to the selected list</a>.</p>
+  <p class="masthead__role">
+    {{ total_publications }} publications.
+    {% if profile.venues_note %}{{ profile.venues_note }}{% endif %}
+    <a href="/#research">Research directions &rarr;</a>
+  </p>
 </header>
 
 <section class="section">

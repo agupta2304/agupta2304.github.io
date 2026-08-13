@@ -129,7 +129,7 @@
   <div class="nav__inner">
     <a class="nav__home" href="/">Aman Gupta</a>
     <a href="/#research">research</a>
-    <a href="/#papers">papers</a>
+    <a href="/publications/">publications</a>
     <a href="/#talks">talks</a>
     <a href="/#writing">writing</a>
     <a href="/#experience">experience</a>
@@ -182,16 +182,19 @@
 
 <div class="flow">
 <section class="section" id="research">
-  <h2>Featured research</h2>
+  <h2>Research directions</h2>
 <div class="thread">
-  <h3 class="thread__label">Agents in production</h3>
-  <p class="thread__blurb">Getting agents past a demo means being able to say, with evidence, that they will behave on the next hundred million conversations. I work on evaluation harnesses rigorous enough to gate a deployment, and on the failure modes that only appear once real customers are on the other end.</p>
+  <h3 class="thread__label">Reliable AI agents</h3>
+  <p class="thread__blurb">How do we know an agent is ready for real customers? I build evaluation systems that connect offline simulation, human judgment, and online experiments so iteration speed does not come at the cost of reliability.</p>
+  <article class="thread__highlight">
+    <span class="thread__highlight-venue" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">KDD 2026</span>
+    <h4 class="thread__highlight-title">
+<a href="https://arxiv.org/abs/2606.08867">Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework</a>    </h4>
+    <p class="thread__contribution">A unified framework for context engineering, prompt optimization, offline evaluation, and production validation across five Nubank deployments; offline metrics tracked online outcomes, and the card-delivery agent improved transactional NPS by 37 percentage points.</p>
+    <p class="pub__links"><a href="https://arxiv.org/abs/2606.08867">arxiv</a><a href="https://doi.org/10.1145/3770855.3818332">doi</a></p>
+  </article>
+  <h4 class="thread__related-label">Related work</h4>
   <ul class="thread__papers">
-    <li>
-      <span class="thread__venue" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">KDD 2026</span>
-      <span>
-<a href="https://arxiv.org/abs/2606.08867">Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework</a>      </span>
-    </li>
     <li>
       <span class="thread__venue" title="CIKM 2026, half-day tutorial">Tutorial @ CIKM 2026</span>
       <span>
@@ -205,14 +208,17 @@ Building Production LLM Agents: An Evaluation-Driven Playbook<span class="thread
   </ul>
 </div>
 <div class="thread">
-  <h3 class="thread__label">Alignment and post-training</h3>
-  <p class="thread__blurb">Preference optimization is usually studied through its objective, but the shape of the reward and the robustness of the reward model matter just as much. I look at where the standard recipes are brittle and what to change so alignment holds up outside the benchmark.</p>
+  <h3 class="thread__label">LLM alignment and post-training</h3>
+  <p class="thread__blurb">How do reward design and evaluation shape model behavior after pretraining? I study where standard preference-optimization recipes become brittle and how to make alignment more controllable.</p>
+  <article class="thread__highlight">
+    <span class="thread__highlight-venue" title="International Conference on Machine Learning (ICML)">ICML 2025</span>
+    <h4 class="thread__highlight-title">
+<a href="https://arxiv.org/abs/2501.03884">AlphaPO: Reward Shape Matters for LLM Alignment</a>    </h4>
+    <p class="thread__contribution">Introduces an alpha-parameterized reward shape that controls likelihood displacement and over-optimization, improving alignment performance over SimPO and DPO across Mistral-7B and Llama-3-8B.</p>
+    <p class="pub__links"><a href="https://arxiv.org/abs/2501.03884">arxiv</a><a href="https://proceedings.mlr.press/v267/gupta25d.html">doi</a></p>
+  </article>
+  <h4 class="thread__related-label">Related work</h4>
   <ul class="thread__papers">
-    <li>
-      <span class="thread__venue" title="International Conference on Machine Learning (ICML)">ICML 2025</span>
-      <span>
-<a href="https://arxiv.org/abs/2501.03884">AlphaPO: Reward Shape Matters for LLM Alignment</a>      </span>
-    </li>
     <li>
       <span class="thread__venue" title="International Conference on Machine Learning (ICML)">ICML 2025</span>
       <span>
@@ -221,14 +227,17 @@ Building Production LLM Agents: An Evaluation-Driven Playbook<span class="thread
   </ul>
 </div>
 <div class="thread">
-  <h3 class="thread__label">Efficiency at scale</h3>
-  <p class="thread__blurb">A model that cannot be served is a result, not a product. This thread covers compressing and distilling large models down to a serving budget, quantizing optimizer state so training fits, and scheduling inference so latency targets survive real traffic.</p>
+  <h3 class="thread__label">Efficient foundation models</h3>
+  <p class="thread__blurb">How do we preserve model quality while meeting real training, latency, and serving budgets? I work across distillation, compression, quantization, and systems-aware inference.</p>
+  <article class="thread__highlight">
+    <span class="thread__highlight-venue" title="Empirical Methods in Natural Language Processing (EMNLP)">EMNLP 2025</span>
+    <h4 class="thread__highlight-title">
+<a href="https://arxiv.org/abs/2502.14305">Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems</a>    </h4>
+    <p class="thread__contribution">Distills and compresses production language models with structured pruning and quantization, retaining much of larger-model quality while reducing training and serving cost and latency across recommendation workloads.</p>
+    <p class="pub__links"><a href="https://arxiv.org/abs/2502.14305">arxiv</a></p>
+  </article>
+  <h4 class="thread__related-label">Related work</h4>
   <ul class="thread__papers">
-    <li>
-      <span class="thread__venue" title="Empirical Methods in Natural Language Processing (EMNLP)">EMNLP 2025</span>
-      <span>
-<a href="https://arxiv.org/abs/2502.14305">Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems</a>      </span>
-    </li>
     <li>
       <span class="thread__venue" title="SPOT Workshop at ICLR">SPOT@ICLR 2026</span>
       <span>
@@ -239,21 +248,29 @@ Building Production LLM Agents: An Evaluation-Driven Playbook<span class="thread
       <span>
 <a href="https://arxiv.org/abs/2502.04677">LLM Query Scheduling with Prefix Reuse and Latency Constraints</a>      </span>
     </li>
-  </ul>
-</div>
-<div class="thread">
-  <h3 class="thread__label">Recommender systems at scale</h3>
-  <p class="thread__blurb">I have worked across the recommender stack: retrieval, ranking, personalization, and the large-scale constrained optimization that sits on top of it. That last part meant solving linear programs with trillions of variables.</p>
-  <ul class="thread__papers">
-    <li>
-      <span class="thread__venue" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">Tutorial @ KDD 2023</span>
-      <span>
-<a href="https://sites.google.com/view/kdd-2023-large-scale-lps">Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference</a>      </span>
-    </li>
     <li>
       <span class="thread__venue" title="The Web Conference (WWW)">Tutorial @ WWW 2025</span>
       <span>
 <a href="https://doi.org/10.1145/3701716.3715868">Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems</a>      </span>
+    </li>
+  </ul>
+</div>
+<div class="thread">
+  <h3 class="thread__label">Constrained optimization at scale</h3>
+  <p class="thread__blurb">How do we optimize recommendations against global business, allocation, and diversity constraints at web scale? I develop optimization methods that turn model predictions into globally coordinated decisions.</p>
+  <article class="thread__highlight">
+    <span class="thread__highlight-venue" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">Tutorial @ KDD 2023</span>
+    <h4 class="thread__highlight-title">
+<a href="https://sites.google.com/view/kdd-2023-large-scale-lps">Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference</a>    </h4>
+    <p class="thread__contribution">Presents DuaLip, a distributed solver for linear programs with trillions of variables, deployed across LinkedIn recommender systems and released as an extensible open-source library.</p>
+    <p class="pub__links"><a href="https://doi.org/10.1145/3580305.3599183">doi</a><a href="https://github.com/linkedin/DuaLip">code</a><a href="https://sites.google.com/view/kdd-2023-large-scale-lps">site</a></p>
+  </article>
+  <h4 class="thread__related-label">Related work</h4>
+  <ul class="thread__papers">
+    <li>
+      <span class="thread__venue" title="OPT Workshop at NeurIPS">OPT@NeurIPS 2022</span>
+      <span>
+<a href="https://arxiv.org/abs/2211.12409">A Light-speed Linear Program Solver for Personalized Recommendation with Diversity Constraints</a>      </span>
     </li>
     <li>
       <span class="thread__venue" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">KDD 2024</span>
@@ -310,122 +327,6 @@ Building Production LLM Agents: An Evaluation-Driven Playbook<span class="thread
       <span class="news__what">Joined <strong>Nubank</strong> to lead research on LLM training and agents.</span>
     </li>
   </ul>
-</section>
-
-<section class="section" id="papers">
-  <h2>Selected papers</h2>
-  <p class="section__note">
-Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.    <a href="/publications/">See all 37 publications &rarr;</a>
-  </p>
-    <details class="year-group" open>
-    <summary class="year-group__label">
-      <h3 class="year-group__year">2026</h3>
-      <span class="year-group__count">2 papers</span>
-    </summary>
-    <div class="year-group__body">
-<div class="pub">
-  <span class="pub__tag" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">KDD</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2606.08867">Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework</a>
-    <p class="pub__authors"><span class="me">Aman Gupta</span>, Kevin Rossell, Edesio Alcobaça, José Chrystian Lima Pacheco, Carolina Baptista de Lima, Shao Tang, Luiz Paulo Rabachini, Luis Moneda, Herbert Fei, Daniel Silva, Rohan Ramanath</p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2606.08867">arxiv</a></p>
-  </div>
-</div>
-<div class="pub">
-  <span class="pub__tag" title="SPOT Workshop at ICLR">SPOT@ICLR</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2509.23106">Effective Quantization of Muon Optimizer States</a>
-    <p class="pub__authors"><span class="me">Aman Gupta</span>, Rafael Celente, Abhishek Shivanna, DT Braithwaite, Gregory Dexter, Shao Tang, Hiroto Udagawa, Daniel Silva, Rohan Ramanath, S Sathiya Keerthi</p>
-    <p class="pub__badges"><span class="pub__note">Preprint posted 2025</span></p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2509.23106">arxiv</a></p>
-  </div>
-</div>
-    </div>
-  </details>
-  <details class="year-group" open>
-    <summary class="year-group__label">
-      <h3 class="year-group__year">2025</h3>
-      <span class="year-group__count">4 papers</span>
-    </summary>
-    <div class="year-group__body">
-<div class="pub">
-  <span class="pub__tag" title="International Conference on Machine Learning (ICML)">ICML</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2501.03884">AlphaPO: Reward Shape Matters for LLM Alignment</a>
-    <p class="pub__authors"><span class="me">Aman Gupta</span>, Shao Tang, Qingquan Song, Sirou Zhu, Jiwoo Hong, Ankan Saha, Viral Gupta, Noah Lee, Eunki Kim, Jason Zhu, Natesh Pillai, S Sathiya Keerthi</p>
-    <p class="pub__badges"><span class="pub__note">Implemented in Hugging Face TRL</span></p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2501.03884">arxiv</a><a href="https://proceedings.mlr.press/v267/gupta25d.html">doi</a></p>
-  </div>
-</div>
-<div class="pub">
-  <span class="pub__tag" title="Conference on Neural Information Processing Systems (NeurIPS)">NeurIPS</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2502.04677">LLM Query Scheduling with Prefix Reuse and Latency Constraints</a>
-    <p class="pub__authors">Gregory Dexter, Shao Tang, Ata Fatahi Baarzi, Qingquan Song, Tejas Dharamsi, <span class="me">Aman Gupta</span></p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2502.04677">arxiv</a><a href="http://papers.nips.cc/paper_files/paper/2025/hash/878bbdf6227315995c207561211ddb53-Abstract-Conference.html">doi</a></p>
-  </div>
-</div>
-<div class="pub">
-  <span class="pub__tag" title="International Conference on Machine Learning (ICML)">ICML</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2505.07271">On the Robustness of Reward Models for Language Model Alignment</a>
-    <p class="pub__authors">Jiwoo Hong, Noah Lee, Eunki Kim, Guijin Son, Woojin Chung, <span class="me">Aman Gupta</span>, Shao Tang, James Thorne</p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2505.07271">arxiv</a><a href="https://proceedings.mlr.press/v267/hong25d.html">doi</a></p>
-  </div>
-</div>
-<div class="pub">
-  <span class="pub__tag" title="Empirical Methods in Natural Language Processing (EMNLP)">EMNLP</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2502.14305">Scaling Down, Serving Fast: Compressing and Deploying Efficient LLMs for Recommendation Systems</a>
-    <p class="pub__authors">Kayhan Behdin, Ata Fatahibaarzi, Qingquan Song, Yun Dai, <span class="me">Aman Gupta</span>, Zhipeng Wang, Shao Tang, Hejian Sang, and 12 others</p>
-    <p class="pub__badges"><span class="pub__note">joint 1st author</span></p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2502.14305">arxiv</a></p>
-  </div>
-</div>
-    </div>
-  </details>
-  <details class="year-group" open>
-    <summary class="year-group__label">
-      <h3 class="year-group__year">2024</h3>
-      <span class="year-group__count">2 papers</span>
-    </summary>
-    <div class="year-group__body">
-<div class="pub">
-  <span class="pub__tag" title="International Conference on Learning Representations (ICLR)">ICLR</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2401.12332">A Precise Characterization of SGD Stability Using Loss Surface Geometry</a>
-    <p class="pub__authors">Gregory Dexter, Borja Ocejo, Sathiya Keerthi, <span class="me">Aman Gupta</span>, Ayan Acharya, Rajiv Khanna</p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2401.12332">arxiv</a><a href="https://openreview.net/forum?id=UMOlFJzLfL">doi</a></p>
-  </div>
-</div>
-<div class="pub">
-  <span class="pub__tag" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">KDD</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://arxiv.org/abs/2402.06859">LiRank: Industrial Large Scale Ranking Models at LinkedIn</a>
-    <p class="pub__authors">Fedor Borisyuk, Mingzhou Zhou, Qingquan Song, Siyu Zhu, Birjodh Tiwana, Ganesh Parameswaran, Siddharth Dangi, <span class="me">Aman Gupta</span>, and 26 others</p>
-    <p class="pub__links"><a href="https://arxiv.org/abs/2402.06859">arxiv</a><a href="https://doi.org/10.1145/3637528.3671561">doi</a></p>
-  </div>
-</div>
-    </div>
-  </details>
-  <details class="year-group">
-    <summary class="year-group__label">
-      <h3 class="year-group__year">2023</h3>
-      <span class="year-group__count">1 paper</span>
-    </summary>
-    <div class="year-group__body">
-<div class="pub">
-  <span class="pub__tag" title="ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD)">KDD</span>
-  <div class="pub__body">
-    <a class="pub__title" href="https://sites.google.com/view/kdd-2023-large-scale-lps">Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference</a>
-    <p class="pub__authors"><span class="me">Aman Gupta</span>, S Sathiya Keerthi, Ayan Acharya, Miao Cheng, Borja Ocejo Elizondo, Rohan Ramanath, Rahul Mazumder, Kinjal Basu, J Kenneth Tay, Rupesh Gupta</p>
-    <p class="pub__badges"><span class="pub__note">Tutorials Track</span></p>
-    <p class="pub__links"><a href="https://doi.org/10.1145/3580305.3599183">doi</a><a href="https://sites.google.com/view/kdd-2023-large-scale-lps">site</a></p>
-  </div>
-</div>
-    </div>
-  </details>
-
 </section>
 
 <section class="section" id="talks">

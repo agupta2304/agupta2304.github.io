@@ -62,7 +62,16 @@
 <div class="thread">
   <h3 class="thread__label">{{ thread.label }}</h3>
   <p class="thread__blurb">{{ thread.blurb }}</p>
+  <article class="thread__highlight">
+    <span class="thread__highlight-venue" title="{{ thread.highlight.chip_title }}">{{ thread.highlight.chip }}</span>
+    <h4 class="thread__highlight-title">
+      {% if thread.highlight.url %}<a href="{{ thread.highlight.url }}">{{ thread.highlight.title }}</a>{% else %}{{ thread.highlight.title }}{% endif %}
+    </h4>
+    <p class="thread__contribution">{{ thread.highlight.contribution }}</p>
+    {{ links(thread.highlight.links) }}
+  </article>
   {% if thread.entries %}
+  <h4 class="thread__related-label">Related work</h4>
   <ul class="thread__papers">
     {% for e in thread.entries %}
     <li>
