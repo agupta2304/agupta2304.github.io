@@ -722,13 +722,13 @@ a.pub__title:hover {
   font-weight: 600;
 }
 
-.talk-group--featured { margin-bottom: 2.3rem; }
-
 .talk-cards {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
 }
+
+.talk-cards + .talk { margin-top: 1.25rem; }
 
 .talk-card { min-width: 0; }
 

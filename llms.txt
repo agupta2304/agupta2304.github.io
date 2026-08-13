@@ -74,6 +74,8 @@ Related work:
 ## Talks
 
 - Building Production LLM Agents: An Evaluation-Driven Playbook — CIKM 2026, half-day tutorial, Nov 2026.
+- Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems — The Web Conference (WWW) 2025, half-day tutorial, May 2025.
+- Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference — KDD 2023, hands-on tutorial, Aug 2023.
 - SimulationMaxxing: How we ship agents 20× faster — AI Engineer, with Shreya Rajpal, Jul 2026. https://www.youtube.com/watch?v=KMR_RBoCa4M
 - The iteration machine: Building the next-generation AI agents — NuSession Silicon Valley, Jun 2026.
 - Effective Quantization of Muon Optimizer States — ICLR SPOT workshop, Apr 2026.

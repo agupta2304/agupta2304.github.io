@@ -46,5 +46,27 @@
     "links": {
       "site": "https://ai.qconferences.com/presentation/newyork2025/building-ai-agents-127-million-customers-practical-lessons-nubank"
     }
+  },
+  {
+    "type": "tutorial",
+    "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
+    "event": "The Web Conference (WWW) 2025, half-day tutorial",
+    "location": "Sydney, NSW, Australia",
+    "date": "2025-05",
+    "links": {
+      "doi": "https://doi.org/10.1145/3701716.3715868"
+    }
+  },
+  {
+    "type": "tutorial",
+    "title": "Practical Design of Performant Recommender Systems using Large-scale Linear Programming-based Global Inference",
+    "event": "KDD 2023, hands-on tutorial",
+    "location": "Long Beach, CA, USA",
+    "date": "2023-08",
+    "links": {
+      "doi": "https://doi.org/10.1145/3580305.3599183",
+      "code": "https://github.com/linkedin/DuaLip",
+      "site": "https://sites.google.com/view/kdd-2023-large-scale-lps"
+    }
   }
 ]

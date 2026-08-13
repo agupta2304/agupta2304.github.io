@@ -814,12 +814,16 @@ def build(refresh_views: bool = False) -> None:
 
     talk_groups = load_talks(video_stats)
     all_talks = [t for group in talk_groups for t in group["entries"]]
-    featured_talks = [t for t in all_talks if t["featured_recording"]]
     home_talk_groups = []
     for group in talk_groups:
+        featured_entries = [t for t in group["entries"] if t["featured_recording"]]
         entries = [t for t in group["entries"] if not t["featured_recording"]]
-        if entries:
-            home_talk_groups.append({"label": group["label"], "entries": entries})
+        if featured_entries or entries:
+            home_talk_groups.append({
+                "label": group["label"],
+                "featured_entries": featured_entries,
+                "entries": entries,
+            })
     research = load_research(publications, all_talks)
     news = load_news(site.get("news_limit", 6))
     experience = load("experience.json")
@@ -853,7 +857,6 @@ def build(refresh_views: bool = False) -> None:
     write(ROOT / "index.html", env.get_template("home.html").render(
         page={"path": "/"},
         research=research,
-        featured_talks=featured_talks,
         talk_groups=home_talk_groups,
         writing_entries=writing_entries[:site.get("home_writing_limit", 3)],
         news=news,
