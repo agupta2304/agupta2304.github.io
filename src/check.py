@@ -97,6 +97,21 @@ if any("selected" in publication for publication in publications):
     problems.append(
         "publications.json: obsolete 'selected' flags remain after homepage bibliography removal"
     )
+
+profile = json.loads((ROOT / "src" / "data" / "profile.json").read_text(encoding="utf-8"))
+venues_note = profile.get("venues_note", "")
+major_venues = ("ICML", "NeurIPS", "ICLR", "KDD", "WWW", "CIKM", "EMNLP")
+if not all(venue in venues_note for venue in major_venues):
+    problems.append("profile.json: venues_note omits a major publication venue")
+if any(venue in venues_note for venue in ("BIBM", "SPOT@", "OPT@", "MLG@")):
+    problems.append("profile.json: venues_note should contain major venues only")
+if "Across these areas, I have <a href=\"/publications/\">published at" not in home:
+    problems.append("index.html: major venues are not integrated into the About prose")
+if 'class="about__venues"' in home:
+    problems.append("index.html: major venues still render as a separate subtitle")
+if 'class="thesis__venues"' in home:
+    problems.append("index.html: venue list still crowds the thesis headline")
+
 highlight_titles = set()
 for index, thread in enumerate(research, start=1):
     label = thread.get("label") or f"thread {index}"

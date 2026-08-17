@@ -18,7 +18,7 @@
 <section class="section" id="about">
   <h2>About</h2>
   {% for para in profile.about %}
-  <p{% if loop.first %} class="lede"{% endif %}>{{ para | safe }}</p>
+  <p{% if loop.first %} class="lede"{% endif %}>{{ para | safe }}{% if loop.last and profile.venues_note %} Across these areas, I have <a href="/publications/">{{ profile.venues_note | replace("Published at", "published at") | replace(".", "") }}</a>.{% endif %}</p>
   {% endfor %}
 </section>
 

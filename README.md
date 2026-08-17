@@ -111,8 +111,10 @@ state, which is why they show a "Withdrawn by the authors" badge.
 identity without another keyword strip.
 
 `profile.about` is deliberately one paragraph. Anything longer turns the 18rem sticky rail into
-a wall of text and repeats the Experience section. Publication breadth now appears on the full
-Publications page through `profile.venues_note`; program committees and patents live in Service.
+a wall of text and repeats the Experience section. Its closing sentence incorporates
+`profile.venues_note` as a link to the seven major publication venues; workshops and BIBM remain
+on the complete Publications page rather than crowding the thesis. Program committees and
+patents live in Service.
 
 On desktop the rail is sticky but capped to the available viewport height, so a short screen
 scrolls the rail independently instead of hiding its bottom until the main column ends. Browser
@@ -435,3 +437,6 @@ structural checker reject missing, duplicate, or self-repeated highlights before
 
 The bounded desktop rail is CSS-only. It adds no scroll listener or script, and explicitly
 returns to unbounded document flow for narrow screens and print output.
+
+The venue sentence in About is plain text plus one fixed internal Publications link. It adds no
+external request, client-side behavior, or executable markup.

@@ -8,6 +8,8 @@ LLM post-training · constrained optimization
 
 I lead AI research at Nubank for systems serving more than 135 million customers, with a focus on evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at LinkedIn.
 
+Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.
+
 ## Pages
 
 - [Home](https://amangupta.dev/): research directions, news, talks, writing, experience, service, mentors

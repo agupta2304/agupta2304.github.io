@@ -728,6 +728,8 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
     if profile.get("thesis_detail"):
         lines += [profile["thesis_detail"], ""]
     lines += [strip_tags(p) + "\n" for p in profile["about"]]
+    if profile.get("venues_note"):
+        lines += [profile["venues_note"], ""]
 
     lines += ["## Pages", "",
               f"- [Home]({site['url']}/): research directions, news, talks, writing, "
