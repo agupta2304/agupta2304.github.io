@@ -31,13 +31,14 @@ that `robots.txt` advertises the sitemap on the same origin as the canonical URL
 
 ## Themes
 
-Cream is the default. A toggle in the nav switches to a dark theme and remembers the choice in
-`localStorage`; an inline script in `<head>` applies it before first paint, so there is no
-flash of the wrong palette. Without JavaScript the site stays cream and the button hides itself
-rather than sitting there dead.
+A cool near-white is the default, with graphite text, pale gray surfaces, and a restrained navy
+accent. A toggle in the nav switches to a cool charcoal dark theme and remembers the choice in
+`localStorage`; an inline script in `<head>` applies it before first paint, so there is no flash
+of the wrong palette. Without JavaScript the site stays light and the button hides itself rather
+than sitting there dead.
 
 Both palettes are defined as custom properties at the top of `src/styles/style.css` — `:root`
-holds the cream values, `[data-theme="dark"]` the dark ones. Change a colour in one place and
+holds the light values, `[data-theme="dark"]` the dark ones. Change a colour in one place and
 it propagates everywhere, including the syntax highlighting, which ships a matching Pygments
 theme per palette. Printing always uses a monochrome palette regardless of the active theme.
 
@@ -70,7 +71,7 @@ WCAG AA against the surface it sits on, and that no unexpected external script s
 exits non-zero on failure.
 
 The contrast assertion exists because it caught a real regression: the smallest text on the
-site sat at 3.45:1 against the cream background for a while. Thresholds and the reason for each
+site once sat at 3.45:1 against the light background. Thresholds and the reason for each
 pair live in `CONTRAST_PAIRS` in [src/check.py](src/check.py) — 4.5:1 for body and metadata,
 3:1 for the large decorative monogram.
 
@@ -440,3 +441,6 @@ returns to unbounded document flow for narrow screens and print output.
 
 The venue sentence in About is plain text plus one fixed internal Publications link. It adds no
 external request, client-side behavior, or executable markup.
+
+Theme colours are local CSS custom properties. Changing the palette adds no asset, dependency,
+or network request, and `src/check.py` enforces WCAG AA contrast for both themes.

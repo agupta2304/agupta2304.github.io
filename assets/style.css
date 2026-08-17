@@ -3,21 +3,21 @@
    Palette and scale live here; everything else derives from it.
    ============================================================ */
 
-/* Cream is the default. The dark theme is opt-in via data-theme on <html>,
+/* A cool near-white is the default. The dark theme is opt-in via data-theme on <html>,
    set before first paint by the inline script in base.html. */
 
 :root {
   color-scheme: light;
 
-  --bg:      #faf7f0;
-  --ink:     #1f1c18;
-  --muted:   #6a635a;
-  /* 4.78:1 on --bg. The smallest text on the site uses this, so it has to clear
+  --bg:      #fbfcfe;
+  --ink:     #16191f;
+  --muted:   #525b68;
+  /* 4.68:1 on --bg. The smallest text on the site uses this, so it has to clear
      WCAG AA on its own; src/check.py asserts the ratio for both palettes. */
-  --faint:   #746d63;
-  --rule:    #e6ded0;
-  --accent:  #8a2f2f;
-  --mark:    #f2ebdc;
+  --faint:   #687384;
+  --rule:    #dfe4ea;
+  --accent:  #204f7a;
+  --mark:    #eef2f6;
 
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, ui-serif, serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
@@ -36,13 +36,13 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg:     #171614;
-  --ink:    #e8e5df;
-  --muted:  #a09a90;
-  --faint:  #8a847a;
-  --rule:   #2e2b26;
-  --accent: #e0a08e;
-  --mark:   #26231e;
+  --bg:     #11151a;
+  --ink:    #e7ebf0;
+  --muted:  #a6afb9;
+  --faint:  #8e99a6;
+  --rule:   #2a3139;
+  --accent: #8fbae3;
+  --mark:   #1b222a;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

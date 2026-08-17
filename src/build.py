@@ -556,7 +556,7 @@ def expand_prose(profile: dict, experience: dict, env: Environment) -> None:
 def build_stylesheet() -> None:
     """Concatenate the hand-written CSS with a Pygments theme per site theme.
 
-    Cream is the default, so it goes in unscoped; the dark theme is prefixed with the
+    Light is the default, so it goes in unscoped; the dark theme is prefixed with the
     data-theme selector, which also gives it the specificity to win when active.
     """
     css = (SRC / "styles" / "style.css").read_text(encoding="utf-8")
