@@ -124,5 +124,10 @@
   });
 })();
 </script>
+
+<!-- Cookieless, aggregate traffic measurement; requests go to Cloudflare, not GitHub. -->
+<script type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "{{ site.cloudflare_web_analytics_token }}"}'></script>
 </body>
 </html>

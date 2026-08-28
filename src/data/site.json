@@ -1,5 +1,6 @@
 {
   "url": "https://amangupta.dev",
+  "cloudflare_web_analytics_token": "02b0cba53a504662a5131ebf009e4abc",
   "news_limit": 8,
   "home_writing_limit": 3,
   "writing_min_posts": 3,

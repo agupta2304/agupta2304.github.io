@@ -357,11 +357,43 @@ for page in math_posts:
         problems.append(f"{page.relative_to(ROOT)}: display math but KaTeX not loaded")
 if "katex" in home:
     problems.append("index.html: KaTeX leaked onto the homepage")
+
+# Cloudflare Web Analytics is the one site-wide external script. Pin its source,
+# require the configured public site token, and keep rejecting any other script.
+CLOUDFLARE_ANALYTICS_SRC = "https://static.cloudflareinsights.com/beacon.min.js"
+site_config = json.loads((ROOT / "src" / "data" / "site.json").read_text(encoding="utf-8"))
+analytics_token = site_config.get("cloudflare_web_analytics_token", "")
+if not re.fullmatch(r"[0-9a-f]{32}", analytics_token):
+    problems.append("site.json: Cloudflare Web Analytics token must be 32 lowercase hex characters")
+
 for page in pages:
     label = str(page.relative_to(ROOT))
-    for src in re.findall(r'<script[^>]+src="([^"]+)"', page.read_text(encoding="utf-8")):
-        if "katex" not in src:
+    text = page.read_text(encoding="utf-8")
+    for _, src in re.findall(r"""<script[^>]+src=(["'])(.*?)\1""", text):
+        if "katex" not in src and src != CLOUDFLARE_ANALYTICS_SRC:
             problems.append(f"{label}: unexpected external script {src}")
+
+    beacons = re.findall(
+        rf'<script\b[^>]*src="{re.escape(CLOUDFLARE_ANALYTICS_SRC)}"[^>]*></script>',
+        text,
+    )
+    if len(beacons) != 1:
+        problems.append(f"{label}: expected one Cloudflare analytics beacon, found {len(beacons)}")
+        continue
+    beacon = beacons[0]
+    if 'type="module"' not in beacon:
+        problems.append(f"{label}: Cloudflare analytics beacon is not a module script")
+    payload_match = re.search(r"""data-cf-beacon='([^']+)'""", beacon)
+    if not payload_match:
+        problems.append(f"{label}: Cloudflare analytics beacon has no configuration")
+        continue
+    try:
+        payload = json.loads(payload_match.group(1))
+    except json.JSONDecodeError as exc:
+        problems.append(f"{label}: Cloudflare analytics configuration does not parse ({exc})")
+        continue
+    if payload != {"token": analytics_token}:
+        problems.append(f"{label}: Cloudflare analytics token does not match site.json")
 
 # ---------------------------------------------------------------------------
 # opt-in network sweep

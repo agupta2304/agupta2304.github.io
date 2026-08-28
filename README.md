@@ -3,8 +3,8 @@
 Personal site. Content lives in JSON and Markdown under `src/`; a small Python script renders
 it to static HTML at the repository root, which is what GitHub Pages serves.
 
-No framework, no CI, no client-side rendering. The only JavaScript is roughly twenty inline
-lines driving the theme toggle.
+No framework, no CI, no client-side rendering. Hand-written inline JavaScript drives the theme
+toggle, and one Cloudflare beacon provides aggregate traffic analytics.
 
 ## Discoverability
 
@@ -28,6 +28,18 @@ placeholder, that the sitemap is well-formed and every entry resolves to a real 
 that `robots.txt` advertises the sitemap on the same origin as the canonical URLs.
 
 `llms.txt` is not a standard, just a convention some agents look for. It costs nothing to emit.
+
+## Analytics
+
+Every HTML page loads Cloudflare Web Analytics from the shared `base.html` template. The beacon
+uses the public site token in `src/data/site.json`; that identifier is safe to commit, but a
+Cloudflare API key is not. Cloudflare's analytics beacon does not use cookies, browser storage,
+or fingerprinting to identify visitors.
+
+Measurement happens in each visitor's browser and reports directly to Cloudflare. It does not
+call the GitHub API, write analytics into the repository, trigger a build, or use GitHub Actions.
+Ad and privacy blockers may suppress the beacon, so visitor totals are estimates rather than a
+server-log census.
 
 ## Themes
 
@@ -418,9 +430,10 @@ a hostile or enormous body cannot exhaust memory. It is a local pre-push conveni
 must stay local — running outbound fetches from a GitHub runner is what cost this account its
 Pages hosting once already.
 
-**Third-party requests from the served pages** are limited to KaTeX, and only on posts that set
-`math: true`. `src/check.py` fails if any other external script appears on any page, which is
-what keeps an analytics snippet or a font CDN from creeping in unnoticed.
+**Third-party scripts from the served pages** are limited to the exact Cloudflare Web Analytics
+beacon on every page and KaTeX on posts that set `math: true`. `src/check.py` validates the
+beacon source and token and fails if any other external script appears. Analytics is deliberately
+client-side so a page view consumes no GitHub API or Actions resources.
 
 Talk thumbnails are committed under `assets/` rather than loaded from YouTube. Merely opening
 the homepage therefore sends YouTube no visitor IP address or referrer; that request happens
