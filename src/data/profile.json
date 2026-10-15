@@ -6,10 +6,10 @@
   "affiliation": "Nubank",
   "location": "San Francisco Bay Area",
   "customer_scale": "more than 135 million",
-  "thesis": "Reliable AI agents and efficient foundation models at production scale.",
-  "thesis_detail": "LLM post-training \u00b7 constrained optimization",
+  "thesis": "Research that holds up in production.",
+  "thesis_detail": "Reliable agents · LLM alignment · Efficient foundation models",
   "headshot": "/assets/headshot.jpg",
-  "meta_description": "Aman Gupta leads research on reliable AI agents and efficient foundation models at Nubank for systems serving more than 135 million customers.",
+  "meta_description": "Aman Gupta researches reliable AI agents, LLM alignment, and efficient foundation models at Nubank. Research that holds up in production.",
   "knows_about": [
     "Large language models",
     "LLM alignment and post-training",
@@ -19,9 +19,12 @@
     "Large-scale constrained optimization",
     "AI agent evaluation"
   ],
-  "alumni_of": ["Carnegie Mellon University", "BITS Pilani"],
+  "alumni_of": [
+    "Carnegie Mellon University",
+    "BITS Pilani"
+  ],
   "about": [
-    "I lead AI research at <a href=\"https://nubank.com.br\">Nubank</a> for systems serving {{ profile.customer_scale }} customers, with a focus on evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at <a href=\"https://www.linkedin.com\">LinkedIn</a>."
+    "I lead AI research at <a href=\"https://nubank.com.br\">Nubank</a>, a company serving {{ profile.customer_scale }} customers. My focus is evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at <a href=\"https://www.linkedin.com\">LinkedIn</a>."
   ],
   "venues_note": "Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.",
   "service": [
@@ -48,5 +51,6 @@
     "Scholar": "https://scholar.google.com/citations?user=vuGUPbkAAAAJ",
     "LinkedIn": "https://www.linkedin.com/in/aman-gupta1",
     "GitHub": "https://github.com/agupta2304"
-  }
+  },
+  "hero_intro": "I lead AI research at Nubank. My work connects reliable agents, LLM alignment, and efficient foundation models to real-world outcomes."
 }

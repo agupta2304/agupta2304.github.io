@@ -82,6 +82,8 @@ for label, refs in all_refs.items():
 
 # in-page anchors referenced by the nav must exist on the homepage
 home = (ROOT / "index.html").read_text(encoding="utf-8")
+about = (ROOT / "about" / "index.html").read_text(encoding="utf-8")
+research_page = (ROOT / "research" / "index.html").read_text(encoding="utf-8")
 for anchor in re.findall(r'href="/#([\w-]+)"', home):
     if f'id="{anchor}"' not in home:
         problems.append(f"index.html: nav points at #{anchor} but no such id")
@@ -105,8 +107,8 @@ if not all(venue in venues_note for venue in major_venues):
     problems.append("profile.json: venues_note omits a major publication venue")
 if any(venue in venues_note for venue in ("BIBM", "SPOT@", "OPT@", "MLG@")):
     problems.append("profile.json: venues_note should contain major venues only")
-if "Across these areas, I have <a href=\"/publications/\">published at" not in home:
-    problems.append("index.html: major venues are not integrated into the About prose")
+if "Across these areas, I have <a href=\"/publications/\">published at" not in about:
+    problems.append("about/index.html: major venues are not integrated into the biography")
 if 'class="about__venues"' in home:
     problems.append("index.html: major venues still render as a separate subtitle")
 if 'class="thesis__venues"' in home:
@@ -135,16 +137,16 @@ for index, thread in enumerate(research, start=1):
         problems.append(f"research.json: highlight {title!r} has no contribution")
 
 expected_highlights = len(research)
-rendered_highlights = home.count('class="thread__highlight"')
-rendered_contributions = home.count('class="thread__contribution"')
+rendered_highlights = research_page.count('class="thread__highlight"')
+rendered_contributions = research_page.count('class="thread__contribution"')
 if rendered_highlights != expected_highlights:
     problems.append(
-        f"index.html: expected {expected_highlights} research highlights, found "
+        f"research/index.html: expected {expected_highlights} research highlights, found "
         f"{rendered_highlights}"
     )
 if rendered_contributions != expected_highlights:
     problems.append(
-        f"index.html: expected {expected_highlights} contribution summaries, found "
+        f"research/index.html: expected {expected_highlights} contribution summaries, found "
         f"{rendered_contributions}"
     )
 if 'id="papers"' in home or 'href="/#papers"' in home:
@@ -261,14 +263,10 @@ for needle, why in [
     ('[data-theme="dark"]', "dark theme block"),
     ("@media print", "print stylesheet"),
     ("max-width: 40rem", "mobile breakpoint"),
-    ("max-height: calc(100svh - 2.75rem)", "viewport-bounded desktop rail"),
-    ("overflow-y: auto", "independently scrollable desktop rail"),
     ("codehilite", "syntax highlighting"),
 ]:
     if needle not in css:
         problems.append(f"style.css: missing {why}")
-if css.count("max-height: none") < 2:
-    problems.append("style.css: rail height is not reset for both stacked and print layouts")
 
 # both palettes must define the same colour tokens
 root_block = re.search(r":root \{(.*?)\n\}", css, re.S)
@@ -290,6 +288,7 @@ CONTRAST_PAIRS = [
     ("muted", "bg", 4.5, "secondary prose"),
     ("faint", "bg", 4.5, "dates, section labels, venue metadata"),
     ("accent", "bg", 4.5, "links"),
+    ("accent", "mark", 4.5, "research diagrams and results"),
     ("ink", "mark", 4.5, "venue chips"),
     ("muted", "mark", 4.5, "publication badges"),
     # The monogram is a 1.9rem decorative glyph and aria-hidden, so the large-text

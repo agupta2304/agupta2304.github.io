@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}Research — {{ profile.name }}{% endblock %}
+{% block description %}Research on reliable AI agents, LLM alignment, efficient foundation models, and constrained optimization by Aman Gupta.{% endblock %}
+{% block content %}
+<header class="post__header"><p class="eyebrow">The questions behind the work</p><h1 class="post__title">Research directions</h1><p>From the behavior of a single model to the constraints of a production system. Selected contributions and related work with my collaborators.</p></header>
+<section class="section" aria-label="Research directions">{% for thread in research %}{{ m.research_thread(thread) }}{% endfor %}</section>
+<p class="section__more"><a href="/publications/">All {{ total_publications }} publications →</a></p>
+{% endblock %}
