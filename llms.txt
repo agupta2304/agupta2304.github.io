@@ -1,18 +1,21 @@
 # Aman Gupta
 
-> Aman Gupta leads research on reliable AI agents and efficient foundation models at Nubank for systems serving more than 135 million customers.
+> Aman Gupta researches reliable AI agents, LLM alignment, and efficient foundation models at Nubank. Research that holds up in production.
 
-Reliable AI agents and efficient foundation models at production scale.
+Research that holds up in production.
 
-LLM post-training · constrained optimization
+Reliable agents · LLM alignment · Efficient foundation models
 
-I lead AI research at Nubank for systems serving more than 135 million customers, with a focus on evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at LinkedIn.
+I lead AI research at Nubank, a company serving more than 135 million customers. My focus is evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at LinkedIn.
 
 Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.
 
 ## Pages
 
-- [Home](https://amangupta.dev/): research directions, news, talks, writing, experience, service, mentors
+- [Home](https://amangupta.dev/): selected research, featured talks, writing, contact
+- [Research](https://amangupta.dev/research/): complete research directions and related work
+- [Talks](https://amangupta.dev/talks/): talks and conference tutorials
+- [About](https://amangupta.dev/about/): experience, education, service, mentors, news
 - [Publications](https://amangupta.dev/publications/): complete list of 37 publications
 - [Writing](https://amangupta.dev/blog/): 1 post
 - [Feed](https://amangupta.dev/feed.xml): RSS

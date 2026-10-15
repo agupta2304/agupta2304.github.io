@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+/* Applied before first paint so a stored preference never flashes the wrong palette. */
+(function () {
+  try {
+    var saved = localStorage.getItem("theme");
+    if (saved === "light" || saved === "dark") {
+      document.documentElement.setAttribute("data-theme", saved);
+    }
+  } catch (e) {}
+})();
+</script>
+<title>About — Aman Gupta</title>
+<meta name="description" content="Aman Gupta's background, experience, education, service, and mentors. Principal Machine Learning Engineer at Nubank.">
+<link rel="canonical" href="https://amangupta.dev/about/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Aman Gupta">
+<meta property="og:title" content="About — Aman Gupta">
+<meta property="og:description" content="Aman Gupta's background, experience, education, service, and mentors. Principal Machine Learning Engineer at Nubank.">
+<meta property="og:url" content="https://amangupta.dev/about/">
+<meta property="og:image" content="https://amangupta.dev/assets/headshot.jpg">
+<meta property="og:image:width" content="200">
+<meta property="og:image:height" content="200">
+<meta property="og:image:alt" content="Portrait of Aman Gupta">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="alternate" type="application/rss+xml" title="Aman Gupta — posts" href="/feed.xml">
+</head>
+<body class="page">
+
+<a class="skip-link" href="#content">Skip to content</a>
+
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a class="nav__home" href="/">Aman Gupta</a>
+    <div class="nav__links">
+    <a href="/#research">research</a>
+    <a href="/publications/">publications</a>
+    <a href="/blog/">writing</a>
+    <a href="/about/">about</a>
+    </div>
+    <button class="theme-toggle" type="button" hidden>
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
+        <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M8 1.7 A6.3 6.3 0 0 1 8 14.3 Z" fill="currentColor"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<main class="wrap" id="content">
+<header class="post__header"><p class="eyebrow">Researcher &amp; builder</p><h1 class="post__title">Hi, I’m Aman.</h1><p class="masthead__role">Principal Machine Learning Engineer · Nubank<br>San Francisco Bay Area</p></header>
+<section class="section" aria-label="Biography"><p>I lead AI research at <a href="https://nubank.com.br">Nubank</a>, a company serving more than 135 million customers. My focus is evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at <a href="https://www.linkedin.com">LinkedIn</a>. Across these areas, I have <a href="/publications/">published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP</a>.</p><p>I am always happy to hear from people who want to work on these problems &mdash; <a href="https://www.linkedin.com/in/aman-gupta1">LinkedIn</a> is the fastest way to reach me.</p></section>
+<section class="section" id="experience"><h2>Experience</h2><div class="role"><div class="role__when">2025 — present</div><div><span class="role__what">Principal Machine Learning Engineer</span>, <span class="role__org"><a href="https://nubank.com.br">Nubank</a></span><p class="role__note">Lead company-wide research on AI agents, foundation models, LLMs, and large-scale constrained optimization. Nubank serves more than 135 million customers.</p></div></div><div class="role"><div class="role__when">2019 — 2025</div><div><span class="role__what">Senior Staff Machine Learning Engineer, Senior Manager (Core AI)</span>, <span class="role__org"><a href="https://www.linkedin.com">LinkedIn</a></span><p class="role__note">Tech lead for compressing and distilling LinkedIn&#39;s ranking foundation model, and manager of the AI foundations optimization team working across Feed, Ads, Jobs, Notifications, and Growth.</p></div></div><div class="role"><div class="role__when">2016 — 2019</div><div><span class="role__what">Senior Machine Learning Research Scientist</span>, <span class="role__org">Apple</span><p class="role__note">Deep learning for computer vision and autonomous systems.</p></div></div><div class="role"><div class="role__when">2012 — 2014</div><div><span class="role__what">Software Engineer</span>, <span class="role__org">Amazon</span><p class="role__note">Scalable services for infrastructure automation and security on the E-Commerce Platform Services team.</p></div></div></section>
+<section class="section" id="education"><h2>Education</h2><div class="role"><div class="role__when">2014 — 2016</div><div><span class="role__what">M.S. in Computer Science</span>, <span class="role__org">Carnegie Mellon University</span><p class="role__note">Language Technologies Institute · Graduate Research Fellowship.</p></div></div><div class="role"><div class="role__when">2008 — 2012</div><div><span class="role__what">B.S. in Computer Science</span>, <span class="role__org">BITS Pilani</span><p class="role__note">AIMA All India Merit Scholarship, All India Rank 2, and a BITS Pilani merit scholarship.</p></div></div></section>
+<section class="section" id="service"><h2>Service &amp; open source</h2><dl class="contact contact--wide"><dt>Program committees</dt><dd>NeurIPS, ICLR, KDD, WWW, CIKM, RecSys</dd><dt>Reviewing</dt><dd>Excellent Reviewer, <a href="https://kdd.org/kdd2025/applied-data-science-ads-track-program-committee/">KDD 2025</a> Applied Data Science track</dd><dt>Patents</dt><dd>11+ filed, including <a href="https://patents.google.com/patent/US12008331B2/en">US 12,008,331</a> and <a href="https://patents.google.com/patent/US10275808B1/en">US 10,275,808</a></dd><dt>Open source</dt><dd>Commits to <a href="https://github.com/linkedin/gdmix">GDMix</a>, and merged patches to <a href="https://github.com/google-deepmind/optax/pull/1121">optax</a> and <a href="https://github.com/vllm-project/llm-compressor/pull/1218">llm-compressor</a></dd></dl></section><section class="section" id="mentors"><h2>Mentors</h2><p>An incomplete list of people whose guidance shaped how I think about research. I owe each of them more than a line.</p><div class="mentor"><span class="mentor__name"><a href="http://keerthis.com/">S. Sathiya Keerthi</a></span><span class="mentor__note">Nubank; previously Principal Staff Scientist at LinkedIn</span><span class="mentor__note">My most frequent collaborator, co-author on seventeen of the papers listed here, across large-scale optimization, ranking, and LLM efficiency.</span></div><div class="mentor"><span class="mentor__name"><a href="http://www.mit.edu/~rahulmaz/">Rahul Mazumder</a></span><span class="mentor__note">Associate Professor, MIT</span><span class="mentor__note">Co-author on ten papers spanning optimization, quantization, and model compression.</span></div><div class="mentor"><span class="mentor__name"><a href="https://nateshpillai.com/">Natesh Pillai</a></span><span class="mentor__note">Professor of Statistics, Harvard; Distinguished Engineer at LinkedIn</span><span class="mentor__note">Co-author on AlphaPO and the EMNLP compression paper, and the statistician I turn to when a result needs to be more than empirical.</span></div></section>
+<section class="section" id="news"><h2>News &amp; updates</h2><ul class="news"><li><span class="news__when">Jul 2026</span><span class="news__what">Our tutorial <em>Building Production LLM Agents: An Evaluation-Driven Playbook</em> was accepted to the <strong><a href="https://cikm2026.diag.uniroma1.it/">CIKM 2026</a></strong> tutorials track.</span></li><li><span class="news__when">Jul 2026</span><span class="news__what">Gave a talk at <strong>AI Engineer</strong> with Shreya Rajpal, <a href="https://www.youtube.com/watch?v=KMR_RBoCa4M"><em>SimulationMaxxing: How we ship agents 20&times; faster</em></a>.</span></li><li><span class="news__when">Jun 2026</span><span class="news__what">Our AI Core team hosted the first <strong>NuSession</strong> in Silicon Valley, on scaling agentic AI systems to 135M users.</span></li><li><span class="news__when">May 2026</span><span class="news__what"><a href="https://arxiv.org/abs/2606.08867"><em>Building Customer Support Agents at 100M-User Scale: An Evaluation-Driven Framework</em></a> was accepted to <strong>KDD 2026</strong>.</span></li><li><span class="news__when">Apr 2026</span><span class="news__what">Presented <a href="https://arxiv.org/abs/2509.23106"><em>Effective Quantization of Muon Optimizer States</em></a> at the <strong>ICLR 2026</strong> SPOT workshop, scaling 8-bit Muon to 2.7B parameters.</span></li><li><span class="news__when">Feb 2026</span><span class="news__what">My <strong>QCon AI New York</strong> talk <a href="https://www.youtube.com/watch?v=1GnbsGhRC4o"><em>Building AI Agents for 127 Million Customers</em></a> is now on Nubank's YouTube channel.</span></li><li><span class="news__when">Jul 2025</span><span class="news__what"><a href="https://arxiv.org/abs/2501.03884"><em>AlphaPO: Reward Shape Matters for LLM Alignment</em></a> and <a href="https://arxiv.org/abs/2505.07271"><em>On the Robustness of Reward Models</em></a> both appeared at <strong>ICML 2025</strong>.</span></li><li><span class="news__when">Apr 2025</span><span class="news__what">Joined <strong>Nubank</strong> to lead research on LLM training and agents.</span></li></ul></section>
+  <footer class="footer">
+    <span>&copy; 2026 Aman Gupta</span>
+    <span class="footer__links"><a href="/talks/">Talks</a><a href="/about/#experience">Experience</a><a href="/about/#mentors">Mentors</a><a href="/feed.xml">RSS</a></span>
+  </footer>
+</main>
+
+
+<script>
+/* The button stays hidden unless this runs, so it is never dead furniture. */
+(function () {
+  var root = document.documentElement;
+  var button = document.querySelector(".theme-toggle");
+  if (!button) return;
+  button.hidden = false;
+
+  function describe() {
+    var isDark = root.getAttribute("data-theme") === "dark";
+    var label = isDark ? "Switch to light theme" : "Switch to dark theme";
+    button.setAttribute("aria-label", label);
+    button.setAttribute("title", label);
+    button.setAttribute("aria-pressed", isDark ? "true" : "false");
+  }
+
+  button.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    describe();
+  });
+
+  describe();
+})();
+
+/* Print the whole publication list even when a year is collapsed, then put the
+   collapsed ones back so the page looks the same afterwards. Without this a
+   printed CV would silently omit the older years. */
+(function () {
+  var groups = document.querySelectorAll("details.year-group");
+  if (!groups.length || !window.addEventListener) return;
+  var reopened = [];
+
+  window.addEventListener("beforeprint", function () {
+    reopened = [];
+    Array.prototype.forEach.call(groups, function (group) {
+      if (!group.open) {
+        group.open = true;
+        reopened.push(group);
+      }
+    });
+  });
+
+  window.addEventListener("afterprint", function () {
+    reopened.forEach(function (group) { group.open = false; });
+    reopened = [];
+  });
+})();
+</script>
+
+<!-- Cookieless, aggregate traffic measurement; requests go to Cloudflare, not GitHub. -->
+<script type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "02b0cba53a504662a5131ebf009e4abc"}'></script>
+</body>
+</html>

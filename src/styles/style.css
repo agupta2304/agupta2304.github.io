@@ -9,15 +9,15 @@
 :root {
   color-scheme: light;
 
-  --bg:      #fbfcfe;
-  --ink:     #16191f;
-  --muted:   #525b68;
+  --bg:      #faf9f6;
+  --ink:     #1b1c22;
+  --muted:   #535767;
   /* 4.68:1 on --bg. The smallest text on the site uses this, so it has to clear
      WCAG AA on its own; src/check.py asserts the ratio for both palettes. */
-  --faint:   #687384;
-  --rule:    #dfe4ea;
-  --accent:  #204f7a;
-  --mark:    #eef2f6;
+  --faint:   #626879;
+  --rule:    #dcdde5;
+  --accent:  #294ad8;
+  --mark:    #eeeff7;
 
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, ui-serif, serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
@@ -36,20 +36,20 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg:     #11151a;
-  --ink:    #e7ebf0;
-  --muted:  #a6afb9;
-  --faint:  #8e99a6;
-  --rule:   #2a3139;
-  --accent: #8fbae3;
-  --mark:   #1b222a;
+  --bg:     #14171e;
+  --ink:    #f0f1f5;
+  --muted:  #b0b6c4;
+  --faint:  #9aa4b5;
+  --rule:   #343b49;
+  --accent: #a6b8ff;
+  --mark:   #202532;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scroll-padding-top: 4.5rem;
 }
 
@@ -81,8 +81,8 @@ body {
   padding: 0 1.5rem;
 }
 
-/* The homepage runs two columns, so it gets a wider container than the prose pages. */
-body.home { --wrap-max: 64rem; }
+/* The homepage uses a wider editorial layout; archives keep a reading measure. */
+body.home { --wrap-max: 73rem; }
 
 /* ---------- Links ---------- */
 
@@ -258,98 +258,141 @@ a:focus-visible {
   text-wrap: balance;
 }
 
-/* ---------- Two-column homepage ---------- */
+/* ---------- Editorial homepage ---------- */
 
-.layout {
-  display: grid;
-  grid-template-columns: var(--rail) minmax(0, 1fr);
-  gap: 0 var(--gutter);
-  align-items: start;
-}
-
-/* Both columns start at the same height so "News" lines up with the portrait. */
-.layout > * { padding-top: 3.5rem; }
-
-.layout .section:first-child { margin-top: 0; }
-
-/* The rail stays in view while the longer body scrolls. On a short viewport it
-   gets its own scroll area; without the height bound, a sticky rail taller than
-   the viewport hides its bottom until the right column reaches the page end. */
-.rail {
-  position: sticky;
-  top: 2.75rem;
-  max-height: calc(100vh - 2.75rem);
-  max-height: calc(100svh - 2.75rem);
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  font-size: 0.95rem;
-}
-
-.rail::-webkit-scrollbar { display: none; }
-.rail .section { margin: 2.25rem 0; }
-
-.rail .masthead {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.9rem;
-  padding-top: 0;
-}
-
-/* The rail is only 18rem, so the thesis steps down from --step-1 to stay a
-   comfortable measure rather than breaking into two-word lines. */
-.rail .thesis {
-  margin-top: 1.1rem;
-  font-size: 1.12rem;
-  line-height: 1.5;
-}
-
-.rail .lede {
-  font-size: 1rem;
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.69rem;
+  font-weight: 500;
+  letter-spacing: 0.055em;
   line-height: 1.6;
+  text-transform: uppercase;
 }
 
-.rail .contact {
-  grid-template-columns: 1fr;
-  gap: 0.1rem;
-  font-size: 0.9rem;
-}
-
-.rail .contact dd { margin-bottom: 0.55rem; }
-.rail .contact dd:last-child { margin-bottom: 0; }
+.nav__inner { gap: 0.35rem 1.35rem; min-height: 4.25rem; }
+.nav__links { display: flex; flex-wrap: wrap; gap: 0.35rem 1.35rem; }
+.nav__home { margin-right: auto; }
+.theme-toggle { margin-left: 0; width: 2rem; height: 2rem; }
+.hero { padding: 4.5rem 0 4rem; }
+.hero__identity { display: flex; align-items: center; gap: 1rem; }
+.hero__identity img { width: 64px; height: 64px; border-radius: 50%; object-fit: cover; }
+.hero__name { margin: 0 0 0.15rem; font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; }
+.hero__identity .eyebrow { margin: 0; }
+.hero h1 { margin: 2rem 0 2.25rem; max-width: 100%; font-size: clamp(3rem, 6.2vw, 5.55rem); font-weight: 500; line-height: 1.04; letter-spacing: -0.05em; }
+.hero h1 em { color: var(--accent); font-weight: 500; }
+.hero__bottom { display: grid; grid-template-columns: minmax(0, 1fr) 17rem; gap: 4rem; align-items: end; }
+.hero__intro { max-width: 38rem; margin: 0; color: var(--muted); font-size: 1.15rem; line-height: 1.6; }
+.hero__links { margin-top: 1.6rem; display: flex; align-items: center; flex-wrap: wrap; gap: 1.2rem; }
+.hero__links > a:not(.button), .text-link, .story-links a, .contact-panel__github { font-family: var(--mono); font-size: 0.76rem; text-decoration: none; }
+.hero__links > a:not(.button):hover, .text-link:hover, .story-links a:hover, .contact-panel__github:hover { text-decoration: underline; }
+.button { display: inline-flex; justify-content: space-between; align-items: center; gap: 1.25rem; padding: 0.85rem 1.1rem; background: var(--accent); color: var(--bg); border: 1px solid var(--accent); border-radius: 3px; font-family: var(--mono); font-size: 0.76rem; font-weight: 600; line-height: 1.5; text-decoration: none; transition: transform 150ms ease; }
+.button:hover { transform: translateY(-2px); }
+.hero__aside { margin: 0; padding-bottom: 0.8rem; color: var(--ink); font-family: var(--mono); font-size: 0.7rem; line-height: 1.9; }
+.hero__aside span { color: var(--muted); }
+.selected-work, .home-talks, .home-writing, .home-about { padding: 3.75rem 0; border-top: 1px solid var(--rule); }
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 1.5rem; }
+.section-heading h2, .home-about h2 { margin: 0; font-size: clamp(1.9rem, 3vw, 2.5rem); line-height: 1.15; font-weight: 500; letter-spacing: -0.035em; }
+.section-heading .text-link { padding-bottom: 0.25rem; flex-shrink: 0; }
+.section-intro { max-width: 40rem; margin: 1rem 0 2rem; color: var(--muted); font-size: 1rem; }
+.research-story { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 3rem; padding: 2.75rem 0; border-bottom: 1px solid var(--rule); align-items: stretch; }
+.research-story__body { padding: 0.4rem 0; }
+.research-story .eyebrow { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 0.7rem; font-size: 0.65rem; }
+.story-number { color: var(--accent); }
+.story-venue { border-left: 1px solid var(--rule); padding-left: 0.7rem; }
+.research-story h3 { margin: 1rem 0; font-size: clamp(1.65rem, 2.5vw, 2.1rem); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; text-wrap: pretty; }
+.research-story h3 a { color: var(--ink); text-decoration: none; }
+.research-story h3 a:hover { color: var(--accent); }
+.research-story__summary, .research-story__takeaway { font-size: 1rem; color: var(--muted); line-height: 1.6; margin: 0 0 0.9rem; }
+.research-story__takeaway strong { color: var(--ink); font-weight: 600; }
+.research-story__paper { color: var(--muted); font-size: 0.8rem; line-height: 1.5; margin: 1.25rem 0 0.75rem; }
+.story-links { display: flex; gap: 1.5rem; }
+.research-story__visual { display: flex; flex-direction: column; justify-content: space-between; padding: 1.65rem 2rem; background: var(--mark); border-radius: 4px; overflow: hidden; }
+.agent-loop { display: grid; grid-template-columns: 1fr 2.5rem 1fr; align-items: center; justify-items: center; gap: 0.6rem; padding: 0.75rem 0; color: var(--accent); font-family: var(--mono); font-size: 0.75rem; }
+.agent-loop > span:nth-child(3n+1), .agent-loop > span:nth-child(3n) { text-align: center; }
+.agent-loop__arrow, .agent-loop__return { font-size: 1.2rem; }
+.agent-loop__center { font-size: 2.75rem; line-height: 1.2; }
+.research-result { border-top: 1px solid var(--rule); margin-top: 1.2rem; padding-top: 1rem; }
+.research-result > strong { display: block; color: var(--accent); font-size: clamp(2rem, 3.4vw, 3rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.04em; }
+.research-result > p { margin: 0.35rem 0 0.6rem; color: var(--ink); font-size: 1rem; }
+.research-result > span { display: block; color: var(--muted); font-family: var(--mono); font-size: 0.63rem; line-height: 1.6; }
+.alpha-mark { padding: 0.1rem 0 1rem; text-align: center; color: var(--accent); font-style: italic; font-size: 7.5rem; line-height: 1.05; }
+.alpha-mark span { display: block; font-family: var(--mono); font-size: 0.65rem; font-style: normal; line-height: 1.6; }
+.compression { padding: 1.25rem 0; color: var(--accent); }
+.compression__models { display: flex; gap: 1.5rem; justify-content: center; align-items: center; }
+.model-grid { display: grid; grid-template-columns: repeat(5, 12px); gap: 5px; transform: rotate(-8deg); }
+.model-grid i { display: block; width: 12px; height: 12px; border: 1px solid currentColor; border-radius: 2px; }
+.model-grid--small { grid-template-columns: repeat(3, 12px); transform: rotate(6deg); }
+.model-grid--small i { background: currentColor; }
+.compression > p { text-align: center; font-family: var(--mono); font-size: 0.65rem; margin: 1.5rem 0 0; }
+.research-more { display: flex; justify-content: space-between; align-items: center; gap: 2rem; padding-top: 1.5rem; }
+.research-more p { max-width: 36rem; margin: 0; color: var(--muted); font-size: 0.9rem; }
+.research-more a { flex-shrink: 0; }
+.home-talks .talk-cards { margin-top: 2.25rem; gap: 2rem; }
+.home-talks .talk-card__title { font-size: 1.25rem; line-height: 1.35; font-weight: 500; }
+.home-talks .talk-card__where { font-size: 0.9rem; }
+.writing-rows { padding: 0; margin: 2rem 0 0; list-style: none; }
+.writing-rows li { display: grid; grid-template-columns: 6rem minmax(0, 1fr) 9rem; gap: 1rem; align-items: baseline; padding: 1.3rem 0; border-top: 1px solid var(--rule); }
+.writing-rows li:last-child { padding-bottom: 0; }
+.writing-rows .eyebrow { margin: 0; font-size: 0.65rem; }
+.writing-rows li > a { font-size: 1.25rem; line-height: 1.4; color: var(--ink); text-decoration: none; }
+.writing-rows li > a:hover { color: var(--accent); }
+.writing-rows li > a > span { color: var(--accent); font-size: 0.9rem; white-space: nowrap; }
+.writing-rows__outlet { color: var(--muted); font-family: var(--mono); font-size: 0.65rem; text-align: right; }
+.home-about { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; }
+.home-about h2 { max-width: 18rem; }
+.home-about p:not(.eyebrow) { color: var(--muted); font-size: 1.05rem; margin: 0 0 1rem; }
+.contact-panel { margin: 0 0 3.5rem; padding: 3.5rem; background: var(--mark); border-top: 3px solid var(--accent); }
+.contact-panel h2 { margin: 0.75rem 0 1rem; font-size: clamp(2.5rem, 4.5vw, 3.75rem); font-weight: 500; line-height: 1.15; letter-spacing: -0.04em; }
+.contact-panel > p:not(.eyebrow) { max-width: 34rem; color: var(--muted); margin: 0 0 1.75rem; font-size: 1.05rem; }
+.contact-panel__github { display: inline-block; margin-left: 1.5rem; }
+.footer__links { display: flex; gap: 1rem; flex-wrap: wrap; }
 
 @media (max-width: 62rem) {
-  .layout {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  .layout > * + * { padding-top: 0; }
-
-  .rail {
-    position: static;
-    max-height: none;
-    overflow-y: visible;
-    overscroll-behavior-y: auto;
-    scrollbar-width: auto;
-    -ms-overflow-style: auto;
-    font-size: var(--step-0);
-    max-width: var(--measure);
-  }
-
-  .rail .masthead {
-    flex-direction: row;
-    align-items: center;
-    gap: 1.4rem;
-  }
-
-  /* Single column: the thesis takes the emphasis and the lede returns to body size,
-     so there is one enlarged line rather than two competing for it. */
-  .rail .thesis { font-size: var(--step-1); }
-  .rail .lede { font-size: var(--step-0); }
-
-  .rail .contact { grid-template-columns: 6rem 1fr; gap: 0.5rem 1rem; }
+  .hero { padding-top: 3rem; }
+  .hero__bottom { grid-template-columns: 1fr; gap: 1.75rem; }
+  .hero__aside { padding: 0; }
+  .research-story { gap: 2rem; }
+  .research-story__visual { padding: 1.5rem; }
+  .research-more { display: block; }
+  .research-more a { display: inline-block; margin-top: 0.6rem; }
+  .home-about { gap: 3rem; }
+}
+@media (max-width: 40rem) {
+  html { scroll-padding-top: 6rem; }
+  .nav__inner { display: grid; grid-template-columns: 1fr auto; gap: 0.3rem 1rem; padding: 0.6rem 1.25rem; }
+  .nav__home { width: auto; }
+  .nav__links { grid-row: 2; grid-column: 1 / -1; gap: 0.3rem 1rem; }
+  .theme-toggle { grid-row: 1; grid-column: 2; margin-left: 0; }
+  .hero { padding: 2.5rem 0; }
+  .hero h1 { margin: 1.6rem 0; font-size: clamp(2.5rem, 9.3vw, 3.4rem); letter-spacing: -0.045em; }
+  .hero h1 br { display: none; }
+  .hero__identity img { width: 56px; height: 56px; }
+  .hero__intro { font-size: 1.05rem; }
+  .hero__links { gap: 1rem; }
+  .hero__links .button { width: 100%; }
+  .section-heading { display: block; }
+  .section-heading .text-link { display: inline-block; margin-top: 1rem; }
+  .selected-work, .home-talks, .home-writing, .home-about { padding: 2.5rem 0; }
+  .research-story { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 0; }
+  .research-story__visual { padding: 1.5rem 2rem; }
+  .research-result > strong { font-size: 2.6rem; }
+  .agent-loop { max-width: 18rem; width: 100%; margin: 0 auto; }
+  .alpha-mark { font-size: 6rem; }
+  .home-talks .talk-cards { gap: 2rem; }
+  .writing-rows li { grid-template-columns: 1fr; gap: 0.35rem; }
+  .writing-rows__outlet { text-align: left; }
+  .home-about { grid-template-columns: 1fr; gap: 1.5rem; }
+  .home-about h2 { max-width: none; }
+  .contact-panel { padding: 2rem 1.5rem; margin-bottom: 2.5rem; }
+  .contact-panel__github { display: block; margin: 1rem 0 0; }
+  .home .footer { display: block; }
+  .home .footer__links { margin-top: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button { transition: none; }
+  .button:hover { transform: none; }
 }
 
 /* ---------- Sections ---------- */
@@ -1215,27 +1258,24 @@ code, kbd, samp {
   }
 
   .nav, .footer, .section__more, .skip-link { display: none; }
+  .button { background: none; color: var(--ink); border-color: var(--rule); }
 
   body { font-size: 10.5pt; line-height: 1.4; }
 
   .wrap { max-width: none; padding: 0; }
 
-  /* A printed CV reads as one column. */
-  .layout { display: block; }
-  .layout > *, .layout > * + * { padding-top: 0; }
-  .rail {
-    position: static;
-    max-height: none;
-    overflow: visible;
-    font-size: inherit;
-  }
+  .hero { padding: 1rem 0; }
+  .hero h1 { font-size: 3rem; }
+  .hero__bottom, .research-story, .home-about { display: block; }
+  .research-story { break-inside: avoid; }
+  .research-story__visual { margin-top: 1rem; }
+  .selected-work, .home-talks, .home-writing, .home-about { padding: 1.5rem 0; }
 
   .masthead { padding-top: 0; }
 
   /* rem sizes are unchanged by the 10.5pt body, so the thesis is set in em to stay
      proportionate on paper instead of towering over the text. */
-  .thesis,
-  .rail .thesis {
+  .thesis {
     margin: 0.5rem 0 0;
     font-size: 1.1em;
   }
