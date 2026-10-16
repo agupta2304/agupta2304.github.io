@@ -1,86 +1,155 @@
 {% extends "base.html" %}
 {% import "_macros.html" as m %}
-{% block head_extra %}<script type="application/ld+json">{{ person_schema | safe }}</script>{% endblock %}
+
+{% block head_extra %}
+<script type="application/ld+json">
+{{ person_schema | safe }}
+</script>
+{% endblock %}
+
 {% block body_class %}home{% endblock %}
+
 {% block content %}
-<header class="hero">
-  <div class="hero__identity">
-    {% if profile.headshot %}<img src="{{ profile.headshot }}" alt="Aman Gupta" width="80" height="80">{% endif %}
-    <div><p class="hero__name">{{ profile.name }}</p><p class="eyebrow">Researcher &amp; builder · {{ profile.affiliation }}</p></div>
-  </div>
-  <h1>Research that holds&nbsp;up <br>in <em>production.</em></h1>
-  <div class="hero__bottom">
-    <div>
-      <p class="hero__intro">{{ profile.hero_intro }}</p>
-      <div class="hero__links">
-        <a class="button" href="#research">Explore the work <span aria-hidden="true">↘</span></a>
-        <a href="{{ profile.links.Scholar }}">Google Scholar <span aria-hidden="true">↗</span></a>
-        <a href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
-      </div>
-    </div>
-    <p class="hero__aside">{{ profile.role }}<br><span>{{ profile.location }}</span><br><span>Previously LinkedIn · Apple</span></p>
-  </div>
-</header>
+<div class="layout">
 
-<section class="selected-work" id="research" aria-labelledby="research-title">
-  <div class="section-heading">
-    <div><p class="eyebrow">01 / Selected research</p><h2 id="research-title">From an idea to an outcome.</h2></div>
-    <a class="text-link" href="/publications/">All {{ total_publications }} publications <span aria-hidden="true">↗</span></a>
-  </div>
-  <p class="section-intro">A few projects with my collaborators, across reliable agents, alignment, and efficient models.</p>
-  {% for thread in research if thread.featured %}
-  <article class="research-story" aria-labelledby="story-{{ thread.visual }}">
-    <div class="research-story__body">
-      <p class="eyebrow"><span class="story-number">0{{ loop.index }}</span> {{ thread.label }} <span class="story-venue">{{ thread.highlight.chip }}</span></p>
-      <h3 id="story-{{ thread.visual }}"><a href="{{ thread.highlight.url }}">{{ thread.headline }}</a></h3>
-      <p class="research-story__summary">{{ thread.summary }}</p>
-      <p class="research-story__takeaway"><strong>Why it matters.</strong> {{ thread.takeaway }}</p>
-      <p class="research-story__paper">{{ thread.highlight.title }}</p>
-      <div class="story-links"><a href="{{ thread.highlight.url }}">Read the paper <span aria-hidden="true">↗</span></a>{% if thread.highlight.links.code %}<a href="{{ thread.highlight.links.code }}">Code <span aria-hidden="true">↗</span></a>{% endif %}</div>
-    </div>
-    <div class="research-story__visual research-story__visual--{{ thread.visual }}">
-      {% if thread.visual == 'agents' %}
-      <div class="agent-loop" aria-label="Evaluation connects simulation, human judgment, and production feedback">
-        <span>Simulate</span><span class="agent-loop__arrow" aria-hidden="true">→</span><span>Evaluate</span>
-        <span class="agent-loop__return" aria-hidden="true">↑</span><span class="agent-loop__center" aria-hidden="true">↻</span><span class="agent-loop__return" aria-hidden="true">↓</span>
-        <span>Learn</span><span class="agent-loop__arrow" aria-hidden="true">←</span><span>Deploy</span>
-      </div>
-      {% elif thread.visual == 'alignment' %}
-      <div class="alpha-mark" aria-hidden="true">α<span>reward shape → model behavior</span></div>
-      {% elif thread.visual == 'efficiency' %}
-      <div class="compression" aria-label="Knowledge distillation, structured pruning, and quantization for smaller models">
-        <div class="compression__models" aria-hidden="true"><div class="model-grid">{% for i in range(25) %}<i></i>{% endfor %}</div><span>→</span><div class="model-grid model-grid--small">{% for i in range(9) %}<i></i>{% endfor %}</div></div>
-        <p>Distill · Prune · Quantize</p>
-      </div>
-      {% endif %}
-      <div class="research-result"><strong>{{ thread.result }}</strong><p>{{ thread.result_label }}</p><span>{{ thread.result_context }}</span></div>
-    </div>
-  </article>
+<aside class="rail">
+{{ m.masthead(profile) }}
+
+<section class="section" id="about">
+  <h2>About</h2>
+  {% for para in profile.about %}
+  <p{% if loop.first %} class="lede"{% endif %}>{{ para | safe }}{% if loop.last and profile.venues_note %} Across these areas, I have <a href="/publications/">{{ profile.venues_note | replace("Published at", "published at") | replace(".", "") }}</a>.{% endif %}</p>
   {% endfor %}
-  <div class="research-more"><p>Also working on large-scale constrained optimization, ranking, and the systems behind them.</p><a class="text-link" href="/research/">Explore all research directions <span aria-hidden="true">→</span></a></div>
 </section>
 
-<section class="home-talks" id="talks" aria-labelledby="talks-title">
-  <div class="section-heading"><div><p class="eyebrow">02 / Out loud</p><h2 id="talks-title">Ideas, explained.</h2></div><a class="text-link" href="/talks/">All talks &amp; tutorials <span aria-hidden="true">↗</span></a></div>
-  <div class="talk-cards">{% for group in talk_groups %}{% for t in group.featured_entries %}{{ m.featured_talk(t) }}{% endfor %}{% endfor %}</div>
+<section class="section" id="contact">
+  <h2>Elsewhere</h2>
+  {% if profile.contact_note %}
+  <p class="contact__note">{{ profile.contact_note | safe }}</p>
+  {% endif %}
+  <dl class="contact">
+    <dt>Papers</dt>
+    <dd><a href="/publications/">All {{ total_publications }} publications</a></dd>
+    {% if profile.cv %}
+    <dt>CV</dt>
+    <dd><a href="{{ profile.cv }}">Download (PDF)</a></dd>
+    {% endif %}
+    {% for label, href in profile.links.items() %}
+    <dt>{{ label }}</dt>
+    <dd><a href="{{ href }}">{{ href | pretty_url }}</a></dd>
+    {% endfor %}
+  </dl>
 </section>
+</aside>
 
-<section class="home-writing" id="writing" aria-labelledby="writing-title">
-  <div class="section-heading"><div><p class="eyebrow">03 / Field notes</p><h2 id="writing-title">What we learn by building.</h2></div><a class="text-link" href="/blog/">All writing <span aria-hidden="true">↗</span></a></div>
-  <ul class="writing-rows">
-    {% for e in writing_entries %}<li><span class="eyebrow">{{ e.when }}</span><a href="{{ e.url }}">{{ e.title }} <span aria-hidden="true">↗</span></a><span class="writing-rows__outlet">{{ e.outlet or 'Notes' }}</span></li>{% endfor %}
+<div class="flow">
+{% if research %}
+<section class="section" id="research">
+  <h2>Research directions</h2>
+  {% for thread in research %}{{ m.research_thread(thread) }}{% endfor %}
+</section>
+{% endif %}
+
+{% if news %}
+<section class="section" id="news">
+  <h2>News</h2>
+  <ul class="news">
+    {% for item in news %}
+    <li>
+      <span class="news__when">{{ item.when }}</span>
+      <span class="news__what">{{ item.text | safe }}</span>
+    </li>
+    {% endfor %}
   </ul>
 </section>
+{% endif %}
 
-<section class="home-about" id="about" aria-labelledby="about-title">
-  <div><p class="eyebrow">04 / A little context</p><h2 id="about-title">Curiosity, with a destination.</h2></div>
-  <div><p>I work where research meets the constraints of a real system: quality, latency, cost, and the people using it. Today, I lead AI research at Nubank. Before that, I worked on ranking and foundation-model optimization at LinkedIn, and computer vision at Apple.</p><a class="text-link" href="/about/">More about me <span aria-hidden="true">→</span></a></div>
+<section class="section" id="talks">
+  <h2>Talks &amp; tutorials</h2>
+  {% for group in talk_groups %}
+  <div class="talk-group">
+    <h3 class="talk-group__label">{{ group.label }}</h3>
+    {% if group.featured_entries %}
+    <div class="talk-cards">
+      {% for t in group.featured_entries %}{{ m.featured_talk(t) }}{% endfor %}
+    </div>
+    {% endif %}
+    {% for t in group.entries %}{{ m.talk(t) }}{% endfor %}
+  </div>
+  {% endfor %}
 </section>
 
-<section class="contact-panel" id="contact" aria-labelledby="contact-title">
-  <p class="eyebrow">Good problems are better shared.</p><h2 id="contact-title">Let’s compare notes.</h2>
-  <p>Working on agent evaluation, post-training, or efficient models? I’m always happy to hear what you’re building.</p>
-  <a class="button" href="{{ profile.links.LinkedIn }}">Say hello on LinkedIn <span aria-hidden="true">↗</span></a>
-  <a class="contact-panel__github" href="{{ profile.links.GitHub }}">Find me on GitHub <span aria-hidden="true">↗</span></a>
+{% if writing_entries %}
+<section class="section" id="writing">
+  <h2>Writing</h2>
+  <ul class="writing-preview">
+    {% for e in writing_entries %}
+    <li>
+      <span class="writing-preview__when">{{ e.when }}</span>
+      <span>
+        <a class="writing-preview__title" href="{{ e.url }}">{{ e.title }}</a>
+        {% if e.outlet %}<span class="writing-preview__outlet">{{ e.outlet }}</span>{% endif %}
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+  <p class="section__more"><a href="/blog/">See all writing &rarr;</a></p>
 </section>
+{% endif %}
+
+<section class="section" id="experience">
+  <h2>Experience</h2>
+  {% for r in experience %}
+  <div class="role">
+    <div class="role__when">{{ r.when }}</div>
+    <div>
+      <span class="role__what">{{ r.title }}</span>,
+      <span class="role__org">{% if r.url %}<a href="{{ r.url }}">{{ r.org }}</a>{% else %}{{ r.org }}{% endif %}</span>
+      {% if r.note %}<p class="role__note">{{ r.note }}</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+{% if education %}
+<section class="section" id="education">
+  <h2>Education</h2>
+  {% for r in education %}
+  <div class="role">
+    <div class="role__when">{{ r.when }}</div>
+    <div>
+      <span class="role__what">{{ r.title }}</span>,
+      <span class="role__org">{{ r.org }}</span>
+      {% if r.note %}<p class="role__note">{{ r.note }}</p>{% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if profile.service %}
+<section class="section" id="service">
+  <h2>Service</h2>
+  <dl class="contact contact--wide">
+    {% for row in profile.service %}
+    <dt>{{ row.label }}</dt>
+    <dd>{{ row.value | safe }}</dd>
+    {% endfor %}
+  </dl>
+</section>
+{% endif %}
+
+<section class="section" id="mentors">
+  <h2>Mentors</h2>
+  {% if mentors_intro %}<p>{{ mentors_intro }}</p>{% endif %}
+  {% for p in mentors %}
+  <div class="mentor">
+    <span class="mentor__name">{% if p.url %}<a href="{{ p.url }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</span>{% if p.affiliation %}<span class="mentor__note">{{ p.affiliation }}</span>{% endif %}
+    {% if p.note %}<span class="mentor__note">{{ p.note }}</span>{% endif %}
+  </div>
+  {% endfor %}
+</section>
+</div>
+
+</div>
 {% endblock %}

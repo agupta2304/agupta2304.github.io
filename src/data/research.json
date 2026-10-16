@@ -10,15 +10,7 @@
     "talks": [
       "Building Production LLM Agents: An Evaluation-Driven Playbook",
       "SimulationMaxxing: How we ship agents 20× faster"
-    ],
-    "visual": "agents",
-    "headline": "When is an agent ready for real customers?",
-    "summary": "We connect offline simulation, human judgment, and online experiments in one evaluation-driven framework, studied across five Nubank deployments.",
-    "takeaway": "Evaluation becomes a way to improve the customer experience, with offline metrics that track online outcomes.",
-    "result": "+37 pp",
-    "result_label": "transactional NPS",
-    "result_context": "Card-delivery A/B test vs. prior agent variants. pp = percentage points.",
-    "featured": true
+    ]
   },
   {
     "label": "LLM alignment and post-training",
@@ -29,15 +21,7 @@
     },
     "papers": [
       "On the Robustness of Reward Models for Language Model Alignment"
-    ],
-    "visual": "alignment",
-    "headline": "The shape of a reward changes what a model learns.",
-    "summary": "AlphaPO introduces a tunable reward shape for preference optimization, controlling likelihood displacement and over-optimization.",
-    "takeaway": "More control over alignment, with improvements over SimPO and DPO on the evaluated Mistral-7B and Llama-3-8B models.",
-    "result": "AlphaPO",
-    "result_label": "a new handle on alignment",
-    "result_context": "ICML 2025 · Evaluated on two model families.",
-    "featured": true
+    ]
   },
   {
     "label": "Efficient foundation models",
@@ -50,15 +34,7 @@
       "Effective Quantization of Muon Optimizer States",
       "LLM Query Scheduling with Prefix Reuse and Latency Constraints",
       "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems"
-    ],
-    "visual": "efficiency",
-    "headline": "Make the model smaller. Keep what matters.",
-    "summary": "We combine knowledge distillation, structured pruning, and quantization to compress language models for recommendation workloads at LinkedIn.",
-    "takeaway": "Retain much of the larger model’s quality while reducing training and serving cost and latency, with lessons from deployment.",
-    "result": "Train → Serve",
-    "result_label": "efficiency across the lifecycle",
-    "result_context": "EMNLP 2025 · Compression and deployment lessons.",
-    "featured": true
+    ]
   },
   {
     "label": "Constrained optimization at scale",
@@ -72,7 +48,6 @@
       "LiRank: Industrial Large Scale Ranking Models at LinkedIn",
       "LiNR: Model Based Neural Retrieval on GPUs at LinkedIn",
       "Generalized Deep Mixed Models"
-    ],
-    "featured": false
+    ]
   }
 ]

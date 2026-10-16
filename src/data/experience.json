@@ -5,7 +5,7 @@
       "title": "Principal Machine Learning Engineer",
       "org": "Nubank",
       "url": "https://nubank.com.br",
-      "note": "Lead company-wide research on AI agents, foundation models, LLMs, and large-scale constrained optimization. Nubank serves {{ profile.customer_scale }} customers."
+      "note": "Lead company-wide research on AI agents, foundation models, LLMs, and large-scale constrained optimization for {{ profile.customer_scale }} customers."
     },
     {
       "when": "2019 — 2025",
@@ -32,7 +32,7 @@
       "when": "2014 — 2016",
       "title": "M.S. in Computer Science",
       "org": "Carnegie Mellon University",
-      "note": "Language Technologies Institute · Graduate Research Fellowship."
+      "note": "A research master's at the Language Technologies Institute: full-time research on a Graduate Research Fellowship rather than a coursework degree. Also offered PhD admission, which I declined."
     },
     {
       "when": "2008 — 2012",

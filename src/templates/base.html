@@ -41,19 +41,19 @@
 
 <a class="skip-link" href="#content">Skip to content</a>
 
-<nav class="nav" aria-label="Main navigation">
+<nav class="nav">
   <div class="nav__inner">
     <a class="nav__home" href="/">{{ profile.name }}</a>
-    <div class="nav__links">
     <a href="/#research">research</a>
     <a href="/publications/">publications</a>
+    <a href="/#talks">talks</a>
     {# Writing stays out of the nav until there is enough of it to be worth a section.
        Its homepage preview leads to the complete page and feed. #}
     {% if writing_linked %}
-    <a href="/blog/">writing</a>
+    <a href="/#writing">writing</a>
     {% endif %}
-    <a href="/about/">about</a>
-    </div>
+    <a href="/#experience">experience</a>
+    <a href="/#mentors">mentors</a>
     <button class="theme-toggle" type="button" hidden>
       <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
         <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/>
@@ -68,7 +68,7 @@
 
   <footer class="footer">
     <span>&copy; {{ site.year }} {{ profile.name }}</span>
-    <span class="footer__links"><a href="/talks/">Talks</a><a {% if page.path == '/' %}id="experience" {% endif %}href="/about/#experience">Experience</a><a {% if page.path == '/' %}id="mentors" {% endif %}href="/about/#mentors">Mentors</a><a href="/feed.xml">RSS</a></span>
+    <span><a href="/feed.xml">RSS</a></span>
   </footer>
 </main>
 

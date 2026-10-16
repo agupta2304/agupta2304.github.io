@@ -30,7 +30,7 @@ TEMPLATE_DIR = SRC / "templates"
 ASSETS_DIR = ROOT / "assets"
 
 # Generated directories, wiped on every build so deleted posts do not linger.
-GENERATED_DIRS = tuple(ROOT / name for name in ("blog", "publications", "research", "talks", "about"))
+GENERATED_DIRS = (ROOT / "blog", ROOT / "publications")
 
 LINK_ORDER = ("pdf", "arxiv", "doi", "preprint", "code", "slides",
               "poster", "video", "bibtex", "site")
@@ -295,12 +295,6 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
         }
 
     for thread in threads:
-        if thread.get("featured"):
-            for field in ("headline", "summary", "takeaway", "result", "result_label", "result_context"):
-                if not isinstance(thread.get(field), str) or not thread[field].strip():
-                    raise SystemExit(f"research.json: featured story needs {field!r}")
-            if thread.get("visual") not in ("agents", "alignment", "efficiency"):
-                raise SystemExit("research.json: featured story has an unknown visual")
         spec = thread.get("highlight")
         if not isinstance(spec, dict):
             raise SystemExit(
@@ -701,9 +695,6 @@ def publications_schema(pubs: list[dict], profile: dict, site: dict) -> str:
 def build_sitemap(site: dict, posts: list[dict]) -> None:
     entries = [(site["url"] + "/", None),
                (site["url"] + "/publications/", None),
-               (site["url"] + "/research/", None),
-               (site["url"] + "/talks/", None),
-               (site["url"] + "/about/", None),
                (site["url"] + "/blog/", None)]
     entries += [(site["url"] + p["url"], p["date"].date().isoformat()) for p in posts]
 
@@ -741,10 +732,8 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
         lines += [profile["venues_note"], ""]
 
     lines += ["## Pages", "",
-              f"- [Home]({site['url']}/): selected research, featured talks, writing, contact",
-              f"- [Research]({site['url']}/research/): complete research directions and related work",
-              f"- [Talks]({site['url']}/talks/): talks and conference tutorials",
-              f"- [About]({site['url']}/about/): experience, education, service, mentors, news",
+              f"- [Home]({site['url']}/): research directions, news, talks, writing, "
+              "experience, service, mentors",
               f"- [Publications]({site['url']}/publications/): complete list of "
               f"{len(pubs)} publications",
               f"- [Writing]({site['url']}/blog/): {len(posts)} post"
@@ -886,18 +875,6 @@ def build(refresh_views: bool = False) -> None:
         all_groups=group_by_year(publications),
         page_schema=publications_schema(publications, profile, site),
         **shared,
-    ))
-
-    write(ROOT / "research" / "index.html", env.get_template("research.html").render(
-        page={"path": "/research/"}, research=research, **shared,
-    ))
-    write(ROOT / "talks" / "index.html", env.get_template("talks.html").render(
-        page={"path": "/talks/"}, talk_groups=home_talk_groups, **shared,
-    ))
-    write(ROOT / "about" / "index.html", env.get_template("about.html").render(
-        page={"path": "/about/"}, news=news,
-        experience=experience.get("roles", []), education=experience.get("education", []),
-        mentors=mentors.get("people", []), mentors_intro=mentors.get("intro"), **shared,
     ))
 
     write(ROOT / "blog" / "index.html", env.get_template("blog_index.html").render(

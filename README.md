@@ -43,7 +43,7 @@ server-log census.
 
 ## Themes
 
-A warm off-white is the default, with graphite text, pale lavender surfaces, and a cobalt
+A cool near-white is the default, with graphite text, pale gray surfaces, and a restrained navy
 accent. A toggle in the nav switches to a cool charcoal dark theme and remembers the choice in
 `localStorage`; an inline script in `<head>` applies it before first paint, so there is no flash
 of the wrong palette. Without JavaScript the site stays light and the button hides itself rather
@@ -117,23 +117,33 @@ state, which is why they show a "Withdrawn by the authors" badge.
 | Canonical site URL, list limits | `src/data/site.json` |
 | Look and feel | `src/styles/style.css` |
 
-### The homepage and archives
+### The top of the homepage
 
-The homepage is an editorial overview: a research statement, three selected project stories,
-recorded talks, writing, a short biography, and contact links. `profile.hero_intro` controls the
-introductory copy. The title and page layout live in `src/templates/home.html`.
+`profile.thesis` is the primary research promise under the formal job title;
+`profile.thesis_detail` is its smaller methodological line. Together they establish the research
+identity without another keyword strip.
 
-Detailed material stays available on `/research/`, `/talks/`, and `/about/`. The latter contains
-experience, education, service, mentors, and news. `/publications/` retains the complete bibliography.
-All pages are built from the existing JSON sources; the build also updates their sitemap entries.
+`profile.about` is deliberately one paragraph. Anything longer turns the 18rem sticky rail into
+a wall of text and repeats the Experience section. Its closing sentence incorporates
+`profile.venues_note` as a link to the seven major publication venues; workshops and BIBM remain
+on the complete Publications page rather than crowding the thesis. Program committees and
+patents live in Service.
 
-Prose in the JSON data is rendered as Jinja before it reaches the templates. The customer count
-is defined once in `profile.customer_scale`, and is explicitly described as Nubank's customer
-base, not exposure to a particular deployment.
+On desktop the rail is sticky but capped to the available viewport height, so a short screen
+scrolls the rail independently instead of hiding its bottom until the main column ends. Browser
+scrollbar chrome is hidden to preserve the document-like layout; wheel, trackpad, touch, and
+focus-driven scrolling still work. Below the two-column breakpoint—and when printing—the rail
+returns to normal document flow with no clipping.
+
+Prose in the JSON data is rendered as Jinja before it reaches the templates, so a fact quoted in
+more than one place has a single definition. The customer count appears in both the bio and the
+Nubank role and is written `{{ profile.customer_scale }}` in each; update
+`profile.customer_scale` and both move together. Keep that figure sourced — the current value
+comes from Nu Holdings' most recent quarterly results.
 
 ### Research directions
 
-`src/data/research.json` holds the complete directions shown on `/research/`. Each has a `label`, a
+`src/data/research.json` holds the four directions shown above News. Each has a `label`, a
 question-led `blurb`, exactly one flagship `highlight`, and any mix of related `papers` and
 `talks`:
 
@@ -178,13 +188,8 @@ event name is long, either shorten what precedes the comma or widen `grid-templa
 `.thread__papers li`; the chip wraps rather than overflowing, but a two-line chip splits the
 venue from its year and reads worse.
 
-Directions are ordered as written. Keep one flagship per direction; additional evidence belongs
-under Related work. A direction marked `featured: true` also appears on the homepage and needs
-`headline`, `summary`, `takeaway`, `result`, `result_label`, and `result_context`. Its `visual` is
-one of `agents`, `alignment`, or `efficiency`. The diagrams are conceptual illustrations, not
-quantitative plots. Keep numeric results scoped to their specific experiment and baseline.
-
-Visible talk view counts are omitted; cached statistics remain in structured metadata.
+Directions are ordered as written and intentionally mirror the two-line thesis. Keep one
+flagship per direction; additional evidence belongs under Related work.
 
 ### Adding a paper
 
