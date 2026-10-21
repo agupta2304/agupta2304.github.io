@@ -236,7 +236,7 @@ silently loses the older half of the list.
 Each entry shows a venue acronym in a left gutter so the list can be scanned by conference.
 The chip fills the gutter to a uniform width and is set in the body ink rather than a muted grey
 — it is a scanning aid, so it has to be legible at 0.72rem. The gutter is sized for the longest
-acronym in use, currently `OPT@NeurIPS`; if you add a longer one, widen the
+acronym in use, currently `UserSim@NeurIPS`; if you add a longer one, widen the
 `grid-template-columns` on `.pub` to match. On narrow screens the gutter collapses and the chip
 becomes a compact pill above the title instead of a full-width band.
 The acronym is derived from `venue`: the parenthesised part of, say, `International Conference
