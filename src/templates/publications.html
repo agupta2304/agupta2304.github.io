@@ -2,7 +2,7 @@
 {% import "_macros.html" as m %}
 
 {% block title %}Publications — {{ profile.name }}{% endblock %}
-{% block description %}Complete list of publications by {{ profile.name }}.{% endblock %}
+{% block description %}Research publications, patents, and published patent applications by {{ profile.name }}.{% endblock %}
 
 {% block head_extra %}
 <script type="application/ld+json">
@@ -14,13 +14,37 @@
 <header class="post__header">
   <h1 class="post__title">Publications</h1>
   <p class="masthead__role">
-    {{ total_publications }} publications.
+    <a href="#papers">{{ total_publications }} publications</a> &middot;
+    <a href="#patents">{{ total_patents }} patent records</a>.<br>
     {% if profile.venues_note %}{{ profile.venues_note }}{% endif %}
     <a href="/#research">Research directions &rarr;</a>
   </p>
 </header>
 
-<section class="section">
+<section class="section" id="papers">
+  <h2>Papers &amp; preprints</h2>
   {{ m.publication_years(all_groups, profile.name, site.years_expanded) }}
+</section>
+
+<section class="section" id="patents">
+  <h2>Patents &amp; applications</h2>
+  <p class="section__note">Public records, listed by publication date. Each entry identifies a granted patent or a published application.</p>
+  {% for year, items in patent_groups %}
+  <details class="year-group"{% if loop.index0 < 2 %} open{% endif %}>
+    <summary class="year-group__label">
+      <h3 class="year-group__year">{{ year }}</h3>
+      <span class="year-group__count">{{ items | length }} record{{ '' if items | length == 1 else 's' }}</span>
+    </summary>
+    <div class="year-group__body">
+      {% for p in items %}
+      <article class="patent" id="{{ p.publication_number }}">
+        <a class="pub__title" href="{{ p.url }}">{{ p.title }}</a>
+        <p class="pub__authors">{{ m.authors(p.inventors_shown, p.inventors_more, profile.name) }}</p>
+        <p class="patent__meta"><span class="patent__number">{{ p.publication_number }}</span><br>{{ p.kind_label }} &middot; <time datetime="{{ p.date }}">{{ p.when }}</time></p>
+      </article>
+      {% endfor %}
+    </div>
+  </details>
+  {% endfor %}
 </section>
 {% endblock %}

@@ -1,0 +1,227 @@
+[
+  {
+    "title": "Adaptive model switching using conformal inference",
+    "inventors": [
+      "Suyash Gupta",
+      "Rohit K PATRA",
+      "Xuexin REN",
+      "Aman Gupta",
+      "Viral Gupta"
+    ],
+    "publication_number": "US20260220214A1",
+    "date": "2026-07-30",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20260220214A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:inmFHauC9wsC"
+  },
+  {
+    "title": "Training language models for retrieval and ranking",
+    "inventors": [
+      "Luke E. Simon",
+      "Hristo I. Danchev",
+      "Fedor V. Borisyuk",
+      "Mohammad H. Firooz",
+      "Manas Haribhai Somaiya",
+      "Vinay Yajamana Satyanarayana",
+      "Sudarshan Srinivasa Ramanujam",
+      "Akhilesh Gupta",
+      "Birjodh Singh Tiwana",
+      "Qingquan Song",
+      "Yun Dai",
+      "Kayhan Behdin",
+      "Ataollah Fatahi Baarzi",
+      "Aman Gupta",
+      "Zhipeng Wang",
+      "Andrei Akterskii",
+      "Zihan Xiong",
+      "Zhanglong LIU",
+      "Sen ZHOU",
+      "Zhoutao Pei"
+    ],
+    "publication_number": "US20260195644A1",
+    "date": "2026-07-09",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20260195644A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:nWoA1JPTheMC"
+  },
+  {
+    "title": "Efficient retrieval and ranking with large language models",
+    "inventors": [
+      "Birjodh Singh Tiwana",
+      "Vinay Yajamana Satyanarayana",
+      "Akhilesh Gupta",
+      "Mohammad H. Firooz",
+      "Manas Haribhai Somaiya",
+      "Luke E. Simon",
+      "Andrea Olgiati",
+      "Hristo I. Danchev",
+      "Fedor V. Borisyuk",
+      "Qingquan Song",
+      "Yun Dai",
+      "Kayhan Behdin",
+      "Ataollah Fatahi Baarzi",
+      "Aman Gupta",
+      "Zhipeng Wang",
+      "Borja Ocejo Elizondo",
+      "Jihye CHOI",
+      "Andrei Akterskii",
+      "Zihan Xiong",
+      "Zhanglong LIU",
+      "Sen ZHOU",
+      "Zhoutao Pei",
+      "Hejian Sang"
+    ],
+    "publication_number": "US20260195331A1",
+    "date": "2026-07-09",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20260195331A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:Oo1CbQkBAzEC"
+  },
+  {
+    "title": "Neural network model for sequence prediction with attention to entity relationships",
+    "inventors": [
+      "Mohammad H. Firooz",
+      "Maziar Sanjabi Boroujeni",
+      "Adrian Englhardt",
+      "Tao Song",
+      "Qingquan Song",
+      "Aman Gupta",
+      "Gungor Polatkan",
+      "Souvik Ghosh",
+      "Dawn Banister Woodard",
+      "Luke E. Simon",
+      "Necip Fazil Ayan"
+    ],
+    "publication_number": "US20260148060A1",
+    "date": "2026-05-28",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20260148060A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:hfzGNhXhx5MC"
+  },
+  {
+    "title": "Encoding graph network evolutions using sequences",
+    "inventors": [
+      "Parag Agrawal",
+      "Aman Gupta",
+      "Zhanglong LIU",
+      "Ankan Saha",
+      "Viral Gupta"
+    ],
+    "publication_number": "US20260050823A1",
+    "date": "2026-02-19",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20260050823A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:DQNrXyjhriIC"
+  },
+  {
+    "title": "Personalized context-aware digital content recommendations",
+    "inventors": [
+      "Parag Agrawal",
+      "Ankan Saha",
+      "Aman Gupta",
+      "Viral Gupta"
+    ],
+    "publication_number": "US20260038020A1",
+    "date": "2026-02-05",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20260038020A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:EBV337fEn3EC"
+  },
+  {
+    "title": "Retrieval augmented generation over graph neural network for edge building",
+    "inventors": [
+      "Siyuan GAO",
+      "Parag Agrawal",
+      "Aman Gupta",
+      "Ankan Saha",
+      "Viral Gupta"
+    ],
+    "publication_number": "US20250342344A1",
+    "date": "2025-11-06",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20250342344A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:0ngZmJvimKcC"
+  },
+  {
+    "title": "Optimizing online user interaction using constraints",
+    "inventors": [
+      "Ayan Acharya",
+      "Siyuan GAO",
+      "Kinjal Basu",
+      "Ankan Saha",
+      "Sathiya K. Selvaraj",
+      "Parag Agrawal",
+      "Borja Ocejo Elizondo",
+      "Aman Gupta",
+      "Rahul Mazumder"
+    ],
+    "publication_number": "US20250005093A1",
+    "date": "2025-01-02",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20250005093A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&cstart=20&pagesize=80&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:3lUAU8Oskd0C"
+  },
+  {
+    "title": "Linear-programming-based recommender with personalized diversity constraints",
+    "inventors": [
+      "Miao CHENG",
+      "Kinjal Basu",
+      "Aman Gupta",
+      "Sathiya K. Selvaraj",
+      "Rahul Mazumder",
+      "Haichao Wei",
+      "Haoyue Wang"
+    ],
+    "publication_number": "US20240202280A1",
+    "date": "2024-06-20",
+    "kind": "application",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US20240202280A1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&cstart=20&pagesize=80&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:hGdtkIFZdKAC"
+  },
+  {
+    "title": "Utilizing visual and textual aspects of images with recommendation systems",
+    "inventors": [
+      "Xun Luan",
+      "Aman Gupta",
+      "Sirjan Kafle",
+      "Ananth Sankar",
+      "Di Wen",
+      "Saurabh Kataria",
+      "Ying Xuan",
+      "Sakshi Verma",
+      "Bharat Kumar Jain",
+      "Xue Xia",
+      "Bhargavkumar Kanubhai Patel",
+      "Vipin Gupta",
+      "Nikita Gupta"
+    ],
+    "publication_number": "US12008331B2",
+    "date": "2024-06-11",
+    "kind": "grant",
+    "assignee": "Microsoft Technology Licensing LLC",
+    "url": "https://patents.google.com/patent/US12008331B2/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&cstart=20&pagesize=80&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:HtS1dXgVpQUC"
+  },
+  {
+    "title": "Item review system that provides comparative information to reviewer",
+    "inventors": [
+      "Pranav Agarwal",
+      "Aman Gupta"
+    ],
+    "publication_number": "US10275808B1",
+    "date": "2019-04-30",
+    "kind": "grant",
+    "assignee": "Amazon Technologies Inc",
+    "url": "https://patents.google.com/patent/US10275808B1/en",
+    "scholar": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=vuGUPbkAAAAJ&cstart=20&pagesize=80&sortby=pubdate&citation_for_view=vuGUPbkAAAAJ:PuOEWVtPfzwC"
+  }
+]

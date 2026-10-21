@@ -20,7 +20,8 @@ The build emits, alongside the pages:
 Structured data is JSON-LD. The homepage carries a `@graph` of `Person` and `WebSite` plus a
 `VideoObject` per recorded talk, each with its view count as an `interactionStatistic`. The
 publications page carries a `CollectionPage` wrapping an `ItemList` of `ScholarlyArticle`
-entries with full author lists, venues, and years. That block is emitted without indentation
+entries with full author lists, venues, and years, followed by separate `CreativeWork` records
+for patents and applications. That block is emitted without indentation
 because pretty-printing 36 papers costs roughly 50KB of pure whitespace.
 
 `src/check.py` verifies all of it: that every JSON-LD block parses, that none contains a
@@ -43,8 +44,10 @@ server-log census.
 
 ## Themes
 
-A cool near-white is the default, with graphite text, pale gray surfaces, and a restrained navy
-accent. A toggle in the nav switches to a cool charcoal dark theme and remembers the choice in
+The Modern scholar theme pairs serif headings with sans-serif body text, a cool near-white
+background, pale gray paper summaries, and restrained navy accents. The compact two-column
+homepage keeps the portrait and biography beside the research. A toggle in the nav switches
+to a cool charcoal dark theme and remembers the choice in
 `localStorage`; an inline script in `<head>` applies it before first paint, so there is no flash
 of the wrong palette. Without JavaScript the site stays light and the button hides itself rather
 than sitting there dead.
@@ -111,6 +114,7 @@ state, which is why they show a "Withdrawn by the authors" badge.
 | Research directions, highlights, and related work | `src/data/research.json` |
 | News items | `src/data/news.json` |
 | Publications | `src/data/publications.json` |
+| Patents and published patent applications | `src/data/patents.json` |
 | Talks and tutorials | `src/data/talks.json` |
 | Jobs and education | `src/data/experience.json` |
 | Mentors | `src/data/mentors.json` |
@@ -123,11 +127,9 @@ state, which is why they show a "Withdrawn by the authors" badge.
 `profile.thesis_detail` is its smaller methodological line. Together they establish the research
 identity without another keyword strip.
 
-`profile.about` is deliberately one paragraph. Anything longer turns the 18rem sticky rail into
-a wall of text and repeats the Experience section. Its closing sentence incorporates
-`profile.venues_note` as a link to the seven major publication venues; workshops and BIBM remain
-on the complete Publications page rather than crowding the thesis. Program committees and
-patents live in Service.
+`profile.about` is deliberately one short paragraph. The 15rem rail keeps contact links compact;
+`profile.venues_note` appears on the complete Publications page. Program committees and a link
+to the patent records live in Service.
 
 On desktop the rail is sticky but capped to the available viewport height, so a short screen
 scrolls the rail independently instead of hiding its bottom until the main column ends. Browser
@@ -136,9 +138,8 @@ focus-driven scrolling still work. Below the two-column breakpoint—and when pr
 returns to normal document flow with no clipping.
 
 Prose in the JSON data is rendered as Jinja before it reaches the templates, so a fact quoted in
-more than one place has a single definition. The customer count appears in both the bio and the
-Nubank role and is written `{{ profile.customer_scale }}` in each; update
-`profile.customer_scale` and both move together. Keep that figure sourced — the current value
+more than one place can have a single definition. The Nubank role uses
+`{{ profile.customer_scale }}` for the customer count. Keep that figure sourced — the current value
 comes from Nu Holdings' most recent quarterly results.
 
 ### Research directions
@@ -168,6 +169,8 @@ list **fails the build** rather than silently weakening the narrative.
 Each flagship renders as venue, title, contribution, and every available paper/code/site link.
 The contribution is plain text and Jinja-autoescaped. Write it from the paper's abstract rather
 than promotional copy, and explain the result rather than merely restating the title.
+An optional `result` and `result_context` split out a supported outcome and its experimental
+context as a compact line within the same summary.
 
 Related papers and talks render as one compact list, papers first, with a chip in the left
 gutter. A paper's
@@ -241,6 +244,20 @@ on Machine Learning (ICML)`, or `X Workshop at Y` becomes `X@Y`. Venues with no 
 extract are mapped in `VENUE_SHORT` in [src/build.py](src/build.py). The full venue name shows
 on hover. A trailing qualifier after a comma, like `, Industry Track`, renders as a small badge
 next to the authors rather than in the chip.
+
+### Adding a patent record
+
+Add a public document to `src/data/patents.json`, with its title, full inventor list,
+`publication_number`, publication `date` (`YYYY-MM-DD`), `kind` (`application` or `grant`),
+assignee, and Google Patents `url`. The optional `scholar` URL records where it was found.
+Verify inventors against the patent itself: Scholar can omit names. The build rejects duplicate
+publication numbers, mismatched document types, invalid dates, and records without Aman Gupta.
+
+Patent records render in their own section at `/publications/#patents`, newest first. They do
+not count toward the paper total and are represented as CreativeWork records, not scholarly
+articles, in structured data. A1 entries are labeled **Patent application publication**; B1/B2
+entries are labeled **Granted patent**. These labels describe the linked documents, not an
+assertion about a patent family's current legal status.
 
 ### Adding a news item
 
@@ -361,7 +378,7 @@ Drop a square image at `assets/headshot.jpg`. If the file is missing the build f
 an "AG" monogram and says so, so a missing portrait never ships as a broken image. Change the
 path or set it to `null` in `profile.json`.
 
-The portrait renders at 96px, which a 200x200 source covers at 2x for retina screens. If you
+The homepage portrait renders at 78px, which a 200x200 source covers at 2x for retina screens. If you
 want it larger you need a larger source first: at 120px a 200px image is only 1.67x and will
 visibly soften.
 

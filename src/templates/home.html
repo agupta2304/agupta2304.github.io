@@ -18,27 +18,25 @@
 <section class="section" id="about">
   <h2>About</h2>
   {% for para in profile.about %}
-  <p{% if loop.first %} class="lede"{% endif %}>{{ para | safe }}{% if loop.last and profile.venues_note %} Across these areas, I have <a href="/publications/">{{ profile.venues_note | replace("Published at", "published at") | replace(".", "") }}</a>.{% endif %}</p>
+  <p{% if loop.first %} class="lede"{% endif %}>{{ para | safe }}</p>
   {% endfor %}
 </section>
 
 <section class="section" id="contact">
   <h2>Elsewhere</h2>
+  <p class="profile-index"><a href="/publications/">All {{ total_publications }} publications</a></p>
+  <p class="profile-index"><a href="/publications/#patents">Patents &amp; applications</a></p>
+  <div class="profile-links">
+    {% if profile.cv %}
+    <a href="{{ profile.cv }}">CV (PDF)</a>
+    {% endif %}
+    {% for label, href in profile.links.items() %}
+    <a href="{{ href }}">{{ label }} &nearr;</a>
+    {% endfor %}
+  </div>
   {% if profile.contact_note %}
   <p class="contact__note">{{ profile.contact_note | safe }}</p>
   {% endif %}
-  <dl class="contact">
-    <dt>Papers</dt>
-    <dd><a href="/publications/">All {{ total_publications }} publications</a></dd>
-    {% if profile.cv %}
-    <dt>CV</dt>
-    <dd><a href="{{ profile.cv }}">Download (PDF)</a></dd>
-    {% endif %}
-    {% for label, href in profile.links.items() %}
-    <dt>{{ label }}</dt>
-    <dd><a href="{{ href }}">{{ href | pretty_url }}</a></dd>
-    {% endfor %}
-  </dl>
 </section>
 </aside>
 

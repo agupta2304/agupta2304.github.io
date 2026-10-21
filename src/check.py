@@ -105,8 +105,9 @@ if not all(venue in venues_note for venue in major_venues):
     problems.append("profile.json: venues_note omits a major publication venue")
 if any(venue in venues_note for venue in ("BIBM", "SPOT@", "OPT@", "MLG@")):
     problems.append("profile.json: venues_note should contain major venues only")
-if "Across these areas, I have <a href=\"/publications/\">published at" not in home:
-    problems.append("index.html: major venues are not integrated into the About prose")
+publications_page = (ROOT / "publications" / "index.html").read_text(encoding="utf-8")
+if venues_note not in publications_page:
+    problems.append("publications/index.html: major publication venues are missing")
 if 'class="about__venues"' in home:
     problems.append("index.html: major venues still render as a separate subtitle")
 if 'class="thesis__venues"' in home:
@@ -290,6 +291,7 @@ CONTRAST_PAIRS = [
     ("muted", "bg", 4.5, "secondary prose"),
     ("faint", "bg", 4.5, "dates, section labels, venue metadata"),
     ("accent", "bg", 4.5, "links"),
+    ("accent", "mark", 4.5, "research result and paper links"),
     ("ink", "mark", 4.5, "venue chips"),
     ("muted", "mark", 4.5, "publication badges"),
     # The monogram is a 1.9rem decorative glyph and aria-hidden, so the large-text

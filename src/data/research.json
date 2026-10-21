@@ -1,12 +1,16 @@
 [
   {
     "label": "Reliable AI agents",
-    "blurb": "How do we know an agent is ready for real customers? I build evaluation systems that connect offline simulation, human judgment, and online experiments so iteration speed does not come at the cost of reliability.",
+    "blurb": "How do we know an agent is ready for real customers? I build evaluation systems that connect offline simulation, human judgment, and online experiments.",
     "highlight": {
       "paper": "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework",
-      "contribution": "A unified framework for context engineering, prompt optimization, offline evaluation, and production validation across five Nubank deployments; offline metrics tracked online outcomes, and the card-delivery agent improved transactional NPS by 37 percentage points."
+      "contribution": "A unified framework for context engineering, prompt optimization, offline evaluation, and production validation across five Nubank deployments.",
+      "result": "+37 percentage points in transactional NPS",
+      "result_context": "Card-delivery A/B test, compared with prior agent variants."
     },
-    "papers": [],
+    "papers": [
+      "Screen Before You Serve: Simulation for Production Customer Experience AI Agents at 140M Scale"
+    ],
     "talks": [
       "Building Production LLM Agents: An Evaluation-Driven Playbook",
       "SimulationMaxxing: How we ship agents 20× faster"
@@ -31,6 +35,7 @@
       "contribution": "Distills and compresses production language models with structured pruning and quantization, retaining much of larger-model quality while reducing training and serving cost and latency across recommendation workloads."
     },
     "papers": [
+      "Rounding in Preconditioner Space: Redesigning 4-bit AdamW Optimizer-State Quantization",
       "Effective Quantization of Muon Optimizer States",
       "LLM Query Scheduling with Prefix Reuse and Latency Constraints",
       "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems"

@@ -264,6 +264,33 @@ def group_by_year(pubs: list[dict]) -> list[tuple[int, list[dict]]]:
     return sorted(groups.items(), key=lambda kv: kv[0], reverse=True)
 
 
+def load_patents(me: str) -> list[dict]:
+    """Public patent documents, kept separate from papers and conference venues."""
+    patents = load("patents.json")
+    seen = set()
+    for p in patents:
+        number = p.get("publication_number", "")
+        if not re.fullmatch(r"US\d+(?:A1|B1|B2)", number) or number in seen:
+            raise SystemExit(f"patents.json: invalid or duplicate publication number {number!r}")
+        seen.add(number)
+        expected_kind = "application" if number.endswith("A1") else "grant"
+        if p.get("kind") != expected_kind:
+            raise SystemExit(f"patents.json: document type disagrees with {number}")
+        if not p.get("title") or me not in p.get("inventors", []):
+            raise SystemExit(f"patents.json: missing title or inventor for {number}")
+        if p.get("url") != f"https://patents.google.com/patent/{number}/en":
+            raise SystemExit(f"patents.json: record URL disagrees with {number}")
+        try:
+            date = datetime.strptime(p["date"], "%Y-%m-%d")
+        except (KeyError, ValueError):
+            raise SystemExit(f"patents.json: invalid publication date for {number}")
+        p["year"] = date.year
+        p["when"] = f"{MONTHS[date.month - 1][:3]} {date.day}, {date.year}"
+        p["kind_label"] = "Patent application publication" if expected_kind == "application" else "Granted patent"
+        p["inventors_shown"], p["inventors_more"] = elide_authors(p["inventors"], me)
+    return sorted(patents, key=lambda p: p["date"], reverse=True)
+
+
 def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
     """Resolve each thread's flagship, papers, and talks by title.
 
@@ -326,6 +353,8 @@ def load_research(pubs: list[dict], talks: list[dict]) -> list[dict]:
         thread["highlight"] = {
             **paper_entry(paper),
             "contribution": contribution.strip(),
+            "result": spec.get("result"),
+            "result_context": spec.get("result_context", ""),
         }
 
         entries = []
@@ -658,8 +687,8 @@ def home_schema(profile: dict, site: dict, talks: list[dict]) -> str:
                       indent=2, ensure_ascii=False)
 
 
-def publications_schema(pubs: list[dict], profile: dict, site: dict) -> str:
-    """An ordered ScholarlyArticle list, so the full record is machine-readable."""
+def publications_schema(pubs: list[dict], patents: list[dict], profile: dict, site: dict) -> str:
+    """Full paper and patent records, with their document types kept distinct."""
     articles = []
     for p in pubs:
         article = {
@@ -668,12 +697,23 @@ def publications_schema(pubs: list[dict], profile: dict, site: dict) -> str:
             "author": [{"@type": "Person", "name": a} for a in p.get("authors", [])],
         }
         if p.get("year"):
-            article["datePublished"] = str(p["year"])
+            article["datePublished"] = p.get("date", str(p["year"]))
         if p.get("venue_full"):
             article["isPartOf"] = {"@type": "CreativeWork", "name": p["venue_full"]}
         if p.get("primary_link"):
             article["url"] = p["primary_link"]
         articles.append(article)
+
+    for p in patents:
+        articles.append({
+            "@type": "CreativeWork",
+            "name": p["title"],
+            "identifier": p["publication_number"],
+            "genre": p["kind_label"],
+            "datePublished": p["date"],
+            "creator": [{"@type": "Person", "name": name} for name in p["inventors"]],
+            "url": p["url"],
+        })
 
     # Emitted compactly: pretty-printing 36 papers with full author lists costs ~50KB
     # of whitespace, and no human reads this block.
@@ -715,7 +755,7 @@ def build_robots(site: dict) -> None:
           f"User-agent: *\nAllow: /\n\nSitemap: {site['url']}/sitemap.xml\n")
 
 
-def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[dict],
+def build_llms_txt(profile: dict, site: dict, pubs: list[dict], patents: list[dict], research: list[dict],
                    talk_groups: list[dict], posts: list[dict],
                    writing: list[dict]) -> None:
     """A plain-text digest for agents. Not a standard, but cheap and harmless."""
@@ -735,7 +775,7 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
               f"- [Home]({site['url']}/): research directions, news, talks, writing, "
               "experience, service, mentors",
               f"- [Publications]({site['url']}/publications/): complete list of "
-              f"{len(pubs)} publications",
+              f"{len(pubs)} publications and {len(patents)} patent records",
               f"- [Writing]({site['url']}/blog/): {len(posts)} post"
               f"{'' if len(posts) == 1 else 's'}",
               f"- [Feed]({site['url']}/feed.xml): RSS", ""]
@@ -751,6 +791,8 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
             highlight["contribution"],
             "",
         ]
+        if highlight.get("result"):
+            lines += [highlight["result"] + ". " + highlight["result_context"], ""]
         if thread["entries"]:
             lines += ["Related work:", ""]
         for entry in thread["entries"]:
@@ -760,6 +802,12 @@ def build_llms_txt(profile: dict, site: dict, pubs: list[dict], research: list[d
             link = f" {entry['url']}" if entry.get("url") else ""
             lines.append(f"- [{entry['chip']}] {entry['title']}{where}.{link}")
         lines.append("")
+
+    lines += ["## Patents and applications", ""]
+    for p in patents:
+        lines.append(f"- {p['title']} — {p['publication_number']}, {p['kind_label']}, "
+                     f"{p['date']}. {p['url']}")
+    lines.append("")
 
     lines += ["## Talks", ""]
     for group in talk_groups:
@@ -808,6 +856,7 @@ def build(refresh_views: bool = False) -> None:
         profile["cv"] = None
 
     publications = load_publications(profile["name"])
+    patents = load_patents(profile["name"])
     video_stats = load_video_stats()
     if refresh_views:
         wanted = [youtube_id(t["video"]) for t in load("talks.json") if t.get("video")]
@@ -847,6 +896,7 @@ def build(refresh_views: bool = False) -> None:
         "profile": profile,
         "site": site,
         "total_publications": len(publications),
+        "total_patents": len(patents),
         # One colophon is not a body of writing, and linking it from the nav promises
         # essays the site cannot deliver. Pieces published elsewhere count, since the
         # page is worth a click once it lists them.
@@ -873,7 +923,8 @@ def build(refresh_views: bool = False) -> None:
     write(ROOT / "publications" / "index.html", env.get_template("publications.html").render(
         page={"path": "/publications/"},
         all_groups=group_by_year(publications),
-        page_schema=publications_schema(publications, profile, site),
+        patent_groups=group_by_year(patents),
+        page_schema=publications_schema(publications, patents, profile, site),
         **shared,
     ))
 
@@ -895,7 +946,7 @@ def build(refresh_views: bool = False) -> None:
     build_feed(posts, profile, site)
     build_sitemap(site, posts)
     build_robots(site)
-    build_llms_txt(profile, site, publications, research, talk_groups, posts, writing)
+    build_llms_txt(profile, site, publications, patents, research, talk_groups, posts, writing)
     print(f"done: {len(publications)} publications, {len(posts)} posts")
     unlinked = [p["title"] for p in publications if not p.get("links")]
     if unlinked:
