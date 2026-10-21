@@ -7,7 +7,7 @@
   "location": "San Francisco Bay Area",
   "customer_scale": "more than 135 million",
   "thesis": "Reliable AI agents and efficient foundation models at production scale.",
-  "thesis_detail": "LLM post-training \u00b7 constrained optimization",
+  "thesis_detail": "LLM post-training · constrained optimization",
   "headshot": "/assets/headshot.jpg",
   "meta_description": "Aman Gupta leads research on reliable AI agents and efficient foundation models at Nubank for systems serving more than 135 million customers.",
   "knows_about": [
@@ -19,9 +19,12 @@
     "Large-scale constrained optimization",
     "AI agent evaluation"
   ],
-  "alumni_of": ["Carnegie Mellon University", "BITS Pilani"],
+  "alumni_of": [
+    "Carnegie Mellon University",
+    "BITS Pilani"
+  ],
   "about": [
-    "I lead AI research at <a href=\"https://nubank.com.br\">Nubank</a> for systems serving {{ profile.customer_scale }} customers, with a focus on evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at <a href=\"https://www.linkedin.com\">LinkedIn</a>."
+    "I lead AI research at <a href=\"https://nubank.com.br\">Nubank</a>, with a focus on evaluation, alignment, and efficient training and inference. Previously, I led ranking foundation-model optimization at <a href=\"https://www.linkedin.com\">LinkedIn</a>."
   ],
   "venues_note": "Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.",
   "service": [
@@ -35,14 +38,14 @@
     },
     {
       "label": "Patents",
-      "value": "11+ filed, including <a href=\"https://patents.google.com/patent/US12008331B2/en\">US 12,008,331</a> and <a href=\"https://patents.google.com/patent/US10275808B1/en\">US 10,275,808</a>"
+      "value": "<a href=\"/publications/#patents\">Patents and published applications</a> on efficient models, recommendation, and constrained optimization."
     },
     {
       "label": "Open source",
       "value": "Commits to <a href=\"https://github.com/linkedin/gdmix\">GDMix</a>, and merged patches to <a href=\"https://github.com/google-deepmind/optax/pull/1121\">optax</a> and <a href=\"https://github.com/vllm-project/llm-compressor/pull/1218\">llm-compressor</a>"
     }
   ],
-  "contact_note": "I am always happy to hear from people who want to work on these problems &mdash; <a href=\"https://www.linkedin.com/in/aman-gupta1\">LinkedIn</a> is the fastest way to reach me.",
+  "contact_note": "For research and collaboration, <a href=\"https://www.linkedin.com/in/aman-gupta1\">get in touch</a>.",
   "cv": "/assets/cv.pdf",
   "links": {
     "Scholar": "https://scholar.google.com/citations?user=vuGUPbkAAAAJ",

@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-10",
+    "text": "New preprint: <a href=\"https://arxiv.org/abs/2610.12444\"><em>Rounding in Preconditioner Space: Redesigning 4-bit AdamW Optimizer-State Quantization</em></a>."
+  },
+  {
+    "date": "2026-10",
+    "text": "New preprint: <a href=\"https://arxiv.org/abs/2610.04302\"><em>From Valid to Useful: Post-Verification Acquisition for Recursive Self-Improving Recommendation</em></a>."
+  },
+  {
+    "date": "2026-09",
+    "text": "New preprint: <a href=\"https://arxiv.org/abs/2609.30137\"><em>Screen Before You Serve: Simulation for Production Customer Experience AI Agents at 140M Scale</em></a>."
+  },
+  {
     "date": "2026-07",
     "text": "Our tutorial <em>Building Production LLM Agents: An Evaluation-Driven Playbook</em> was accepted to the <strong><a href=\"https://cikm2026.diag.uniroma1.it/\">CIKM 2026</a></strong> tutorials track."
   },

@@ -1,5 +1,73 @@
 [
   {
+    "title": "Rounding in Preconditioner Space: Redesigning 4-bit AdamW Optimizer-State Quantization",
+    "authors": [
+      "Hanyang Li",
+      "Shao Tang",
+      "Daniel Thomas Braithwaite",
+      "Gregory Dexter",
+      "Leonardo Neves",
+      "Aman Gupta",
+      "Hiroto Udagawa",
+      "Abhishek Shivanna",
+      "Daniel Silva",
+      "Rohan Ramanath"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2026,
+    "date": "2026-10-08",
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2610.12444"
+    }
+  },
+  {
+    "title": "From Valid to Useful: Post-Verification Acquisition for Recursive Self-Improving Recommendation",
+    "authors": [
+      "Tonmoy Hasan",
+      "Taylor Foust",
+      "Shao Tang",
+      "Leonardo Neves",
+      "Aman Gupta",
+      "Hiroto Udagawa",
+      "Helder Dias",
+      "Daniel Silva",
+      "Rohan Ramanath"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2026,
+    "date": "2026-10-03",
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2610.04302"
+    }
+  },
+  {
+    "title": "Screen Before You Serve: Simulation for Production Customer Experience AI Agents at 140M Scale",
+    "authors": [
+      "Edesio Alcoba",
+      "Kevin Rossell",
+      "Aman Gupta",
+      "Shao Tang",
+      "Jiwoo Hong",
+      "Pabel Carrillo-Mendoza",
+      "Wanderson Conceição Ferreira",
+      "Alvaro Tedeschi",
+      "Zayd Simjee",
+      "Shreya Rajpal",
+      "Bruno Finardi Hime",
+      "Christian Sousa",
+      "Luis Moneda",
+      "Herbert Fei",
+      "Daniel Silva",
+      "Rohan Ramanath"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2026,
+    "date": "2026-09-24",
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2609.30137"
+    }
+  },
+  {
     "title": "Building Customer Support AI Agents at 100M-User Scale: An Evaluation-Driven Framework",
     "authors": [
       "Aman Gupta",

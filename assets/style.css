@@ -1,5 +1,5 @@
 /* ============================================================
-   Personal site — typography-first.
+   Modern scholar — serif headings, clear sans-serif text, restrained navy.
    Palette and scale live here; everything else derives from it.
    ============================================================ */
 
@@ -9,25 +9,25 @@
 :root {
   color-scheme: light;
 
-  --bg:      #fbfcfe;
-  --ink:     #16191f;
-  --muted:   #525b68;
-  /* 4.68:1 on --bg. The smallest text on the site uses this, so it has to clear
-     WCAG AA on its own; src/check.py asserts the ratio for both palettes. */
-  --faint:   #687384;
-  --rule:    #dfe4ea;
-  --accent:  #204f7a;
-  --mark:    #eef2f6;
+  --bg:      #fbfcfd;
+  --ink:     #202631;
+  --muted:   #586273;
+  /* Metadata must clear WCAG AA; src/check.py checks both palettes. */
+  --faint:   #626e7f;
+  --rule:    #dce2ea;
+  --accent:  #235385;
+  --mark:    #f2f5f8;
 
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, ui-serif, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
 
   --measure: 40rem;   /* reading width for prose */
   --wrap-max: 40rem;  /* container width; the homepage widens this */
-  --rail: 18rem;
-  --gutter: 3.5rem;
+  --rail: 15rem;
+  --gutter: 2.5rem;
   --step--1: 0.875rem;
-  --step-0:  1.125rem;
+  --step-0:  1rem;
   --step-1:  1.3rem;
   --step-2:  1.6rem;
   --step-3:  2.1rem;
@@ -36,13 +36,13 @@
 [data-theme="dark"] {
   color-scheme: dark;
 
-  --bg:     #11151a;
-  --ink:    #e7ebf0;
-  --muted:  #a6afb9;
-  --faint:  #8e99a6;
-  --rule:   #2a3139;
-  --accent: #8fbae3;
-  --mark:   #1b222a;
+  --bg:     #151a22;
+  --ink:    #edf1f6;
+  --muted:  #afb8c6;
+  --faint:  #9daabb;
+  --rule:   #354051;
+  --accent: #9ec9ed;
+  --mark:   #1f2834;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -61,7 +61,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: var(--step-0);
   line-height: 1.65;
   font-kerning: normal;
@@ -224,6 +224,7 @@ a:focus-visible {
 
 .masthead__name {
   margin: 0;
+  font-family: var(--serif);
   font-size: var(--step-3);
   font-weight: 600;
   letter-spacing: -0.015em;
@@ -267,8 +268,8 @@ a:focus-visible {
   align-items: start;
 }
 
-/* Both columns start at the same height so "News" lines up with the portrait. */
-.layout > * { padding-top: 3.5rem; }
+/* Both columns start at the same height so research lines up with the portrait. */
+.layout > * { padding-top: 2.25rem; }
 
 .layout .section:first-child { margin-top: 0; }
 
@@ -288,7 +289,17 @@ a:focus-visible {
 }
 
 .rail::-webkit-scrollbar { display: none; }
-.rail .section { margin: 2.25rem 0; }
+.rail .section { margin: 1.75rem 0; }
+
+.rail .masthead__portrait,
+.rail .masthead__monogram {
+  width: 78px;
+  height: 78px;
+  flex-basis: 78px;
+}
+
+.rail .masthead__name { font-size: 1.875rem; }
+.rail .masthead__role { font-size: 0.78rem; }
 
 .rail .masthead {
   flex-direction: column;
@@ -297,16 +308,16 @@ a:focus-visible {
   padding-top: 0;
 }
 
-/* The rail is only 18rem, so the thesis steps down from --step-1 to stay a
+/* The compact rail steps down from --step-1 to stay a
    comfortable measure rather than breaking into two-word lines. */
 .rail .thesis {
   margin-top: 1.1rem;
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   line-height: 1.5;
 }
 
 .rail .lede {
-  font-size: 1rem;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -319,7 +330,7 @@ a:focus-visible {
 .rail .contact dd { margin-bottom: 0.55rem; }
 .rail .contact dd:last-child { margin-bottom: 0; }
 
-@media (max-width: 62rem) {
+@media (max-width: 54rem) {
   .layout {
     grid-template-columns: 1fr;
     gap: 0;
@@ -395,6 +406,7 @@ a:focus-visible {
 
 .thread__label {
   margin: 0 0 0.4rem;
+  font-family: var(--serif);
   font-size: var(--step-1);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -414,17 +426,14 @@ a:focus-visible {
   padding: 0.85rem 0.95rem;
   border-left: 2px solid var(--accent);
   border-radius: 0 4px 4px 0;
-  background: color-mix(in srgb, var(--mark) 70%, var(--bg));
+  background: var(--mark);
 }
 
 .thread__highlight-venue {
   display: inline-block;
-  padding: 0.16rem 0.36rem;
-  border-radius: 3px;
-  background: var(--bg);
-  color: var(--ink);
+  color: var(--muted);
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.03em;
   line-height: 1.35;
@@ -456,6 +465,26 @@ a:focus-visible {
 }
 
 .thread__highlight .pub__links { margin-top: 0.5rem; }
+
+.thread__highlight .thread__result {
+  margin: 0.8rem 0;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.875rem;
+}
+
+.thread__result strong { display: block; color: var(--accent); }
+.thread__result span { display: block; color: var(--muted); font-size: 0.75rem; margin-top: 0.2rem; }
+
+.profile-links { display: flex; flex-wrap: wrap; gap: 0.35rem 1rem; font-size: 0.8rem; }
+.rail .profile-index { font-size: 0.8rem; margin-bottom: 0.6rem; }
+.rail .contact__note { margin-top: 0.8rem; font-size: 0.8rem; }
+
+.patent { padding: 0 0 1.2rem; margin: 0 0 1.2rem; border-bottom: 1px solid var(--rule); }
+.patent:last-child { padding-bottom: 0; margin-bottom: 0; border-bottom: 0; }
+.patent__meta { color: var(--muted); font-size: 0.78rem; }
+.section .patent__meta { margin: 0.35rem 0 0; }
+.patent__number { font-family: var(--mono); overflow-wrap: anywhere; }
 
 .thread__related-label {
   margin: 0.9rem 0 0.45rem;
@@ -1027,6 +1056,7 @@ a.pub__title:hover {
 .post__header + .section { margin-top: 1.75rem; }
 
 .post__title {
+  font-family: var(--serif);
   margin: 0.4rem 0 0;
   font-size: var(--step-2);
   font-weight: 600;
