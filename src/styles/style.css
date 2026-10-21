@@ -653,8 +653,8 @@ a:focus-visible {
 /* Venue acronym sits in its own gutter so the list can be scanned by conference. */
 .pub {
   display: grid;
-  /* Wide enough for the longest acronym, OPT@NeurIPS, without wrapping. */
-  grid-template-columns: 6.75rem minmax(0, 1fr);
+  /* Wide enough for the longest acronym, UserSim@NeurIPS, without wrapping. */
+  grid-template-columns: 7.75rem minmax(0, 1fr);
   gap: 0 1rem;
   margin-bottom: 1.35rem;
 }
