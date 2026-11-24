@@ -1,5 +1,24 @@
 [
   {
+    "title": "Beyond Reward Scoring: Online Multi-Agent Preference Learning for Multimodal Response Generation",
+    "authors": [
+      "Ziyun Zou",
+      "Jiwoo Hong",
+      "Yifan Lu",
+      "Shao Tang",
+      "Weiyi Wu",
+      "Aman Gupta",
+      "Jin Tian",
+      "Imran Razzak"
+    ],
+    "venue": "arXiv preprint",
+    "year": 2026,
+    "date": "2026-10-16",
+    "links": {
+      "arxiv": "https://arxiv.org/abs/2610.23256"
+    }
+  },
+  {
     "title": "Rounding in Preconditioner Space: Redesigning 4-bit AdamW Optimizer-State Quantization",
     "authors": [
       "Hanyang Li",
@@ -139,12 +158,23 @@
   {
     "title": "Building Production LLM Agents: An Evaluation-Driven Playbook",
     "authors": [
-      "Aman Gupta"
+      "Shao Tang",
+      "Aman Gupta",
+      "Kevin Rossell",
+      "Edesio Alcobaca",
+      "Lars Hertel",
+      "Imran Razzak",
+      "Flora D Salim",
+      "Luis Moneda",
+      "Herbert Fei",
+      "Daniel Silva",
+      "Rohan Ramanath"
     ],
     "venue": "ACM International Conference on Information and Knowledge Management (CIKM), Tutorials Track",
     "year": 2026,
-    "note": "To appear",
-    "links": {}
+    "links": {
+      "doi": "https://doi.org/10.1145/3799682.3839275"
+    }
   },
   {
     "title": "Efficient Algorithms for Leveraging LLMs for Generative and Predictive Recommender Systems",
@@ -745,13 +775,13 @@
   {
     "title": "Smoothed Gaussian Mixture Models for Video Classification and Recommendation",
     "authors": [
+      "Sirjan Kafle",
       "Aman Gupta",
-      "Rohan Ramanath",
-      "Jun Shi",
-      "Anika Ramachandran",
-      "Sirou Zhou",
-      "Mingzhou Zhou",
-      "S Sathiya Keerthi"
+      "Xue Xia",
+      "Ananth Sankar",
+      "Xi Chen",
+      "Di Wen",
+      "Liang Zhang"
     ],
     "venue": "arXiv preprint",
     "year": 2020,

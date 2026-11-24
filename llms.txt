@@ -13,7 +13,7 @@ Published at ICML, NeurIPS, ICLR, KDD, WWW, CIKM, and EMNLP.
 ## Pages
 
 - [Home](https://amangupta.dev/): research directions, news, talks, writing, experience, service, mentors
-- [Publications](https://amangupta.dev/publications/): complete list of 40 publications and 11 patent records
+- [Publications](https://amangupta.dev/publications/): complete list of 41 publications and 11 patent records
 - [Writing](https://amangupta.dev/blog/): 1 post
 - [Feed](https://amangupta.dev/feed.xml): RSS
 

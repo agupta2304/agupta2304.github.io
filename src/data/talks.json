@@ -5,7 +5,9 @@
     "event": "CIKM 2026, half-day tutorial",
     "location": "",
     "date": "2026-11",
-    "links": {}
+    "links": {
+      "doi": "https://doi.org/10.1145/3799682.3839275"
+    }
   },
   {
     "type": "invited",
